@@ -1,0 +1,200 @@
+<template>
+  <div class="search_input" @click.stop="changePopup(true)" v-show="$route.name === 'demand'">
+    <i class="search_icon"></i>搜索
+    <popup :isShow="showPopup" class="input_popup_wrap">
+      <div class="search_input_header_wrap">
+        <div class="search_input_header">
+          <div class="search_input_header_back" @click.stop="changePopup(false)" >×</div>
+          <div class="search_input_header_title">位置区域</div>
+          <div class="search_input_header_limit" @click.stop="cancleLimit">不限</div>
+        </div>
+
+        <demand-input
+        :show="changeShowSearchList"
+        :changeVal="searchAddressByKeyword"
+        />
+
+      </div>
+      <div class="search_input_content">
+
+        <input-search-list
+        :isShow="showInputSearchList"
+        :list="addresses"
+        :change="requestRefreshCallback"
+        :requestCallback="requestRefreshCallback"
+        />
+
+        <div class="currentPlace">
+          <p>
+            <i class="location_icon"></i>
+            <span v-if="locateAddress.addressComponent">
+              {{locateAddress.addressComponent.street}}{{locateAddress.addressComponent.streetNumber}}
+            </span>
+          </p>
+          <i class="slocation_icon"></i>
+        </div>
+
+        <!-- <search-find-list
+        v-if="regions && regions.length > 0"
+        :label="'通过区域查找'"
+        :list="regions"
+        :current="demandCurrentRegion"
+        :callback="changeDemandCurrentRegions"
+        :requestCallback="requestRefreshCallback" /> -->
+
+      </div>
+    </popup>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
+import Popup from '@/components/common/popup.vue';
+import DemandInput from '@/components/search/input.vue';
+import SearchFindList from '@/components/search/find_list.vue';
+import InputSearchList from '@/components/search/input_search_list.vue';
+
+@Component({
+  components: {
+    Popup,
+    DemandInput,
+    SearchFindList,
+    InputSearchList,
+  },
+})
+export default class SearchDemandInput extends Vue {
+  private regions: any[] = [];
+
+  @Prop({default: ''}) private showPopup!: boolean;
+  @Prop({default: {}}) private changePopup!: any;
+  @Prop({default: false}) private showInputSearchList!: boolean;
+  @Prop({default: {}}) private changeShowSearchList!: any;
+
+  @State((state: any) => state.LocateModule.locate_address) private locateAddress!: string;
+  @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
+  @State((state: any) => state.LocateModule.addresses) private addresses!: string;
+
+  @Action('searchAddressByKeyword') private searchAddressByKeyword!: any;
+
+  @Watch('initRegions') private changeRegions(): void {
+    // this.changeData();
+  }
+  private cancleLimit(): void {
+    // this.changeCurrentRegion('');
+    // this.requestRefreshCallback();
+  }
+  private changeData(): void {
+    // this.regions = [];
+    // if (this.initRegions.length > 0) {
+    //   let regions: any;
+    //   this.initRegions.forEach((item) => {
+    //     if (item.city === this.currentCity) {
+    //       regions = item.data.map((n: any) => {
+    //         return n.name;
+    //       });
+    //     }
+    //   });
+    //   this.regions = regions;
+    // }
+  }
+  private requestRefreshCallback(): void {
+    // this.changeDemandHasNextPage(true);
+    // this.searchDemand({
+    //   isMore: false,
+    // });
+  }
+}
+</script>
+
+<style lang="less">
+.search_input {
+  width: 70px;
+  height: 30px;
+  border-radius: 50px;
+  background-color: #F3F4F5;
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  .search_icon {
+    width: 30px;
+    height: 30px;
+    background: url('../../assets/search@2x.png') no-repeat center;
+    background-size: 50%;
+  }
+}
+.input_popup_wrap {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  .search_input_header {
+    padding: 12px 15px;
+    border-bottom: 1px solid #E6E6E6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .search_input_header_back {
+      width: 32px;
+      height: 20px;
+      font-size: 35px;
+      line-height: 20px;
+      color: #5B5B5B;
+      cursor: pointer;
+    }
+    .search_input_header_title {
+      font-size: 16px;
+      color: #333333;
+    }
+    .search_input_header_limit {
+      font-size: 14px;
+      color: #66D4C3;
+    }
+  }
+  .search_input_content {
+    position: relative;
+    flex: 1;
+    .currentPlace {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 15px;
+      padding: 10px 15px 0;
+      p {
+        font-size: 15px;
+        line-height: 15px;
+        color: #333333;
+        display: flex;
+        align-items: center;
+        i.location_icon {
+          width: 14px;
+          height: 12px;
+          padding-right: 5px;
+          background: url('../../assets/address@2x.png') no-repeat center;
+          background-size: 50%;
+        }
+      }
+      .slocation_icon {
+        width: 25px;
+        height: 25px;
+        padding-right: 5px;
+        background: url('../../assets/locate@2x.png') no-repeat center;
+        background-size: 50%;
+      }
+    }
+    .search_input_list {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+    }
+  }
+}
+</style>
