@@ -2,7 +2,7 @@
   <div class="room_detail_header">
     <div class="room_detail_header_left"><</div>
     <div class="room_detail_header_title">
-      合租房源
+      {{headerTitle}}
     </div>
     <div class="room_detail_header_right">
       <span>举报</span>
@@ -12,10 +12,12 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class RoomDetailHeader extends Vue {}
+export default class RoomDetailHeader extends Vue {
+  @Prop({default: ''}) private headerTitle!: string;
+}
 </script>
 
 <style lang="less">

@@ -2,22 +2,25 @@
   <div class="room_locate_wrap">
     <h4 class="room_locate_title">
       <span class="room_locate_left">
-        <i></i>徐汇区凯旋路1480弄
+        <i></i>{{bedDetail.room.localization}}
       </span>
       <span class="room_locate_right">></span>
     </h4>
     <p>
-      <span>3号线/4号线 延安西路附近</span>
-      <span>3号线/4号线 延安西路附近</span>
+      <span
+      v-for="(item, index) in bedDetail.room.subways"
+      :key="index">{{item.format}}</span>
     </p>
   </div>
 </template>
 
-<script>
-import { Component, Vue } from 'vue-property-decorator';
+<script lang='ts'>
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class RoomLocation extends Vue {}
+export default class RoomLocation extends Vue {
+  @Prop({default: {}}) private bedDetail!: any;
+}
 </script>
 
 <style lang="less">

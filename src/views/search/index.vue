@@ -1,7 +1,11 @@
 <template>
   <div class="search">
     <div class="search_header_wrap">
-      <search-city />
+
+      <search-city
+      :changeCurrentCity="changeCurrentCity"
+      />
+
       <search-tab />
 
       <search-room-input
@@ -9,6 +13,9 @@
       :changePopup="changeRoomSearchInputPopup"
       :showInputSearchList="showInputSearchList"
       :changeShowSearchList="changeShowSearchList"
+      :roomCondition="roomCondition"
+      :changeRoomRegion="changeRoomRegion"
+      :request="requestRoomCallback"
       />
 
       <search-demand-input
@@ -34,6 +41,7 @@
       :changeRoomHasVideo="changeRoomHasVideo"
       :changeRoomType="changeRoomType"
       :changeRoomOther="changeRoomOther"
+      :request="requestRoomCallback"
       />
 
       <search-demand
@@ -48,6 +56,7 @@
       :changeDemandGender="changeDemandGender"
       :changeDemandMoney="changeDemandMoney"
       :changeDemandLocation="changeDemandLocation"
+      :request="requestDemandCallback"
       />
 
     </div>
@@ -55,14 +64,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import SearchCity from './search_city.vue';
 import SearchTab from './search_tab.vue';
 import SearchRoomInput from './search_room_input.vue';
 import SearchDemandInput from './search_demand_input.vue';
 import SearchRoom from './search_room.vue';
 import SearchDemand from './search_demand.vue';
-import { Action } from 'vuex-class';
+import { State, Action } from 'vuex-class';
 
 @Component({
   components: {
@@ -118,8 +127,28 @@ export default class SearchIndex extends Vue {
 
   private showInputSearchList: boolean = false;
 
-  @Action('initState') private initState!: any;
+  @State((state: any) => state.SearchModule.rent_sequence) private rentSequence!: string;
+  @State((state: any) => state.SearchModule.demand_sequence) private demandSequence!: string;
+  @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
+
+  @Action('setCurrentCity') private setCurrentCity!: any;
   @Action('setLocateCityAndAddress') private setLocateCityAndAddress!: any;
+  @Action('getBedList') private getBedList: any;
+  @Action('getDemandList') private getDemandList: any;
+  @Action('getCityTraffic') private getCityTraffic!: any;
+
+  @Watch('currentCity') private changeCity(): void {
+    if (this.$route.name === 'room') {
+      this.requestRoomCallback();
+    } else if (this.$route.name === 'demand') {
+      this.requestDemandCallback();
+    }
+    this.getCityTraffic({
+      data: {
+        city: this.currentCity,
+      },
+    });
+  }
 
   private changeRoomSearchInputPopup(bool: boolean): void {
     this.roomSearchByInput = bool;
@@ -170,6 +199,47 @@ export default class SearchIndex extends Vue {
   private changeShowSearchList(bool: boolean): void {
     this.showInputSearchList = bool;
   }
+  // 改变当前城市
+  private changeCurrentCity(city: string): void {
+    // 改变城市
+    this.setCurrentCity({
+      data: {city},
+    });
+    // 清空其他搜索条件
+    const roomCondition: any = {
+      region: '',
+      hasVideo: false,
+      type: '',
+      location: {
+        lat: -1,
+        lng: -1,
+      },
+      other: {
+        gender: '',
+        shortRent: false,
+        type: [],
+        money: {
+          min: 0,
+          max: 0,
+        },
+      },
+    };
+    this.roomCondition = roomCondition;
+
+    const demandCondition: any = {
+      region: '',
+      gender: '',
+      location: {
+        lat: -1,
+        lng: -1,
+      },
+      money: {
+        min: 0,
+        max: 0,
+      },
+    };
+    this.demandCondition = demandCondition;
+  }
 
   // 改变房源房间选择条件
   // 区域
@@ -209,6 +279,62 @@ export default class SearchIndex extends Vue {
   // 经纬
   private changeDemandLocation(obj: any): void {
     this.demandCondition.location = Object.assign({}, this.demandCondition.location, obj);
+  }
+
+  // 根据条件请求数据
+  // 房源
+  // 刷新
+  // success 成功时候的回调
+  // more defautl false
+  //      type boolean
+  //      des  是否加载更多
+  private requestRoomCallback(success?: any, more?: boolean): void {
+    more = more ? more : false;
+    const sequence: string = more ? this.rentSequence : '';
+    const data = {
+      city: this.currentCity,
+      cost1: this.roomCondition.other.money.min,
+      cost2: this.roomCondition.other.money.max,
+      has_short_rent: this.roomCondition.other.shortRent ? 1 : 0,
+      has_video: this.roomCondition.hasVideo ? 1 : 0,
+      region: this.roomCondition.region,
+      sex: this.roomCondition.other.gender,
+      type: (this.roomCondition.type).toString(),
+      room_type_affirm: (this.roomCondition.other.type).toString(),
+      sequence,
+      longitude: this.roomCondition.location.lng === -1 ? '' : this.roomCondition.location.lng,
+      latitude: this.roomCondition.location.lat === -1 ? '' : this.roomCondition.location.lat,
+    };
+    this.getBedList({
+      data,
+      success,
+    });
+  }
+  // 求租
+  private requestDemandCallback(success?: any, more?: boolean): void {
+    more = more ? more : false;
+    const sequence: string = more ? this.demandSequence : '';
+    const data = {
+      city: this.currentCity,
+      sequence,
+      gender: this.demandCondition.gender,
+      cost1: this.demandCondition.money.min,
+      cost2: this.demandCondition.money.max,
+      longitude: this.demandCondition.location.lng === -1 ? '' : this.demandCondition.location.lng,
+      latitude: this.demandCondition.location.lat === -1 ? '' : this.demandCondition.location.lat,
+    };
+    this.getDemandList({
+      data,
+      success,
+    });
+  }
+
+  private mounted(): void {
+    this.getCityTraffic({
+      data: {
+        city: this.currentCity,
+      },
+    });
   }
 }
 </script>

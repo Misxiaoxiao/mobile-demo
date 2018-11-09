@@ -2,7 +2,11 @@
   <div class="find_list_wrap">
     <div class="find_list_label">{{label}}</div>
     <div class="find_list_content">
-      <div :class="current === item ? 'active' : ''" v-for="(item, i) in list" :key="i" @click.stop="handleClick(item)">{{item}}</div>
+      <div
+      :class="current === item ? 'active' : ''"
+      v-for="(item, i) in list" :key="i"
+      @click.stop="callback(item)"
+      >{{item}}</div>
     </div>
   </div>
 </template>
@@ -15,12 +19,7 @@ export default class FindList extends Vue {
   @Prop({default: ''}) private label!: string;
   @Prop({default: []}) private list!: any;
   @Prop({default: {}}) private callback!: any;
-  @Prop({default: {}}) private requestCallback!: any;
   @Prop({default: ''}) private current!: string;
-  private handleClick(item: string): void {
-    this.callback(item);
-    this.requestCallback();
-  }
 }
 </script>
 

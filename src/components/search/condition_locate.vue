@@ -19,6 +19,8 @@ export default class RoomConditionLocate extends Vue {
   @Watch('region') private changeRegion() {
     if (this.region !== '') {
       this.label = this.region;
+    } else {
+      this.label = '位置区域';
     }
   }
 }

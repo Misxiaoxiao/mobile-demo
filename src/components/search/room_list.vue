@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="room_list_item" @click.stop="view(roomItem.roomId)">
+    <div class="room_list_item" @click.stop="view(roomItem)">
       <div class="room_list_item_left">
         <my-image :src="roomItem.photo" :hasVideo="roomItem.hasVideo" />
       </div>
@@ -33,8 +33,8 @@ import MyImage from '@/components/common/image.vue';
 })
 export default class RoomList extends Vue {
   @Prop({default: {}}) private roomItem!: any;
-  private view(roomId: string): void {
-    this.$router.push({name: 'roomDetail', params: {id: roomId}});
+  private view(item: any): void {
+    this.$router.push({name: 'roomDetail', params: {id: item.roomId}, query: {biz: item.biz}});
   }
 }
 </script>

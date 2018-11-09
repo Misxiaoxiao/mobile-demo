@@ -20,8 +20,8 @@
         <input-search-list
         :isShow="showInputSearchList"
         :list="addresses"
-        :change="requestRefreshCallback"
-        :requestCallback="requestRefreshCallback"
+        :change="callback"
+        :requestCallback="request"
         />
 
         <div class="currentPlace">
@@ -34,23 +34,21 @@
           <i class="slocation_icon"></i>
         </div>
 
-        <!-- <search-find-list
+        <search-find-list
         v-if="regions && regions.length > 0"
         :label="'通过区域查找'"
         :list="regions"
-        :current="roomCurrentRegion"
-        :callback="changeCurrentRegion"
-        :requestCallback="requestRefreshCallback"
-        /> -->
+        :current="roomCondition.region"
+        :callback="callback"
+        />
 
-        <!-- <search-find-list
+        <search-find-list
         v-if="lines && lines.length > 0"
         :label="'通过地铁查找'"
         :list="lines"
-        :current="subwayLine"
-        :callback="changeSubwayLine"
-        :requestCallback="requestRefreshCallback"
-        /> -->
+        :current="roomCondition.region"
+        :callback="callback"
+        />
 
       </div>
     </popup>
@@ -74,50 +72,43 @@ import InputSearchList from '@/components/search/input_search_list.vue';
   },
 })
 export default class SearchRoomInput extends Vue {
-  private regions: any[] = [];
-  private lines: any[] = [];
-
   @Prop({default: ''}) private showPopup!: boolean;
   @Prop({default: {}}) private changePopup!: any;
   @Prop({default: false}) private showInputSearchList!: boolean;
   @Prop({default: {}}) private changeShowSearchList!: any;
+  @Prop({default: {}}) private roomCondition!: any;
+  @Prop({default: {}}) private changeRoomRegion!: any;
+  @Prop({default: {}}) private request!: any;
 
   @State((state: any) => state.LocateModule.locate_address) private locateAddress!: string;
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
   @State((state: any) => state.LocateModule.addresses) private addresses!: string;
+  @State((state: any) => state.CommonModule.city_traffic) private cityTraffic!: any;
 
   @Action('searchAddressByKeyword') private searchAddressByKeyword!: any;
 
+  get regions(): any[] {
+    if (this.cityTraffic.region) {
+      const regions: any[] = this.cityTraffic.region.map((n: any, i: number) => {
+        return n.name;
+      });
+      return regions;
+    }
+    return [];
+  }
+
+  get lines(): any[] {
+    const lines: string[] = this.cityTraffic.subway_line;
+    return lines;
+  }
+
   private cancleLimit(): void {
-    // this.changeCurrentRegion('');
-    // this.changeSubwayLine('');
-    // this.requestRefreshCallback();
+    this.callback('');
   }
-  private changeData(): void {
-    // this.regions = [];
-    // this.lines = [];
-    // if (this.initRegions.length > 0 && this.initLines.length > 0) {
-    //   let regions: any;
-    //   this.initRegions.forEach((item) => {
-    //     if (item.city === this.currentCity) {
-    //       regions = item.data.map((n: any) => {
-    //         return n.name;
-    //       });
-    //     }
-    //   });
-    //   this.regions = regions;
-    //   this.initLines.forEach((item) => {
-    //     if (item.city === this.currentCity) {
-    //       this.lines = item.lines;
-    //     }
-    //   });
-    // }
-  }
-  private requestRefreshCallback(): void {
-    // this.changeRoomHasNextPage(true);
-    // this.searchRoom({
-    //   isMore: false,
-    // });
+  private callback(region: string): void {
+    this.changeRoomRegion(region);
+    this.changePopup(false);
+    this.request();
   }
 }
 </script>

@@ -1,11 +1,11 @@
 <template>
   <div class="room_detail_title">
-    <h3>床位·共享一张床次卧非隔断朝北带飘窗</h3>
+    <h3>{{bedDetail.bed.title}}</h3>
     <div class="room_detail_type_info">
-      <span>3室1厅1厨1卫</span>
+      <span>{{bedDetail.room.biz_attr.property_desc}}</span>
     </div>
     <div class="room_detail_type_price">
-      <span>2500</span><i>元/月</i>·随时入住
+      <span>{{bedDetail.bed.money}}</span><i>元/月</i>·{{bedDetail.bed.dateDetail}}
     </div>
     <div class="room_detail_type_other">
       <span>朝南</span>
@@ -14,11 +14,13 @@
   </div>
 </template>
 
-<script>
-import { Component, Vue } from 'vue-property-decorator';
+<script lang='ts'>
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class RoomTitle extends Vue {}
+export default class RoomTitle extends Vue {
+  @Prop({default: {}}) private bedDetail!: any;
+}
 </script>
 
 <style lang="less">

@@ -9,26 +9,31 @@
       <div class="popup_wrap_content">
 
         <locate-city
-        :city="locateAddress"
+        :city="currentCity"
         :locating="locating"
-        :change="changeCrrentCity"
+        :change="changeCity"
         />
 
         <hot-city
         :currentCity="currentCity"
-        :change="changeCrrentCity"
+        :change="changeCity"
         :requestCallback="requestRefreshCallback"
         />
 
-        <!-- <city-list :cityList="cityList" :changeCurrentCity="changeCurrentCity" :searchRoom="requestRefreshCallback" /> -->
+        <city-list
+        :cityList="cityList"
+        :change="changeCity"
+        :requestCallback="requestRefreshCallback"
+        />
       </div>
     </van-popup>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
+import { CityListModel } from '@/vuex/modules/common/common.model';
 import Popup from '@/components/common/popup.vue';
 import LocateCity from '@/components/search/locate_city.vue';
 import HotCity from '@/components/search/hot_city.vue';
@@ -47,36 +52,40 @@ export default class SearchCity extends Vue {
 
   private showPopup: boolean = false;
 
+  @Prop({default: ''}) private changeCurrentCity!: any;
+
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
   @State((state: any) => state.LocateModule.locate_address) private locateAddress!: string;
   @State((state: any) => state.LocateModule.locating) private locating!: string;
-
-  // @State((state: any) => state.searchByCity) private searchByCity!: boolean;
-  // @State((state: any) => state.cityList) private cityList!: any;
-  // @State((state: any) => state.locateCity) private locateCity!: string;
+  @State((state: any) => state.CommonModule.cities) private cities!: any;
 
   @Action('getGeoLocation') private getGeoLocation!: any;
-  @Action('setCurrentCity') private setCurrentCity!: any;
+  @Action('getCityList') private getCityList!: any;
 
-  // @Action('searchRoom') private searchRoom!: any;
-  // @Action('changeRoomHasNextPage') private changeRoomHasNextPage!: any;
-  // @Action('getCityList') private getCityList!: any;
-  // @Action('locateCurrentCity') private locateCurrentCity!: any;
-  // @Watch('searchByCity') private change(): void {
-  //   this.show = this.searchByCity;
-  // }
+  get cityList(): any {
+    const cityObj: any = {};
+    for (const prop in this.cities) {
+      if (prop !== '热门') {
+        this.cities[prop].forEach((city: any) => {
+          cityObj[city.group] ? cityObj[city.group].push(city.display)
+                              : cityObj[city.group] = [city.display];
+        });
+      }
+    }
+    return cityObj;
+  }
+
   private changePopup(bool: boolean): void {
     this.showPopup = bool;
   }
-  private changeCrrentCity(city: string): void {
-    this.setCurrentCity({
-      data: {city},
-    });
+  private changeCity(city: string): void {
+    this.changeCurrentCity(city);
     this.changePopup(false);
   }
   private mounted(): void {
-    // this.getGeoLocation();
-    // this.locateCurrentCity();
+    this.getCityList({
+      data: {},
+    });
   }
   private requestRefreshCallback(): void {
     // this.changeRoomHasNextPage(true);

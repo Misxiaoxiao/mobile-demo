@@ -14,7 +14,7 @@
         :show="changeRoomSearchByVideoPopup"
         :hasVideo="roomCondition.hasVideo"
         :change="changeRoomHasVideo"
-        :requestCallback="requestCallback"
+        :requestCallback="request"
         />
 
         <room-condition-type
@@ -22,7 +22,7 @@
         :show="changeRoomSearchByTypePopup"
         :type="roomCondition.type"
         :change="changeRoomType"
-        :requestCallback="requestCallback"
+        :requestCallback="request"
         />
 
         <room-condition-other
@@ -30,7 +30,7 @@
         :show="changeRoomSearchByOtherPopup"
         :other="roomCondition.other"
         :change="changeRoomOther"
-        :requestCallback="requestCallback"
+        :requestCallback="request"
         />
 
       </div>
@@ -80,7 +80,6 @@ import RoomList from '@/components/search/room_list.vue';
 })
 export default class SearchRoom extends Vue {
   private loading: boolean = false;
-  private finished: boolean = false;
   private refreshing: boolean = false;
 
   @Prop({default: false}) private roomSearchByInput!: boolean;
@@ -101,18 +100,17 @@ export default class SearchRoom extends Vue {
   @Prop({default: {}}) private changeRoomType!: any;
   @Prop({default: {}}) private changeRoomOther!: any;
 
+  @Prop({default: {}}) private request!: any;
+
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
-  @State((state: any) => state.SearchModule.rent_sequence) private rentSequence!: string;
   @State((state: any) => state.SearchModule.rent_list) private rentList!: RoomModel[];
   @State((state: any) => state.SearchModule.has_next_rent_page) private hasNextRentPage!: boolean;
+  @State((state: any) => state.SearchModule.searching) private searching!: boolean;
 
   @Action('getBedList') private getBedList: any;
 
-  @Watch('hasNextRentPage') private change(): void {
-    this.finished = !this.hasNextRentPage;
-  }
-  @Watch('$route') private changeRoute(): void {
-    this.requestCallback();
+  get finished(): boolean {
+    return !this.hasNextRentPage || this.searching;
   }
 
   // 重新计算房间信息
@@ -130,7 +128,7 @@ export default class SearchRoom extends Vue {
       }
       const dataInfo = {
         biz: room.biz,
-        roomId: room.biz ? room.biz_attr.beds[0].room_id : room.client_attr.beds[0].room_id,
+        roomId: room.biz ? room.biz_attr.beds[0].id : room.client_attr.beds[0].id,
         fullTitle: room.full_title,
         roomTitle: room.title,
         photo: room.biz ? room.biz_attr.beds[0].photo.src : room.client_attr.beds[0].photo.src,
@@ -143,36 +141,19 @@ export default class SearchRoom extends Vue {
     }
   }
   private onLoad(): void {
-    this.requestCallback(() => {
+    // console.log(12)
+    this.request(() => {
       this.loading = false;
-    });
+    }, true);
   }
   private onRefresh(): void {
-    this.requestCallback(() => {
+    this.request(() => {
       this.refreshing = false;
-    });
+    }, false);
   }
-  // 刷新
-  private requestCallback(success?: any): void {
-    const data = {
-      city: this.currentCity,
-      cost1: this.roomCondition.other.money.min,
-      cost2: this.roomCondition.other.money.max,
-      has_short_rent: this.roomCondition.other.shortRent ? 1 : 0,
-      has_video: this.roomCondition.hasVideo ? 1 : 0,
-      region: this.roomCondition.region,
-      sex: this.roomCondition.other.gender,
-      type: (this.roomCondition.type).toString(),
-      room_type_affirm: (this.roomCondition.other.type).toString(),
-      sequence: this.rentSequence,
-      longitude: this.roomCondition.location.lng === -1 ? '' : this.roomCondition.location.lng,
-      latitude: this.roomCondition.location.lat === -1 ? '' : this.roomCondition.location.lat,
-    };
-    // 此处还需要优化 在sequence参数还有问题
-    this.getBedList({
-      data,
-      success,
-    });
+
+  private mounted(): void {
+    this.request();
   }
 }
 </script>

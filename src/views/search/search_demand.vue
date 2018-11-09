@@ -14,7 +14,7 @@
         :show="changeDemandSearchGenderPopup"
         :gender="demandCondition.gender"
         :change="changeDemandGender"
-        :requestCallback="requestCallback"
+        :requestCallback="request"
         />
 
         <demand-condition-money
@@ -22,7 +22,7 @@
         :show="changeDemandSearchMoneyPopup"
         :money="demandCondition.money"
         :change="changeDemandMoney"
-        :requestCallback="requestCallback"
+        :requestCallback="request"
         />
 
       </div>
@@ -65,7 +65,6 @@ import PostRoom from '@/components/search/post_room.vue';
 })
 export default class SearchDemand extends Vue {
   private refreshing: boolean = false;
-  private finished: boolean = false;
   private loading: boolean = false;
 
   @Prop({default: false}) private demandSearchByInput!: boolean;
@@ -82,45 +81,32 @@ export default class SearchDemand extends Vue {
   @Prop({default: {}}) private changeDemandGender!: any;
   @Prop({default: {}}) private changeDemandMoney!: any;
 
+  @Prop({default: {}}) private request!: any;
+
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
   @State((state: any) => state.SearchModule.demand_list) private demandList!: DemandModal[];
   @State((state: any) => state.SearchModule.demand_sequence) private sequence!: boolean;
   @State((state: any) => state.SearchModule.has_next_demand_page) private hasNextDemandPage!: boolean;
+  @State((state: any) => state.SearchModule.searching) private searching!: boolean;
 
   @Action('getDemandList') private getDemandList: any;
 
-  @Watch('hasNextRentPage') private change(): void {
-    this.finished = !this.hasNextDemandPage;
-  }
-  @Watch('$route') private changeRoute(): void {
-    this.requestCallback();
+  get finished(): boolean {
+    return !this.hasNextDemandPage || this.searching;
   }
 
   private onRefresh(): void {
-    this.requestCallback(() => {
+    this.request(() => {
       this.refreshing = false;
     });
   }
   private onLoad(): void {
-    this.requestCallback(() => {
+    this.request(() => {
       this.loading = false;
     });
   }
-  // 刷新
-  private requestCallback(success?: any): void {
-    const data = {
-      city: this.currentCity,
-      sequence: this.sequence,
-      gender: this.demandCondition.gender,
-      cost1: this.demandCondition.money.min,
-      cost2: this.demandCondition.money.max,
-      longitude: this.demandCondition.location.lng === -1 ? '' : this.demandCondition.location.lng,
-      latitude: this.demandCondition.location.lat === -1 ? '' : this.demandCondition.location.lat,
-    };
-    this.getDemandList({
-      data,
-      success,
-    });
+  private mounted(): void {
+    this.request();
   }
 }
 </script>
