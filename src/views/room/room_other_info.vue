@@ -38,10 +38,43 @@
 
 <script lang='ts'>
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
+import { ROOM_CONDITION_TYPE_ITEMS } from '@/model/index';
+import { DetailModel } from '@/vuex/modules/residence/residence.model';
 
 @Component
 export default class RoomOtherInfo extends Vue {
-  @Prop({default: {}}) private otherInfo!: any;
+  @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
+
+  get otherInfo(): any[] {
+    if (this.bedDetail.other_beds) {
+      return this.bedDetail.other_beds.map((n: any) => {
+        return {
+          state: n.state,
+          type: this.setType(n.type),
+          title: n.title,
+          money: n.money,
+          sex: n.sex ? n.sex : '',
+          orientation: n.orientation ? n.orientation : '',
+          squareMeter: n.square_meter ? n.square_meter : 0,
+          privateBathroom: n.private_bathroom ? n.private_bathroom : 0,
+          veranda: n.veranda ? n.veranda : 0,
+          window: n.window ? n.window : 0,
+          dateDetail: n.dateDetail,
+        };
+      });
+    }
+    return [];
+  }
+
+  private setType(type: number): string {
+    for (const n of ROOM_CONDITION_TYPE_ITEMS) {
+      if (n.value === type) {
+        return n.key;
+      }
+    }
+    return '';
+  }
 }
 </script>
 

@@ -16,11 +16,20 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
+import { DetailModel } from '@/vuex/modules/residence/residence.model';
 
 @Component
 export default class RoomDetailHeader extends Vue {
-  @Prop({default: ''}) private headerTitle!: string;
+  @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
+
+  get headerTitle(): string {
+    if (JSON.stringify(this.bedDetail) !== '{}') {
+      return this.bedDetail.room.rent_type === 1 ? '整租房源' : '合租房源';
+    }
+    return '';
+  }
 }
 </script>
 

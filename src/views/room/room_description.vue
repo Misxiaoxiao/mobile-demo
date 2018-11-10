@@ -1,11 +1,11 @@
 <template>
-  <div class="room_description_wrap">
+  <div class="room_description_wrap" v-if="roomDescription !== ''">
     <h4>房源描述</h4>
     <div class="person_wrap">
 
     </div>
     <div class="room_des_text_wrap">
-      {{description.content}}
+      {{roomDescription.content}}
     </div>
     <div class="room_des_msg_info_wrap">
       <div class="msg_info">
@@ -29,11 +29,23 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
+import { State } from 'vuex-class';
+import { DetailModel } from '@/vuex/modules/residence/residence.model';
 
 @Component
 export default class RoomDescription extends Vue {
-  @Prop({default: {}}) private description!: any;
+  @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
+
+  get roomDescription(): any {
+    if (this.bedDetail.bed) {
+      return {
+        person: {},
+        content: this.bedDetail.bed.content,
+      };
+    }
+    return '';
+  }
 }
 </script>
 
