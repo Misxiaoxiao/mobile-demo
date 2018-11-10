@@ -44,9 +44,9 @@
           >
             <div class="banner">
               <p>
-                <i class="safe_yellow_icon"></i>zuber定金协议 / 租赁合同，方便安全有保障
+                <i class="iconfont">&#xe658;</i>zuber定金协议 / 租赁合同，方便安全有保障
               </p>
-              <i class="next_yellow_icon"></i>
+              <i class="iconfont next_yellow_icon">&#xe601;</i>
             </div>
             <van-cell v-for="(item, i) in rentList" :key="i">
               <room-list :roomItem="setRoomItem(item.room)" />
@@ -63,6 +63,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import { RoomModel } from '@/vuex/modules/search/search.model';
+import { ROOM_CONDITION_TYPE_ITEMS } from '@/model/index';
 import RoomConditionLocate from '@/components/search/condition_locate.vue';
 import RoomConditionVideo from '@/components/search/room_condition_video.vue';
 import RoomConditionType from '@/components/search/room_condition_type.vue';
@@ -117,9 +118,12 @@ export default class SearchRoom extends Vue {
   private setRoomItem(room: any): any {
     if (room) {
       let types: any = '';
+      let roomTitle: string = '';
       if (room.biz) { // 如果为b端房源
         types = room.biz_attr.beds[0].number;
+        roomTitle = room.biz_attr.beds[0].title;
       } else { // 如果为c端房源
+        roomTitle = `${this.setType(room.client_attr.beds[0].type)}·${room.client_attr.beds[0].title}`;
         types = [
           room.client_attr.beds[0].dateDetail,
           room.client_attr.beds[0].sex === 0 ? '' : (room.client_attr.beds[0].sex === 1 ? '仅限男生' : '仅限女生'),
@@ -130,7 +134,7 @@ export default class SearchRoom extends Vue {
         biz: room.biz,
         roomId: room.biz ? room.biz_attr.beds[0].id : room.client_attr.beds[0].id,
         fullTitle: room.full_title,
-        roomTitle: room.title,
+        roomTitle,
         photo: room.biz ? room.biz_attr.beds[0].photo.src : room.client_attr.beds[0].photo.src,
         types,
         money: room.biz ? room.biz_attr.beds[0].money : room.client_attr.beds[0].money,
@@ -140,8 +144,16 @@ export default class SearchRoom extends Vue {
       return dataInfo;
     }
   }
+
+  private setType(type: number): string {
+    for (const n of ROOM_CONDITION_TYPE_ITEMS) {
+      if (n.value === type) {
+        return n.key;
+      }
+    }
+    return '';
+  }
   private onLoad(): void {
-    // console.log(12)
     this.request(() => {
       this.loading = false;
     }, true);
@@ -200,16 +212,8 @@ export default class SearchRoom extends Vue {
     color: #CFA55A;
   }
 }
-.safe_yellow_icon {
-  width: 23px;
-  height: 30px;
-  background: url('../../assets/Safe_yellow@2x.png') no-repeat center;
-  background-size: 50%;
-}
 .next_yellow_icon {
-  width: 12px;
-  height: 22px;
-  background: url('../../assets/Next_yellow@2x.png') no-repeat center;
-  background-size: 50%;
+  color: #CFA55A;
+  font-size: 12px;
 }
 </style>

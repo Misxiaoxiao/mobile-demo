@@ -23,7 +23,7 @@
           @click.stop="changeShortRent">可短租</div>
         </div>
 
-        <div class="other_wrap_title">房源类型 <i class="problem_icon">?</i></div>
+        <div class="other_wrap_title">房源类型 <i class="iconfont problem_icon">&#xe604;</i></div>
         <div class="other_wrap_content">
           <div
           v-for="(n, i) in type"
@@ -158,15 +158,7 @@ export default class RoomConditionOther extends Vue {
 
 <style lang="less">
 .problem_icon {
-  display: inline-block;
-  width: 15px;
-  line-height: 15px;
-  font-size: 12px;
-  color: #fff;
-  border-radius: 50%;
-  text-align: center;
-  background-color: #66D4C3;
-  font-style: normal;
+  color: #66D4C3;
 }
 .condition_locate {
   width: 25%;

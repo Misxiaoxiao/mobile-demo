@@ -1,7 +1,7 @@
 <template>
   <van-row class="room_detail_footer_wrap">
     <van-col :span="4" class="collect_btn">
-      <i></i>
+      <i class="iconfont">&#xe68d;</i>
       收藏
     </van-col>
     <van-col :span="9" class="color_yellow">
@@ -26,6 +26,7 @@ export default class RoomDetailFooter extends Vue {}
   padding: 7px 15px 8px;
   display: flex;
   justify-content: space-between;
+  border-top: 1px solid #EFEFEF;
   .van-col {
     display: flex;
     flex-direction: column;
@@ -48,6 +49,9 @@ export default class RoomDetailFooter extends Vue {}
   .collect_btn {
     color: #999999;
     font-size: 10px;
+    > i {
+      font-size: 20px;
+    }
   }
 }
 </style>

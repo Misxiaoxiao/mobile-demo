@@ -1,9 +1,12 @@
 <template>
   <div class="search_city" @click.stop="changePopup(true)">
-    <i class="location_icon"></i>{{currentCity}}
+    <i class="iconfont location_icon">&#xe680;</i>{{currentCity}}
     <van-popup v-model="showPopup" position="right" :overlay="true">
       <div class="popup_wrap_header">
-        <i class="back" @click.stop="changePopup(false)"></i>
+        <i
+        class="iconfont back"
+        @click.stop="changePopup(false)"
+        >&#xe603;</i>
         选择城市
       </div>
       <div class="popup_wrap_content">
@@ -104,11 +107,8 @@ export default class SearchCity extends Vue {
   display: flex;
   align-items: center;
   .location_icon {
-    width: 14px;
-    height: 12px;
-    padding-right: 5px;
-    background: url('../../assets/address@2x.png') no-repeat center;
-    background-size: 50%;
+    font-size: 12px;
+    color: #66D4C3;
   }
 }
 .van-popup {
@@ -141,12 +141,9 @@ export default class SearchCity extends Vue {
   position: relative;
   color: #484848;
   i.back {
-    width: 19px;
-    height: 34px;
     position: absolute;
     left: 10px;
-    background: url('../../assets/BackArrow@2x.png') no-repeat center;
-    background-size: 50%;
+    font-size: 16px;
   }
 }
 </style>

@@ -33,7 +33,7 @@
             :finished="finished"
             @load="onLoad"
           >
-            <post-room />
+            <!-- <post-room /> -->
             <van-cell v-for="(item, i) in demandList" :key="i">
               <DemandList :demandItem="item" />
             </van-cell>
