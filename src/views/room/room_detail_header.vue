@@ -1,12 +1,16 @@
 <template lang="html">
   <div class="room_detail_header">
-    <div class="room_detail_header_left"><</div>
+    <div class="room_detail_header_left">
+      <i class="iconfont ">&#xe603;</i>
+    </div>
     <div class="room_detail_header_title">
       {{headerTitle}}
     </div>
     <div class="room_detail_header_right">
       <span>举报</span>
-      <span>分享</span>
+      <span>
+        <i class="iconfont share_cion">&#xe66e;</i>
+      </span>
     </div>
   </div>
 </template>
@@ -21,6 +25,10 @@ export default class RoomDetailHeader extends Vue {
 </script>
 
 <style lang="less">
+.share_cion {
+  color: #5B5B5B;
+  font-size: 20px;
+}
 .room_detail_header {
   box-sizing: border-box;
   width: 100%;

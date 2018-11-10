@@ -1,30 +1,35 @@
 <template>
-  <div class="room_other_info_wrap">
+  <div class="room_other_info_wrap" v-if="otherInfo.length > 0">
     <h4>其他单间情况</h4>
     <ul>
-      <li class="room_other_item">
-        <div class="room_other_item_left">
-          <h5>单间·大主卧</h5>
-          <p>朝南·20㎡·独卫·阳台·飘窗·立即入住</p>
+      <li
+      class="room_other_item"
+      v-for="(n, i) in otherInfo"
+      :key="i"
+      >
+        <div v-if="n.state === 1">
+          <div class="room_other_item_left">
+            <h5>{{n.type + (n.title ? '-' + n.title : '')}}</h5>
+            <p>
+              <span v-if="n.orientation !== ''">{{n.orientation}}·</span>
+              <span v-if="n.squareMeter !== 0">{{n.squareMeter}}㎡·</span>
+              <span v-if="n.privateBathroom !== 0">独卫·</span>
+              <span v-if="n.veranda !== 0">阳台·</span>
+              <span v-if="n.window !== 0">飘窗·</span>
+              <span>{{n.dateDetail}}</span>
+            </p>
+          </div>
+          <div class="room_other_item_right">
+            <span>{{n.money}}元/月</span><i class="iconfont">&#xe601;</i>
+          </div>
         </div>
-        <div class="room_other_item_right">
-          <span>2500元/月</span><i></i>
-        </div>
-      </li>
-      <li class="room_other_item">
-        <div class="room_other_item_left">
-          单间
-        </div>
-        <div class="room_other_item_right">
-          室友未知
-        </div>
-      </li>
-      <li class="room_other_item">
-        <div class="room_other_item_left">
-          单间
-        </div>
-        <div class="room_other_item_right">
-          室友未知
+        <div v-if="n.state === 2">
+          <div class="room_other_item_left">
+            {{n.type}}
+          </div>
+          <div class="room_other_item_right">
+            室友未知
+          </div>
         </div>
       </li>
     </ul>
@@ -32,10 +37,12 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class RoomOtherInfo extends Vue {}
+export default class RoomOtherInfo extends Vue {
+  @Prop({default: {}}) private otherInfo!: any;
+}
 </script>
 
 <style lang="less">
@@ -48,7 +55,7 @@ export default class RoomOtherInfo extends Vue {}
     font-size: 18px;
     margin-bottom: 10px;
   }
-  li.room_other_item {
+  li.room_other_item > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,6 +82,10 @@ export default class RoomOtherInfo extends Vue {}
       > span {
         font-size: 14px;
         color: #FB686B;
+      }
+      > i {
+        margin-left: 5px;
+        font-size: 12px;
       }
     }
   }

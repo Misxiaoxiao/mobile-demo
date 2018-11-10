@@ -2,23 +2,25 @@
   <div class="room_detail_info">
 
     <swiper>
-      <div class="swiper_video_wrap" slot="video_wrap" v-if="bedDetail.bed">
-        <img :src="bedDetail.bed.video ? bedDetail.bed.video.screenshot : '12321'" alt="">
+      <div class="swiper_video_wrap" slot="video_wrap">
+        <!-- <img src="" alt=""> -->
+        <div v-if="detailInfo.hasVideo">有视频</div>
+        <div v-else>无视频</div>
       </div>
-      <div class="swiper_image_wrap" slot="image_wrap" v-if="bedDetail.bed">
-        <img :src="bedDetail.bed.photo.src" alt="">
+      <div class="swiper_image_wrap" slot="image_wrap">
+        <img :src="detailInfo.photo" alt="" >
       </div>
     </swiper>
 
-    <room-title :bedDetail="bedDetail" />
+    <room-title :detailInfo="detailInfo" />
 
-    <room-location :bedDetail="bedDetail" />
+    <room-location :detailInfo="detailInfo" />
 
   </div>
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import { DetailModel } from '@/vuex/modules/residence/residence.model';
 import Swiper from '@/components/common/swiper.vue';
@@ -33,7 +35,7 @@ import RoomLocation from '@/components/detail/room_location.vue';
   },
 })
 export default class RoomDetailInfo extends Vue {
-  @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
+  @Prop({default: {}}) private detailInfo!: any;
 }
 </script>
 
