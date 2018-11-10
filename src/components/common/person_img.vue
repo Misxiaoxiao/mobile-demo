@@ -2,11 +2,18 @@
   <div class="person_wrap">
     <div class="person_img_wrap">
       <img :src="info.avatar.src" alt="">
-      <i class="gender_icon iconfont m" v-if="info.gender === 'm'">&#xe664;</i>
-      <i class="gender_icon iconfont f" v-else>&#xe707;</i>
+      <i class="gender_icon iconfont m" v-if="info.gender === 'm'">&#xe677;</i>
+      <i class="gender_icon iconfont f" v-else>&#xe644;</i>
     </div>
     <div class="person_img_des">
-      <p>{{info.username}}</p>
+      <p>
+        {{info.username}}
+        <span class="active" v-if="info.identity_validate_status === 1">
+          <i class="iconfont">&#xe658;</i>
+          实名
+        </span>
+        <span v-else>未实名</span>
+      </p>
       {{info.client_attr.profession}}  {{info.client_attr.xingzuo}}
     </div>
     <div class="person_time" v-if="formatTime">
@@ -62,6 +69,22 @@ export default class PersonImg extends Vue {
     color: #484848;
     > p {
       font-size: 14px;
+      > span {
+        color: #ccc;
+        background-color: #eee;
+        border-radius: 8px;
+        padding: 0 2px;
+        font-size: 10px;
+        > i {
+          font-size: 6px;
+        }
+      }
+      > span.active {
+        padding-right: 4px;
+        border: 1px solid #66D4C3;
+        color: #66D4C3;
+        background-color: #F0FFFD;
+      }
     }
     font-size: 10px;
   }
