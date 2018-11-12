@@ -2,7 +2,7 @@
   <div class="image_detail_wrap">
     <img :src="photoSrc" alt="">
     <span>
-      <i class="iconfont"></i>
+      <i class="iconfont">&#xe65a;</i>
       {{photos.length}}
     </span>
   </div>
@@ -23,8 +23,6 @@ export default class ImageDetail extends Vue {
   position: relative;
   width: 100%;
   height: 100%;
-  background: url('../../assets/Need_video@2x.png') no-repeat center;
-  background-size: 100%;
   border-radius: 5px;
   overflow: hidden;
   > img {
@@ -40,6 +38,9 @@ export default class ImageDetail extends Vue {
     color: #fff;
     padding: 2px 6px;
     border-radius: 10px;
+    > i {
+      font-size: 12px;
+    }
   }
 }
 </style>
