@@ -47,5 +47,13 @@ export default new Router({
         title: '房源类型说明',
       },
     },
+    {
+      path: '/download',
+      name: 'download',
+      component: () => import('./views/download/index.vue'),
+      meta: {
+        title: 'zuber白领租房平台',
+      },
+    },
   ],
 });

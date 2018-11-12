@@ -4,7 +4,7 @@ export default class Platform extends GetDevice {
   constructor() {
     super();
   }
-  public checkPlatform(): void {
+  public checkPlatform(): string {
     let OS: string = '';
     switch (true) {
       case /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent):
@@ -19,6 +19,7 @@ export default class Platform extends GetDevice {
       default:
         OS = 'other';
     }
+    return OS;
   }
   public checkWeixin(): boolean {
     return (/MicroMessenger/i).test(navigator.userAgent.toLowerCase());

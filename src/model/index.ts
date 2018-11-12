@@ -9,16 +9,19 @@ export const POPULAR_CITIES: string[] = [
   '成都',
   '武汉',
 ];
+
 export const ROOM_CONDITION_GENDER: any[] = [
   {key: 'f', value: '允许女生'},
   {key: 'm', value: '允许男生'},
 ];
+
 export const ROOM_CONDITION_TYPE: string[] = [
   '室友合租',
   '转租房源',
   '业主出租',
   '长租公寓',
 ];
+
 export const ROOM_CONDITION_MONEY: any[] = [
   {value: '1500元以下', min: 0, max: 1500},
   {value: '1500-2500元', min: 1500, max: 2500},
@@ -28,6 +31,7 @@ export const ROOM_CONDITION_MONEY: any[] = [
   {value: '8000-10000元', min: 8000, max: 10000},
   {value: '10000元以上', min: 10000, max: 0},
 ];
+
 export const ROOM_CONDITION_TYPE_ITEMS: any[] = [
   {key: '整套', value: 3},
   {key: '单间', value: 1},
@@ -41,3 +45,5 @@ export const SHARE_INFO = {
   desc: '推荐给大家一款良心应用，出门在外，租房必备。信息真实，租房有保障',
   imgUrl: 'https://resources.zuber.im/mobile_share_logo.png',
 };
+
+export const APP_URL = 'http://a.app.qq.com/o/simple.jsp?pkgname=im.zuber.app';
