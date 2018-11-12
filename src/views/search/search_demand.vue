@@ -33,7 +33,6 @@
             :finished="finished"
             @load="onLoad"
           >
-            <!-- <post-room /> -->
             <van-cell v-for="(item, i) in demandList" :key="i">
               <DemandList :demandItem="item" />
             </van-cell>
@@ -98,12 +97,12 @@ export default class SearchDemand extends Vue {
   private onRefresh(): void {
     this.request(() => {
       this.refreshing = false;
-    });
+    }, false);
   }
   private onLoad(): void {
     this.request(() => {
       this.loading = false;
-    });
+    }, true);
   }
   private mounted(): void {
     this.request();

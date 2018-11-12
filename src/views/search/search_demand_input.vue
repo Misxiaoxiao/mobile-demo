@@ -20,8 +20,8 @@
         <input-search-list
         :isShow="showInputSearchList"
         :list="addresses"
-        :change="requestRefreshCallback"
-        :requestCallback="requestRefreshCallback"
+        :change="callback"
+        :requestCallback="request"
         />
 
         <div class="currentPlace">
@@ -34,13 +34,13 @@
           <i class="slocation_icon"></i>
         </div>
 
-        <!-- <search-find-list
+        <search-find-list
         v-if="regions && regions.length > 0"
         :label="'通过区域查找'"
         :list="regions"
-        :current="demandCurrentRegion"
-        :callback="changeDemandCurrentRegions"
-        :requestCallback="requestRefreshCallback" /> -->
+        :current="demandCondition.region"
+        :callback="callback"
+        />
 
       </div>
     </popup>
@@ -64,45 +64,38 @@ import InputSearchList from '@/components/search/input_search_list.vue';
   },
 })
 export default class SearchDemandInput extends Vue {
-  private regions: any[] = [];
-
   @Prop({default: ''}) private showPopup!: boolean;
   @Prop({default: {}}) private changePopup!: any;
   @Prop({default: false}) private showInputSearchList!: boolean;
   @Prop({default: {}}) private changeShowSearchList!: any;
+  @Prop({default: {}}) private demandCondition!: any;
+  @Prop({default: {}}) private changeDemandRegion!: any;
+  @Prop({default: {}}) private request!: any;
 
   @State((state: any) => state.LocateModule.locate_address) private locateAddress!: string;
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
   @State((state: any) => state.LocateModule.addresses) private addresses!: string;
+  @State((state: any) => state.CommonModule.city_traffic) private cityTraffic!: any;
 
   @Action('searchAddressByKeyword') private searchAddressByKeyword!: any;
 
-  @Watch('initRegions') private changeRegions(): void {
-    // this.changeData();
+  get regions(): any[] {
+    if (this.cityTraffic.region) {
+      const regions: any[] = this.cityTraffic.region.map((n: any, i: number) => {
+        return n.name;
+      });
+      return regions;
+    }
+    return [];
   }
+
   private cancleLimit(): void {
-    // this.changeCurrentRegion('');
-    // this.requestRefreshCallback();
+    this.callback('');
   }
-  private changeData(): void {
-    // this.regions = [];
-    // if (this.initRegions.length > 0) {
-    //   let regions: any;
-    //   this.initRegions.forEach((item) => {
-    //     if (item.city === this.currentCity) {
-    //       regions = item.data.map((n: any) => {
-    //         return n.name;
-    //       });
-    //     }
-    //   });
-    //   this.regions = regions;
-    // }
-  }
-  private requestRefreshCallback(): void {
-    // this.changeDemandHasNextPage(true);
-    // this.searchDemand({
-    //   isMore: false,
-    // });
+  private callback(region: string): void {
+    this.changeDemandRegion(region);
+    this.changePopup(false);
+    this.request();
   }
 }
 </script>

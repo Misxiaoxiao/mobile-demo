@@ -23,6 +23,9 @@
       :changePopup="changeDemandSearchInputPopup"
       :showInputSearchList="showInputSearchList"
       :changeShowSearchList="changeShowSearchList"
+      :demandCondition="demandCondition"
+      :changeDemandRegion="changeDemandRegion"
+      :request="requestDemandCallback"
       />
     </div>
     <div class="search_content_wrap">
