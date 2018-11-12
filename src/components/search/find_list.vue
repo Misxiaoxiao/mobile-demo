@@ -3,7 +3,7 @@
     <div class="find_list_label">{{label}}</div>
     <div class="find_list_content">
       <div
-      :class="current === item ? 'active' : ''"
+      :class="current === item ? 'button-b1-active' : 'button-b1'"
       v-for="(item, i) in list" :key="i"
       @click.stop="callback(item)"
       >{{item}}</div>
@@ -38,18 +38,10 @@ export default class FindList extends Vue {
     div {
       width: 22.3%;
       line-height: 30px;
-      text-align: center;
       font-size: 14px;
-      color: #999999;
-      border: 1px solid #CCCCCC;
       margin: 10px 1% 0;
       float: left;
       border-radius: 2px;
-    }
-    > div.active {
-      background-color: #F0FFFD;
-      border: 1px solid #66D4C3;
-      color: #66D4C3;
     }
   }
 }

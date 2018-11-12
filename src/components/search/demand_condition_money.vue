@@ -81,10 +81,8 @@ export default class DemandConditionMoney extends Vue {
   width: 15px;
   line-height: 15px;
   font-size: 12px;
-  color: #fff;
   border-radius: 50%;
   text-align: center;
-  background-color: #66D4C3;
   font-style: normal;
 }
 .condition_locate {

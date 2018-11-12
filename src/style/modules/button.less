@@ -1,0 +1,33 @@
+.button {
+  &-b1 {
+    text-align: center;
+    border: 1px solid #ccc;
+    color: @color-f3;
+    &-active {
+      text-align: center;
+      border: 1px solid @color-primary;
+      color: @color-primary;
+      background-color: @color-bg2;
+    }
+  }
+  &-b2-primary {
+    text-align: center;
+    color: #fff;
+    background-color: @color-primary;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &-b2-warn {
+    text-align: center;
+    color: #fff;
+    background-color: @color-warn;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
