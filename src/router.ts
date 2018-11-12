@@ -39,5 +39,13 @@ export default new Router({
         title: '房源详情',
       },
     },
+    {
+      path: '/description/room',
+      name: 'descriptionRoom',
+      component: () => import('./views/description/room_type.vue'),
+      meta: {
+        title: '房源类型说明',
+      },
+    },
   ],
 });

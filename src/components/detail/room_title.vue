@@ -13,7 +13,7 @@
         <span v-if="detailInfo.privateBathroom === 1">独卫</span>
         <span v-if="detailInfo.veranda === 1">阳台</span>
         <span v-if="detailInfo.window === 1">飘窗</span>
-        <span class="active">{{detailInfo.roomTypeAffirm}} > </span>
+        <span class="active" @click.stop="gotoDescription">{{detailInfo.roomTypeAffirm}} <i class="iconfont">&#xe601;</i> </span>
       </div>
     </div>
     <div v-else>
@@ -25,7 +25,7 @@
       <div class="room_detail_type_other">
         <span v-if="detailInfo.gender !== 0">{{detailInfo.gender === 1 ? '仅限男生' : '仅限女生'}}</span>
         <span v-if="detailInfo.personLimit !== 0">{{'限' + numChinese[detailInfo.personLimit - 1] + '人'}}</span>
-        <span class="active">{{detailInfo.roomTypeAffirm}} <i class="iconfont">&#xe601;</i> </span>
+        <span class="active" @click.stop="gotoDescription">{{detailInfo.roomTypeAffirm}} <i class="iconfont">&#xe601;</i> </span>
       </div>
     </div>
   </div>
@@ -57,6 +57,10 @@ export default class RoomTitle extends Vue {
                                  ? ' | 有电梯' : (this.detailInfo.elevator === 2 ? ' | 无电梯' : '');
 
     return `${roomCountDetail}${roomSquare}${roomFloor}${roomElevator}`;
+  }
+
+  private gotoDescription(): void {
+    this.$router.push({name: 'descriptionRoom'});
   }
 }
 </script>

@@ -4,6 +4,7 @@ import AuthModule from '@/vuex/modules/auth';
 import LocateModule from '@/vuex/modules/locate';
 import SearchModule from '@/vuex/modules/search';
 import CommonModule from '@/vuex/modules/common';
+import AccountModule from '@/vuex/modules/account';
 import ResidenceModule from '@/vuex/modules/residence';
 
 Vue.use(Vuex);
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     LocateModule,
     SearchModule,
     CommonModule,
+    AccountModule,
     ResidenceModule,
   },
 });
