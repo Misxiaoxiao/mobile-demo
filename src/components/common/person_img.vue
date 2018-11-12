@@ -14,7 +14,7 @@
         </span>
         <span v-else>未实名</span>
       </p>
-      {{info.client_attr.profession}}  {{info.client_attr.xingzuo}}
+      {{info.client_attr.profession}}  {{info.client_attr.xingzuo ? ' | ' + info.client_attr.xingzuo : ''}}
     </div>
     <div class="person_time" v-if="formatTime">
       {{formatTime}}
@@ -69,6 +69,7 @@ export default class PersonImg extends Vue {
     color: #484848;
     > p {
       font-size: 14px;
+      line-height: 24px;
       > span {
         color: #ccc;
         background-color: #eee;
