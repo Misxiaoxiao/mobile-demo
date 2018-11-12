@@ -11,7 +11,7 @@
       </div>
       <div slot="image_wrap" class="swiper_item_wrap">
         <image-detail
-        :photos="photos"
+        :photos="detailInfo.photos"
         :photoSrc="detailInfo.photo"
         />
       </div>

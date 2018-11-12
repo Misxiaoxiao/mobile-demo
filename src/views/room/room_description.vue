@@ -3,6 +3,10 @@
     <h4>房源描述</h4>
     <div class="person_wrap">
 
+      <person-img
+      :info="roomDescription.person"
+      :formatTime="''" />
+
     </div>
     <div class="room_des_text_wrap">
       {{roomDescription.content}}
@@ -32,15 +36,20 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 import { DetailModel } from '@/vuex/modules/residence/residence.model';
+import PersonImg from '@/components/common/person_img.vue';
 
-@Component
+@Component({
+  components: {
+    PersonImg,
+  },
+})
 export default class RoomDescription extends Vue {
   @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
 
   get roomDescription(): any {
     if (this.bedDetail.bed) {
       return {
-        person: {},
+        person: this.bedDetail.user,
         content: this.bedDetail.bed.content,
       };
     }
@@ -59,8 +68,12 @@ export default class RoomDescription extends Vue {
   > h4 {
     font-size: 18px;
   }
-  .person_wrap {
+  > .person_wrap {
     height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(217,217,217,0.06);
+    border-radius: 5px;
   }
   .room_des_text_wrap {
     padding: 10px 0 15px;
