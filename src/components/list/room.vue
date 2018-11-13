@@ -25,6 +25,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import MyImage from '@/components/common/image.vue';
+import { ROOM_CONDITION_TYPE_ITEMS } from '@/model/index';
 
 @Component({
   components: {
@@ -32,9 +33,50 @@ import MyImage from '@/components/common/image.vue';
   },
 })
 export default class RoomList extends Vue {
-  @Prop({default: {}}) private roomItem!: any;
+  @Prop({default: {}}) private room!: any;
+
+  get roomItem(): any {
+    const room = this.room;
+    if (room) {
+      let types: any = '';
+      let roomTitle: string = '';
+      if (room.biz) { // 如果为b端房源
+        types = room.biz_attr.beds[0].number;
+        roomTitle = room.biz_attr.beds[0].title;
+      } else { // 如果为c端房源
+        roomTitle = `${this.setType(room.client_attr.beds[0].type)}·${room.client_attr.beds[0].title}`;
+        types = [
+          room.client_attr.beds[0].dateDetail,
+          room.client_attr.beds[0].sex === 0 ? '' : (room.client_attr.beds[0].sex === 1 ? '仅限男生' : '仅限女生'),
+          room.client_attr.beds[0].short_rent === 0 ? '' : '可短租',
+        ];
+      }
+      const dataInfo = {
+        biz: room.biz,
+        roomId: room.biz ? room.biz_attr.beds[0].id : room.client_attr.beds[0].id,
+        fullTitle: room.full_title,
+        roomTitle,
+        photo: room.biz ? room.biz_attr.beds[0].photo.src : room.client_attr.beds[0].photo.src,
+        types,
+        money: room.biz ? room.biz_attr.beds[0].money : room.client_attr.beds[0].money,
+        refreshTime: room.biz ? room.biz_attr.beds[0].refresh_time : room.client_attr.beds[0].refresh_time,
+        hasVideo: room.biz ? room.biz_attr.beds[0].has_video : room.client_attr.beds[0].has_video,
+      };
+      return dataInfo;
+    }
+  }
+
+  private setType(type: number): string {
+    for (const n of ROOM_CONDITION_TYPE_ITEMS) {
+      if (n.value === type) {
+        return n.key;
+      }
+    }
+    return '';
+  }
+
   private view(item: any): void {
-    this.$router.push({name: 'roomDetail', params: {id: item.roomId}, query: {biz: item.biz}});
+    this.$router.push({name: 'bedDetail', params: {id: item.roomId}, query: {biz: item.biz}});
   }
 }
 </script>

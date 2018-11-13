@@ -49,7 +49,7 @@
               <i class="iconfont next_yellow_icon">&#xe601;</i>
             </div>
             <van-cell v-for="(item, i) in rentList" :key="i">
-              <room-list :roomItem="setRoomItem(item.room)" />
+              <room-list :room="item.room" />
             </van-cell>
           </van-list>
         </van-pull-refresh>
@@ -63,7 +63,6 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import { RoomModel } from '@/vuex/modules/search/search.model';
-import { ROOM_CONDITION_TYPE_ITEMS } from '@/model/index';
 import RoomConditionLocate from '@/components/search/condition_locate.vue';
 import RoomConditionVideo from '@/components/search/room_condition_video.vue';
 import RoomConditionType from '@/components/search/room_condition_type.vue';
@@ -114,45 +113,6 @@ export default class SearchRoom extends Vue {
     return !this.hasNextRentPage || this.searching;
   }
 
-  // 重新计算房间信息
-  private setRoomItem(room: any): any {
-    if (room) {
-      let types: any = '';
-      let roomTitle: string = '';
-      if (room.biz) { // 如果为b端房源
-        types = room.biz_attr.beds[0].number;
-        roomTitle = room.biz_attr.beds[0].title;
-      } else { // 如果为c端房源
-        roomTitle = `${this.setType(room.client_attr.beds[0].type)}·${room.client_attr.beds[0].title}`;
-        types = [
-          room.client_attr.beds[0].dateDetail,
-          room.client_attr.beds[0].sex === 0 ? '' : (room.client_attr.beds[0].sex === 1 ? '仅限男生' : '仅限女生'),
-          room.client_attr.beds[0].short_rent === 0 ? '' : '可短租',
-        ];
-      }
-      const dataInfo = {
-        biz: room.biz,
-        roomId: room.biz ? room.biz_attr.beds[0].id : room.client_attr.beds[0].id,
-        fullTitle: room.full_title,
-        roomTitle,
-        photo: room.biz ? room.biz_attr.beds[0].photo.src : room.client_attr.beds[0].photo.src,
-        types,
-        money: room.biz ? room.biz_attr.beds[0].money : room.client_attr.beds[0].money,
-        refreshTime: room.biz ? room.biz_attr.beds[0].refresh_time : room.client_attr.beds[0].refresh_time,
-        hasVideo: room.biz ? room.biz_attr.beds[0].has_video : room.client_attr.beds[0].has_video,
-      };
-      return dataInfo;
-    }
-  }
-
-  private setType(type: number): string {
-    for (const n of ROOM_CONDITION_TYPE_ITEMS) {
-      if (n.value === type) {
-        return n.key;
-      }
-    }
-    return '';
-  }
   private onLoad(): void {
     this.request(() => {
       this.loading = false;
@@ -165,7 +125,10 @@ export default class SearchRoom extends Vue {
   }
 
   private mounted(): void {
-    this.request();
+    this.loading = true;
+    this.request(() => {
+      this.loading = false;
+    });
   }
 }
 </script>
