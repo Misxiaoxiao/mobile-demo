@@ -46,11 +46,11 @@ import RoomLocation from '@/components/detail/room_location.vue';
 })
 export default class RoomDetailInfo extends Vue {
   @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
+  @State((state: any) => state.ResidenceModule.requesting) private requesting!: boolean;
 
   get detailInfo(): any {
-    if (JSON.stringify(this.bedDetail) !== '{}') {
-      if (this.$route.query.biz === 'true') {
-        console.log(1);
+    if (!this.requesting) {
+      if ((this.$route.query.biz).toString() === 'true' ? true : false) {
         return {
           biz: true,
           photo: this.bedDetail.bed.photo.src, // 图片
@@ -84,7 +84,6 @@ export default class RoomDetailInfo extends Vue {
           subways: this.bedDetail.room.subways, // 地铁
         };
       } else {
-        console.log(2);
         return {
           biz: false,
           photo: this.bedDetail.bed.photo.src, // 图片

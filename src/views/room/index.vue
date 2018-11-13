@@ -5,14 +5,19 @@
 
     <div class="room_detail_content">
 
-      <room-detail-info />
+      <loading v-if="loading" />
 
-      <room-other-info />
+      <div v-else>
+        
+        <room-detail-info />
 
-      <room-description />
+        <room-other-info />
 
-      <!-- <room-detail-comment /> -->
+        <room-description />
 
+        <!-- <room-detail-comment /> -->
+
+      </div>
     </div>
 
     <room-detail-footer />
@@ -29,6 +34,7 @@ import RoomOtherInfo from './room_other_info.vue';
 import RoomDescription from './room_description.vue';
 import RoomDetailFooter from './room_detail_footer.vue';
 import RoomDetailComment from './room_detail_comment.vue';
+import Loading from '@/components/common/loading.vue';
 
 @Component({
   components: {
@@ -38,24 +44,28 @@ import RoomDetailComment from './room_detail_comment.vue';
     RoomDescription,
     RoomDetailFooter,
     RoomDetailComment,
+    Loading,
   },
 })
 export default class DetailIndex extends Vue {
+  private loading: boolean = false;
+
   @Action('viewBedDetail') private viewBedDetail!: any;
-  @Watch('$route') changeRoute(): void {
-    this.getDetail();
-  }
 
   private getDetail(): void {
+    this.loading = true;
     this.viewBedDetail({
       data: {
         id: this.$route.params.id,
-        biz: (this.$route.query.biz).toString(),
+        biz: (this.$route.query.biz).toString() === 'true' ? true : false,
+      },
+      success: () => {
+        this.loading = false;
       },
     });
   }
 
-  private mounted(): void {
+  private created(): void {
     this.getDetail();
   }
 }

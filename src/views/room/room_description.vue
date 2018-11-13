@@ -4,15 +4,22 @@
     <div class="person_wrap">
 
       <person-img
+      v-if="roomDescription.person !== ''"
       :info="roomDescription.person"
-      :formatTime="''" />
+      :formatTime="''"
+      />
+
+      <company-img
+      v-if="roomDescription.company !== ''"
+      :info="roomDescription.company"
+      />
 
     </div>
     <div class="room_des_text_wrap">
       {{roomDescription.content}}
     </div>
     <div class="room_des_msg_info_wrap">
-      <div class="msg_info">
+      <div class="msg_info" v-if="roomDescription.person.identity_validate_status === 1">
         <div class="msg_info_left">
           <i class="iconfont">&#xe658;</i>
         </div>
@@ -20,7 +27,7 @@
           由实名登记用户发布并承诺真实合法有效，接受所有用户监督和评价
         </div>
       </div>
-      <div class="msg_info">
+      <div class="msg_info" v-if="this.bedDetail.room.rent_type === 2">
         <div class="msg_info_left">
           <i class="iconfont" style="font-size: 12px;">&#xe6c3;</i>
         </div>
@@ -37,10 +44,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 import { DetailModel } from '@/vuex/modules/residence/residence.model';
 import PersonImg from '@/components/common/person_img.vue';
+import CompanyImg from '@/components/common/company_img.vue';
 
 @Component({
   components: {
     PersonImg,
+    CompanyImg,
   },
 })
 export default class RoomDescription extends Vue {
@@ -49,7 +58,8 @@ export default class RoomDescription extends Vue {
   get roomDescription(): any {
     if (this.bedDetail.bed) {
       return {
-        person: this.bedDetail.user,
+        person: this.bedDetail.user ? this.bedDetail.user : '',
+        company: this.bedDetail.company ? this.bedDetail.company : '',
         content: this.bedDetail.bed.content,
       };
     }

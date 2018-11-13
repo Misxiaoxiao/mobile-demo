@@ -1,6 +1,6 @@
 <template>
   <div class="room_detail_title">
-    <div v-if="detailInfo.biz === 'true'">
+    <div v-if="detailInfo.biz">
       <h3>{{detailInfo.roomTitle}}</h3>
       <div class="room_detail_type_info">
         <span>{{roomTypeInfo}}</span>
@@ -86,6 +86,7 @@ export default class RoomTitle extends Vue {
   }
   .room_detail_type_price {
     margin-top: 5px;
+    line-height: 20px;
     > span {
       font-size: 18px;
       color: #FB686B;

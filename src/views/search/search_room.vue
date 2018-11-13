@@ -68,7 +68,7 @@ import RoomConditionLocate from '@/components/search/condition_locate.vue';
 import RoomConditionVideo from '@/components/search/room_condition_video.vue';
 import RoomConditionType from '@/components/search/room_condition_type.vue';
 import RoomConditionOther from '@/components/search/room_condition_other.vue';
-import RoomList from '@/components/search/room_list.vue';
+import RoomList from '@/components/list/room.vue';
 
 @Component({
   components: {

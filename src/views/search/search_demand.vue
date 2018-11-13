@@ -50,8 +50,8 @@ import { DemandModal } from '@/vuex/modules/search/search.model';
 import DemandConditionLocate from '@/components/search/condition_locate.vue';
 import DemandConditionGender from '@/components/search/demand_condition_gender.vue';
 import DemandConditionMoney from '@/components/search/demand_condition_money.vue';
-import DemandList from '@/components/search/demand_list.vue';
-import PostRoom from '@/components/search/post_room.vue';
+import DemandList from '@/components/list/demand.vue';
+// import PostRoom from '@/components/search/post_room.vue';
 
 @Component({
   components: {
@@ -59,7 +59,7 @@ import PostRoom from '@/components/search/post_room.vue';
     DemandConditionGender,
     DemandConditionMoney,
     DemandList,
-    PostRoom,
+    // PostRoom,
   },
 })
 export default class SearchDemand extends Vue {
