@@ -1,5 +1,5 @@
 <template>
-  <van-row v-if="isSelf">
+  <van-row v-if="bedDetail.myself">
     <van-col :span="4" class="collect_btn">
       <i class="iconfont">&#xe68d;</i>
       编辑
@@ -31,19 +31,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import { DetailModel } from '@/vuex/modules/residence/residence.model';
-import { UserProfile } from '@/vuex/modules/account/account.model';
 
 @Component
 export default class RoomDetailFooter extends Vue {
   @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
-  @State((state: any) => state.AccountModule.account) private account!: UserProfile;
-
-  get isSelf(): boolean {
-    if (this.account.user && this.bedDetail.user) {
-      return this.account.user.id === this.bedDetail.user.id;
-    }
-    return false;
-  }
 }
 </script>
 
