@@ -29,7 +29,7 @@ import { DetailModel } from '@/vuex/modules/residence/residence.model';
 
 @Component
 export default class RoomDetailHeader extends Vue {
-  private show = true;
+  private show = false;
 
   @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
 

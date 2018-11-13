@@ -49,9 +49,10 @@ export default class RoomDetailInfo extends Vue {
 
   get detailInfo(): any {
     if (JSON.stringify(this.bedDetail) !== '{}') {
-      if (this.$route.query.biz) {
+      if (this.$route.query.biz === 'true') {
+        console.log(1);
         return {
-          biz: this.$route.query.biz,
+          biz: true,
           photo: this.bedDetail.bed.photo.src, // 图片
           photos: this.bedDetail.bed.photos,
           hasVideo: this.bedDetail.bed.has_video, // 视频
@@ -83,8 +84,9 @@ export default class RoomDetailInfo extends Vue {
           subways: this.bedDetail.room.subways, // 地铁
         };
       } else {
+        console.log(2);
         return {
-          biz: this.$route.query.biz,
+          biz: false,
           photo: this.bedDetail.bed.photo.src, // 图片
           photos: this.bedDetail.bed.photos,
           hasVideo: this.bedDetail.bed.has_video, // 视频

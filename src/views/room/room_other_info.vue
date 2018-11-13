@@ -6,6 +6,7 @@
       class="room_other_item"
       v-for="(n, i) in otherInfo"
       :key="i"
+      @click="view(n)"
       >
         <div v-if="n.state === 1">
           <div class="room_other_item_left">
@@ -50,6 +51,8 @@ export default class RoomOtherInfo extends Vue {
     if (this.bedDetail.other_beds) {
       return this.bedDetail.other_beds.map((n: any) => {
         return {
+          biz: this.bedDetail.room.biz,
+          id: n.id,
           state: n.state,
           type: this.setType(n.type),
           title: n.title,
@@ -74,6 +77,10 @@ export default class RoomOtherInfo extends Vue {
       }
     }
     return '';
+  }
+
+  private view(item: any): void {
+    this.$router.push({name: 'roomDetail', params: {id: item.id}, query: {biz: item.biz}});
   }
 }
 </script>

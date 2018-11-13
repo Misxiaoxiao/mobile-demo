@@ -1,6 +1,6 @@
 <template>
   <div class="room_detail_title">
-    <div v-if="detailInfo.biz">
+    <div v-if="detailInfo.biz === 'true'">
       <h3>{{detailInfo.roomTitle}}</h3>
       <div class="room_detail_type_info">
         <span>{{roomTypeInfo}}</span>

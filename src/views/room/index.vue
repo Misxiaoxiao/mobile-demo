@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import RoomDetailHeader from './room_detail_header.vue';
 import RoomDetailInfo from './room_detail_info.vue';
@@ -42,12 +42,15 @@ import RoomDetailComment from './room_detail_comment.vue';
 })
 export default class DetailIndex extends Vue {
   @Action('viewBedDetail') private viewBedDetail!: any;
+  @Watch('$route') changeRoute(): void {
+    this.getDetail();
+  }
 
   private getDetail(): void {
     this.viewBedDetail({
       data: {
         id: this.$route.params.id,
-        biz: this.$route.query.biz,
+        biz: (this.$route.query.biz).toString(),
       },
     });
   }
