@@ -14,9 +14,15 @@ const getCityList = ActionBuilder({
     actionFail: types.GET_COMMON_CITIES_FAIL
 })
 
+const recordTerminalInfo = ActionBuilder({
+    method: api.recordTerminal,
+    actionSuccess: types.RECORD_TERMINAL_INFO_SUCCESS
+})
+
 export default {
     actions: {
         getCityList,
-        getCityTraffic
+        getCityTraffic,
+        recordTerminalInfo
     }
 }

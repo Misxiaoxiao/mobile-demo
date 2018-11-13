@@ -19,6 +19,7 @@ export class ResidenceState {
     requesting: boolean = false
     bed_unexistance: boolean = false
     bed_detail: DetailModel = {}
+    bed_photos: any[] = []
     demand_unexistance: boolean = false
     demand_detail: any = {}
     favoring: boolean = false

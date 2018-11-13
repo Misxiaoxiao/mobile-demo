@@ -9,16 +9,32 @@ const getSubscribeDetail = ActionBuilder({
     actionFail: types.REQUESTING_SUBSCRIBE_INFO_FAIL
 })
 
-const createUserSubscribe = ActionBuilder({
+const updateUserSubscribe = ActionBuilder({
     method: api.createSubscribe,
     actionStart: types.SUBMITTING_SUBSCRIBE_INFO,
     actionSuccess: types.SUBMITTING_SUBSCRIBE_INFO_SUCCESS,
     actionFail: types.SUBMITTING_SUBSCRIBE_INFO_FAIL
 })
 
+const removeUserSubscribe = ActionBuilder({
+    method: api.removeSubscribe,
+    actionStart: types.REMOVING_SUBSCRIBE_INFO,
+    actionSuccess: types.REMOVING_SUBSCRIBE_INFO_SUCCESS,
+    actionFail: types.REMOVING_SUBSCRIBE_INFO_FAIL
+})
+
+const getRecommendList = ActionBuilder({
+    method: api.getRecommends,
+    actionStart: types.REQUESTING_SUBSCRIBE_RECOMMENDS,
+    actionSuccess: types.REQUESTING_SUBSCRIBE_RECOMMENDS_SUCCESS,
+    actionFail: types.REQUESTING_SUBSCRIBE_RECOMMENDS_FAIL,
+})
+
 export default {
     actions: {
-        createUserSubscribe,
-        getSubscribeDetail
+        updateUserSubscribe,
+        getSubscribeDetail,
+        removeUserSubscribe,
+        getRecommendList
     }
 }
