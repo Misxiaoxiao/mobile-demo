@@ -2,7 +2,8 @@ import {
     GET_COMMON_CITIES_SUCCESS,
     GET_COMMON_CITIES_FAIL,
     GET_TRAFFIC_INFO_SUCCESS,
-    GET_TRAFFIC_INFO_INFO
+    GET_TRAFFIC_INFO_INFO,
+    RECORD_TERMINAL_INFO_SUCCESS
 } from './common.types'
 
 import {CityListModel} from './common.model'
@@ -24,6 +25,9 @@ const mutations = {
     },
     [GET_COMMON_CITIES_FAIL] (state: CommonState) {
         state.cities = {}
+    },
+    [RECORD_TERMINAL_INFO_SUCCESS] () {
+        return true
     }
 }
 
