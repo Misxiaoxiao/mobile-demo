@@ -1,7 +1,7 @@
 <template>
   <div class="room_description_wrap" v-if="roomDescription !== ''">
     <h4>房源描述</h4>
-    <div class="person_wrap">
+    <div class="person_wrap" @click.stop="view">
 
       <person-img
       v-if="roomDescription.person !== ''"
@@ -64,6 +64,26 @@ export default class RoomDescription extends Vue {
       };
     }
     return '';
+  }
+
+  // 点击查看用户详情
+  private view(): void {
+    // 根据房源信息进行判断
+    if ((this.$route.query.biz).toString() === 'true') {
+      this.$router.push({
+        name: 'company',
+        params: {
+          id: this.roomDescription.company.id,
+        },
+      });
+    } else {
+      this.$router.push({
+        name: 'user',
+        params: {
+          id: this.roomDescription.person.id,
+        },
+      });
+    }
   }
 }
 </script>

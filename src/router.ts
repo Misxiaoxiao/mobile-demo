@@ -32,11 +32,19 @@ export default new Router({
       },
     },
     {
-      path: '/room/:id',
-      name: 'roomDetail',
+      path: '/bed/:id',
+      name: 'bedDetail',
       component: () => import('./views/room/index.vue'),
       meta: {
         title: '房源详情',
+      },
+    },
+    {
+      path: '/user/:id',
+      name: 'user',
+      component: () => import('./views/user/index.vue'),
+      meta: {
+        title: '用户详情',
       },
     },
     {

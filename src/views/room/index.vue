@@ -52,6 +52,11 @@ export default class DetailIndex extends Vue {
 
   @Action('viewBedDetail') private viewBedDetail!: any;
 
+  // 切换到其他房源重新加载数据
+  @Watch('$route') private changeRoute(): void {
+    this.getDetail();
+  }
+
   private getDetail(): void {
     this.loading = true;
     this.viewBedDetail({
