@@ -42,7 +42,7 @@ interface ActionParams {
 export const ActionBuilder = (options: ActionOptions) => {
     const fetch = async ({commit}: ActionContext<RootState, any>, params: ActionParams) => {
         try {
-            if (options.actionStart) commit(options.actionStart, params.data)
+            if (options.actionStart) commit(options.actionStart, params ? params.data : {})
             // if has method, excute
             if (options.method) {
                 let res = await options.method(params.data)
@@ -52,7 +52,7 @@ export const ActionBuilder = (options: ActionOptions) => {
                 })
                 if (params.success) params.success(result)
             } else {
-                commit(options.actionSuccess, params.data)
+                commit(options.actionSuccess, params ? params.data : {})
                 if (params.success) params.success()
             }
         } catch (e) {
