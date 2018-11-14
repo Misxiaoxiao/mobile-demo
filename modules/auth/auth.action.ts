@@ -8,10 +8,9 @@ const getUserAuth = ActionBuilder({
     actionFail: types.GET_USER_AUTH_FAIL
 })
 
-const cleanUserAuth = ({commit}: any, success?: any) => {
-    commit(types.CLEAN_USER_AUTH)
-    if (success) success()
-}
+const cleanUserAuth = ActionBuilder({
+    actionSuccess: types.CLEAN_USER_AUTH
+})
 
 export default {
     actions: {

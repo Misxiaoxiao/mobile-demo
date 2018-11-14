@@ -7,7 +7,7 @@ import {
     SEARCHING_DEMAND_LIST_FAIL
 } from './search.types'
 
-import { RoomModel, DemandModal } from './search.model'
+import { RoomItem, DemandModal } from './search.model'
 
 export class SearchState {
     searching: boolean = false
@@ -15,7 +15,7 @@ export class SearchState {
     demand_sequence: string =  ''
     has_next_rent_page: boolean = false
     has_next_demand_page: boolean = false
-    rent_list: RoomModel[] = []
+    rent_list: RoomItem[] = []
     demand_list: DemandModal[] = []
 }
 

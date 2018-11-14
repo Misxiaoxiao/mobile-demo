@@ -13,12 +13,14 @@ import {
     UNFAVORING_USER_DETAIL_FAIL
 } from './user.types'
 
+import { UserDetail } from './user.model'
+
 export class UserState {
     requesting: boolean = false
     user_unexistance: boolean = false
     user_detail: any = {}
     company_unexistance: boolean = false
-    company_detail: any = {}
+    company_detail: UserDetail = {}
     following: boolean = false
 }
 

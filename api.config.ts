@@ -1,7 +1,7 @@
 import Interface from '@/interface'
 
 const API_VERSION = 'client';
-const API_ROOT = 'http://services.api.zuker.im/client'
+const API_ROOT = 'https://services.api.zuker.im/client'
 
 export const token = new Interface.Token('zuber-')
 
