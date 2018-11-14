@@ -62,7 +62,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
-import { RoomModel } from '@/vuex/modules/search/search.model';
+import { RoomItem } from '@/vuex/modules/search/search.model';
 import RoomConditionLocate from '@/components/search/condition_locate.vue';
 import RoomConditionVideo from '@/components/search/room_condition_video.vue';
 import RoomConditionType from '@/components/search/room_condition_type.vue';
@@ -103,7 +103,7 @@ export default class SearchRoom extends Vue {
   @Prop({default: {}}) private request!: any;
 
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
-  @State((state: any) => state.SearchModule.rent_list) private rentList!: RoomModel[];
+  @State((state: any) => state.SearchModule.rent_list) private rentList!: RoomItem[];
   @State((state: any) => state.SearchModule.has_next_rent_page) private hasNextRentPage!: boolean;
   @State((state: any) => state.SearchModule.searching) private searching!: boolean;
 
