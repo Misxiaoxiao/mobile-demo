@@ -1,7 +1,7 @@
 <template>
   <div class="room_detail_wrap">
 
-    <room-detail-header />
+    <!-- <room-detail-header /> -->
 
     <div class="room_detail_content">
 
