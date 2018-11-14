@@ -80,7 +80,9 @@ export default class RoomOtherInfo extends Vue {
   }
 
   private view(item: any): void {
-    this.$router.push({name: 'roomDetail', params: {id: item.id}, query: {biz: item.biz}});
+    if (item.id !== this.$route.params.id) {
+      this.$router.push({name: 'bedDetail', params: {id: item.id}, query: {biz: item.biz}});
+    }
   }
 }
 </script>

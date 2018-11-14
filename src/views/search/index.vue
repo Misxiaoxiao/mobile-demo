@@ -358,6 +358,7 @@ export default class SearchIndex extends Vue {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #fff;
 }
 .search_content_wrap {
   position: relative;

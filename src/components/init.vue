@@ -55,7 +55,7 @@ export default class InitApp extends Vue {
   // 登录
   private login(): void {
     this.getUserAuth({
-      info: this.$route.query,
+      data: this.$route.query,
       success: () => {
         this.init();
         this.redirect(() => {

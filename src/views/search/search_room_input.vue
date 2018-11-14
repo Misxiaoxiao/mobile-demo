@@ -165,6 +165,7 @@ export default class SearchRoomInput extends Vue {
   .search_input_content {
     position: relative;
     flex: 1;
+    overflow-y: scroll;
     .currentPlace {
       display: flex;
       justify-content: space-between;

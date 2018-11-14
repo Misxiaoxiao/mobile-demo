@@ -61,6 +61,13 @@ export default class DemandConditionMoney extends Vue {
   // 清除
   private clear(): void {
     this.conditionMoney = '';
+    const obj = {
+      min: 0,
+      max: 0,
+    };
+    this.change(obj);
+    this.show(false);
+    this.requestCallback();
   }
   // 确定
   private enter(): void {

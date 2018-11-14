@@ -125,7 +125,7 @@ export default class CompanyIndex extends Vue {
           text-align: center;
         }
         > .tab_line {
-          top: 35px;
+          // top: 35px;
           display: none;
         }
       }
