@@ -54,6 +54,7 @@ export default class InitApp extends Vue {
   }
   // 登录
   private login(): void {
+    console.log(this.$route.query)
     this.getUserAuth({
       data: this.$route.query,
       success: () => {
@@ -84,7 +85,7 @@ export default class InitApp extends Vue {
         info: this.deviceInfo,
       });
       this.getUserInfo();
-      this.reward();
+      // this.reward();
     }
   }
   private deal(): void {
