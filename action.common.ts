@@ -50,14 +50,15 @@ export const ActionBuilder = (options: ActionOptions) => {
                 commit(options.actionSuccess, {
                     result: result
                 })
-                if (params.success) params.success(result)
+                if (params && params.success) params.success(result)
             } else {
                 commit(options.actionSuccess, params ? params.data : {})
-                if (params.success) params.success()
+                if (params && params.success) params.success()
             }
         } catch (e) {
             window.alert(e)
             if (options.actionFail) commit(options.actionFail, e)
+            if (params && params.fail) params.fail()
         }
     }
     return fetch
