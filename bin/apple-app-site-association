@@ -1,0 +1,23 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "KY748RT68A.im.zuber.app",
+                "paths": [ "*"]
+            } ,
+            {
+              "appID": "KY748RT68A.im.zuker.mobile",
+              "paths": [ "*"]
+            },
+            {
+              "appID": "KY748RT68A.im.zuber.mobile",
+              "paths": [ "*"]
+            },
+            {
+              "appID": "KY748RT68A.im.zuber.m",
+              "paths": [ "*"]
+            }
+        ]
+    }
+}
