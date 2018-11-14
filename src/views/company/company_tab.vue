@@ -15,12 +15,10 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { State, Action } from 'vuex-class';
 
 @Component
-export default class SearchTab extends Vue {
+export default class ComponentTab extends Vue {
   @Prop({default: 0}) private index!: number;
-
 }
 </script>
 

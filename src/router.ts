@@ -48,6 +48,14 @@ export default new Router({
       },
     },
     {
+      path: '/company/:id',
+      name: 'company',
+      component: () => import('./views/company/index.vue'),
+      meta: {
+        title: '公寓详情',
+      },
+    },
+    {
       path: '/description/room',
       name: 'descriptionRoom',
       component: () => import('./views/description/room_type.vue'),

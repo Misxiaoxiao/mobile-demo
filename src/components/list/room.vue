@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="room_list_item_wrap">
     <div class="room_list_item" @click.stop="view(roomItem)">
       <div class="room_list_item_left">
         <my-image :src="roomItem.photo" :hasVideo="roomItem.hasVideo" />
@@ -82,6 +82,9 @@ export default class RoomList extends Vue {
 </script>
 
 <style lang="less">
+.room_list_item_wrap {
+  width: 100%;
+}
 .room_list_item {
   overflow: hidden;
   display: flex;

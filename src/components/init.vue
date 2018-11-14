@@ -18,8 +18,8 @@ export default class InitApp extends Vue {
   @Action('getUserInfo') private getUserInfo: any;
   @Action('sendDeviceInfo') private sendDeviceInfo: any;
   @Action('getShareBonus') private getShareBonus: any;
-  @Action('configShareInfo') private configShareInfo: any;
-  @Action('getAppInfo') private getAppInfo: any;
+  // @Action('configShareInfo') private configShareInfo: any;
+  // @Action('getAppInfo') private getAppInfo: any;
   private created(): void {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
@@ -29,13 +29,13 @@ export default class InitApp extends Vue {
     this.deal();
   }
   // 分享
-  private share(): void {
-    if (this.$route.name !== 'room') {
-      this.configShareInfo({
-        info: this.shareInfo,
-      });
-    }
-  }
+  // private share(): void {
+  //   if (this.$route.name !== 'room') {
+  //     this.configShareInfo({
+  //       info: this.shareInfo,
+  //     });
+  //   }
+  // }
   // 重定向
   private redirect(replace?: any): void {
     if (!this.$route.name || this.$route.name === 'home') {
@@ -88,8 +88,8 @@ export default class InitApp extends Vue {
     }
   }
   private deal(): void {
-    this.share();
-    this.getAppInfo();
+    // this.share();
+    // this.getAppInfo();
     if (this.$route.query.state || this.$route.query.source) {
       this.login();
     } else if (!this.ifLogged) {

@@ -25,7 +25,7 @@ export default class InputSearchList extends Vue {
   @Prop({default: {}}) private change!: any;
   @Prop({default: {}}) private requestCallback!: any;
   private handleClick(obj: any): void {
-    this.change(obj);
+    this.change(obj.region);
     this.requestCallback();
   }
 }

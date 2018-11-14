@@ -1,7 +1,9 @@
 <template>
   <div class="room_detail_info" v-if="detailInfo !== ''">
 
-    <swiper>
+    <swiper
+    :slotArr="slotArr"
+    >
       <div slot="video_wrap" class="swiper_item_wrap">
         <video-detail
         :hasVideo="detailInfo.hasVideo"
@@ -45,6 +47,8 @@ import RoomLocation from '@/components/detail/room_location.vue';
   },
 })
 export default class RoomDetailInfo extends Vue {
+  private slotArr: any[] = ['video_wrap', 'image_wrap'];
+
   @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
   @State((state: any) => state.ResidenceModule.requesting) private requesting!: boolean;
 
@@ -133,6 +137,6 @@ export default class RoomDetailInfo extends Vue {
 .swiper_item_wrap {
   box-sizing: border-box;
   padding: 0 5px;
-  height: 100%;
+  height: 190px;
 }
 </style>
