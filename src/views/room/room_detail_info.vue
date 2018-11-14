@@ -133,6 +133,7 @@ export default class RoomDetailInfo extends Vue {
 .room_detail_info {
   box-sizing: border-box;
   background-color: #fff;
+  padding: 10px 0;
 }
 .swiper_item_wrap {
   box-sizing: border-box;

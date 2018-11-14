@@ -1,6 +1,9 @@
 <template>
-  <div class="video_detail_wrap" v-if="hasVideo">
-    <img :src="video.screenshot" />
+  <div
+  class="video_detail_wrap"
+  v-if="hasVideo"
+  :style="'background: url('+ video.screenshot +') no-repeat center; background-size: 100%;'"
+  >
     <span>{{refreshTime}}</span>
   </div>
   <div class="video_detail_wrap no_video" v-else>

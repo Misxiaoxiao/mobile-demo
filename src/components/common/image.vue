@@ -1,6 +1,6 @@
 <template>
-  <div class="image_wrap">
-    <img :src="src" />
+  <div class="image_wrap" :style="'background: url(' + src +') no-repeat center; background-size: 100%;'">
+    <!-- <img :src="src" /> -->
     <div :class="hasVideo ? 'has_video_icon' : ''"></div>
   </div>
 </template>

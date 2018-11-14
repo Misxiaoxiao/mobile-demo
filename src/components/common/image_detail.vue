@@ -1,6 +1,7 @@
 <template>
-  <div class="image_detail_wrap">
-    <img :src="photoSrc" alt="">
+  <div class="image_detail_wrap"
+  :style="'background: url('+ photoSrc +') no-repeat center; background-size: 100%;'">
+    <!-- <img :src="photoSrc" alt=""> -->
     <span>
       <i class="iconfont">&#xe65a;</i>
       {{photos.length}}
