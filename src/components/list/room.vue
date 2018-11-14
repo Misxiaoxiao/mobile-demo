@@ -76,7 +76,16 @@ export default class RoomList extends Vue {
   }
 
   private view(item: any): void {
-    this.$router.push({name: 'bedDetail', params: {id: item.roomId}, query: {biz: item.biz}});
+    const { href } = this.$router.resolve({
+      name: 'bedDetail',
+      params: {
+        id: item.roomId,
+      },
+      query: {
+        biz: item.biz,
+      },
+    })
+    window.open(href, '_blank');
   }
 }
 </script>
