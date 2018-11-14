@@ -124,6 +124,7 @@ export default class SearchDemand extends Vue {
   height: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
+  background-color: #fff;
   > div {
     flex: 1;
   }
