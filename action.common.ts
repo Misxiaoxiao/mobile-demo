@@ -45,7 +45,7 @@ export const ActionBuilder = (options: ActionOptions) => {
             if (options.actionStart) commit(options.actionStart, params ? params.data : {})
             // if has method, excute
             if (options.method) {
-                let res = await options.method(params.data)
+                let res = await options.method(params ? params.data : {})
                 let result = res.data.result
                 commit(options.actionSuccess, {
                     result: result
