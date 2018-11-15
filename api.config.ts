@@ -1,9 +1,15 @@
 import Interface from '@/interface'
 
+const storage = window.localStorage
+
 const API_VERSION = 'client';
 const API_ROOT = 'https://services.api.zuker.im/client'
 
-export const token = new Interface.Token('zuber-')
+export const token = new Interface.Token('zuber-', {
+    getItem: (key: string): string | null => storage.getItem(key),
+    setItem: (key: string, value: string): void => storage.setItem(key, value),
+    removeItem: (key: string): void => storage.removeItem(key)
+})
 
 const api = new Interface.ApiResource(API_ROOT, API_VERSION, token)
 
