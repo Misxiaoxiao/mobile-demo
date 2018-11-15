@@ -10,7 +10,7 @@
       </div>
       <div class="demand_list_des">{{demandItem.demand.content}}</div>
       <div class="demand_list_position">
-        <i class="position_icon"></i>
+        <i class="position_icon iconfont">&#xe680;</i>
         {{demandItem.demand.localization}}
       </div>
     </div>
@@ -56,6 +56,9 @@ export default class DemandList extends Vue {
   .position_icon {
     width: 10px;
     height: 12px;
+    font-size: 10px;
+    color: #ccc;
+    margin-right: 5px;
   }
 }
 </style>

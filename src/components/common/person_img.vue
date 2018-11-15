@@ -41,7 +41,7 @@ export default class PersonImg extends Vue {
   color: #FF7D7D;
 }
 .person_wrap {
-  // overflow: hidden;
+  overflow: hidden;
   .person_img_wrap {
     float: left;
     position: relative;
@@ -75,17 +75,20 @@ export default class PersonImg extends Vue {
       display: flex;
       align-items: center;
       > span {
+        // float: right;
+        display: inline-block;
         color: #ccc;
         background-color: #eee;
         border-radius: 10px;
         padding: 1px 4px;
         font-size: 10px;
+        margin-left: 5px;
+        padding-right: 5px;
         > i {
           font-size: 6px;
         }
       }
       > span.active {
-        padding-right: 5px;
         border: 1px solid #66D4C3;
         color: #66D4C3;
         background-color: #F0FFFD;
