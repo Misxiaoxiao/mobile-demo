@@ -1,13 +1,19 @@
-const storage = window.localStorage
+export interface Storage {
+    getItem(key: string): string | null;
+    setItem(key: string, value: string): void;
+    removeItem(key: string): void;
+}
 
 export default class LocalStorage {
-    private prefix: string;
-    constructor (prefix: string) {
-        this.prefix = prefix;
+    private prefix: string
+    private storage: Storage
+    constructor (prefix: string, storage: Storage) {
+        this.prefix = prefix
+        this.storage = storage
     }
     getValue (key: string) {
         let _key = this.prefix + key
-        let _val = storage.getItem(_key)
+        let _val = this.storage.getItem(_key)
         try {
             return _val ? JSON.parse(_val) : _val;
         } catch (e) {
@@ -22,10 +28,10 @@ export default class LocalStorage {
         } catch (e) {
             _value = value
         }
-        storage.setItem(_key, _value)
+        this.storage.setItem(_key, _value)
     }
     removeValue (key: string) {
         let _key = this.prefix + key
-        storage.removeItem(_key)
+        this.storage.removeItem(_key)
     }
 }

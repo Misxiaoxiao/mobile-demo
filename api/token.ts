@@ -1,9 +1,9 @@
-import LocalStorage from '../utils/localstorage'
+import LocalStorage, { Storage } from '../utils/localstorage'
 
 export default class Token extends LocalStorage {
-    constructor (prefix: string | undefined) {
+    constructor (prefix: string, storage: Storage) {
         const _prefix:string = prefix ? prefix : ''
-        super (_prefix)
+        super (_prefix, storage)
     }
     getToken (key: string) {
         if (key === 'api') {
