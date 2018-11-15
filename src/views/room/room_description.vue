@@ -1,7 +1,7 @@
 <template>
   <div class="room_description_wrap" v-if="roomDescription !== ''">
     <h4>房源描述</h4>
-    <div class="person_wrap" @click.stop="view">
+    <div class="room_description_person" @click.stop="view">
 
       <person-img
       v-if="roomDescription.person !== ''"
@@ -97,8 +97,11 @@ export default class RoomDescription extends Vue {
   margin-top: 10px;
   > h4 {
     font-size: 18px;
+    line-height: 25px;
   }
-  > .person_wrap {
+  > .room_description_person {
+    box-sizing: border-box;
+    padding: 5px;
     height: 60px;
     display: flex;
     align-items: center;
@@ -107,11 +110,12 @@ export default class RoomDescription extends Vue {
   }
   .room_des_text_wrap {
     padding: 10px 0 15px;
+    line-height: 18px;
     border-bottom: 1px solid #EBEBEB;
   }
   .room_des_msg_info_wrap {
     > .msg_info {
-      margin-top: 5px;
+      margin-top: 10px;
       overflow: hidden;
       display: flex;
       > .msg_info_left {
@@ -125,6 +129,7 @@ export default class RoomDescription extends Vue {
       }
       > .msg_info_right {
         color: #999999;
+        line-height: 20px;
       }
     }
   }

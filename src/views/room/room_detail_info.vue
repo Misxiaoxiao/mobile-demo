@@ -58,6 +58,7 @@ export default class RoomDetailInfo extends Vue {
         return {
           biz: true,
           photo: this.bedDetail.bed.photo.src, // 图片
+          type: this.bedDetail.room.biz_attr.type,
           photos: this.bedDetail.bed.photos,
           hasVideo: this.bedDetail.bed.has_video, // 视频
           video: this.bedDetail.bed.video ? this.bedDetail.bed.video : '',
@@ -139,5 +140,16 @@ export default class RoomDetailInfo extends Vue {
   box-sizing: border-box;
   padding: 0 5px;
   height: 190px;
+  box-sizing: border-box;
+}
+.swiper-slide:first-child {
+  .swiper_item_wrap {
+    padding-left: 0;
+  }
+}
+.swiper-slide:last-child {
+  .swiper_item_wrap {
+    padding-right: 0;
+  }
 }
 </style>

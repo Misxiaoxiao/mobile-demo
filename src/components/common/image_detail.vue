@@ -1,7 +1,8 @@
 <template>
-  <div class="image_detail_wrap"
-  :style="'background: url('+ photoSrc +') no-repeat center; background-size: 100%;'">
-    <!-- <img :src="photoSrc" alt=""> -->
+  <div class="image_detail_wrap photo"
+  :style="'background-image: url('+ photoSrc +');'"
+  @click.stop="showImagePreview"
+  >
     <span>
       <i class="iconfont">&#xe65a;</i>
       {{photos.length}}
@@ -11,11 +12,32 @@
 
 <script lang='ts'>
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { ImagePreview } from 'vant';
 
 @Component
 export default class ImageDetail extends Vue {
   @Prop({default: ''}) private photoSrc!: string;
   @Prop({default: {}}) private photos!: any;
+
+  get Images(): string[] {
+    return this.photos.map((n: any, i: any) => {
+      return n.src;
+    });
+  }
+
+  private showImagePreview(position: any, timer: any) {
+    const that = this;
+    const instance = ImagePreview({
+      images: that.Images,
+      startPosition: typeof position === 'number' ? position : 0,
+    });
+
+    if (timer) {
+      setTimeout(() => {
+        instance.close();
+      }, timer);
+    }
+  }
 }
 </script>
 

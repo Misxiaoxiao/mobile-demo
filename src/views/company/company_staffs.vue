@@ -15,7 +15,7 @@
         :key="i"
         class="staffs_item"
         >
-          <div class="staffs_img">
+          <div class="staffs_img" :style="'background: url(' + n.avatar.src + ') no-repeat center; background-size: 100%;'">
             <img :src="n.avatar.src" alt="">
           </div>
           <div class="staffs_name text-o1 text-ellipsis">

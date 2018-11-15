@@ -28,14 +28,16 @@ export default class RoomLocation extends Vue {
 
 <style lang="less">
 .room_locate_wrap {
-  padding: 15px;
+  padding: 15px 15px 0 15px;
   color: #333;
   .room_locate_title {
     > span.room_locate_left {
       > i {
         font-size: 12px;
+        margin-right: 5px;
       }
       font-size: 15px;
+      line-height: 18px;
     }
     > span.room_locate_right {
       float: right;
@@ -46,7 +48,9 @@ export default class RoomLocation extends Vue {
     }
   }
   > p {
+    margin-top: 15px;
     > span {
+      line-height: 15px;
       font-size: 12px;
       margin: 0 5px;
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="person_wrap">
-    <div class="person_img_wrap">
-      <img :src="info.avatar.src" alt="">
+    <div class="person_img_wrap photo"
+    :style="'background-image: url(' + info.avatar.src + ');'">
       <i class="gender_icon iconfont m" v-if="info.gender === 'm'">&#xe677;</i>
       <i class="gender_icon iconfont f" v-else>&#xe644;</i>
     </div>
@@ -41,48 +41,51 @@ export default class PersonImg extends Vue {
   color: #FF7D7D;
 }
 .person_wrap {
-  overflow: hidden;
+  // overflow: hidden;
   .person_img_wrap {
     float: left;
     position: relative;
-    > img {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     .gender_icon {
-      width: 16px;
-      height: 16px;
-      text-align: center;
-      line-height: 16px;
+      width: 12px;
+      height: 12px;
       position: absolute;
-      right: -2px;
-      bottom: 5px;
+      right: -4px;
+      bottom: 0px;
       background-color: #fff;
       border-radius: 50%;
-      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      border: 2px solid #fff;
+      overflow: hidden;
     }
   }
   .person_img_des {
     float: left;
     margin-left: 15px;
     color: #484848;
+    line-height: 18px;
     > p {
       font-size: 14px;
-      line-height: 24px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
       > span {
         color: #ccc;
         background-color: #eee;
-        border-radius: 8px;
-        padding: 0 2px;
+        border-radius: 10px;
+        padding: 1px 4px;
         font-size: 10px;
         > i {
           font-size: 6px;
         }
       }
       > span.active {
-        padding-right: 4px;
+        padding-right: 5px;
         border: 1px solid #66D4C3;
         color: #66D4C3;
         background-color: #F0FFFD;

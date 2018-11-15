@@ -1,6 +1,6 @@
 <template>
-  <div class="image_wrap" :style="'background: url(' + src +') no-repeat center; background-size: 100%;'">
-    <!-- <img :src="src" /> -->
+  <div class="image_wrap photo"
+  :style="'background-image: url(' + src +');'">
     <div :class="hasVideo ? 'has_video_icon' : ''"></div>
   </div>
 </template>
@@ -20,10 +20,6 @@ export default class MyImage extends Vue {
   position: relative;
   width: 100%;
   height: 100%;
-  img {
-    width: 100%;
-    height: 100%;
-  }
   > div {
     position: absolute;
     right: 0;

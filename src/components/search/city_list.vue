@@ -18,10 +18,8 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 export default class CityList extends Vue {
   @Prop({default: []}) private cityList!: any[];
   @Prop({default: {}}) private change!: any;
-  @Prop({default: {}}) private requestCallback!: any;
   private handleClick(item: string): void {
     this.change(item);
-    this.requestCallback();
   }
 }
 </script>

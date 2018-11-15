@@ -2,8 +2,8 @@
   <div class="company_img_wrap">
     <div>
       <div class="company_wrap_left">
-        <div class="company_img">
-          <img :src="info.logo.src" alt="">
+        <div class="company_img photo"
+        :style="'background-image: url(' + info.logo.src + ');'">
         </div>
         <div class="company_username">{{info.name}}</div>
       </div>

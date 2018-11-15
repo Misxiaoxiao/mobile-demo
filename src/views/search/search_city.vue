@@ -20,13 +20,11 @@
         <hot-city
         :currentCity="currentCity"
         :change="changeCity"
-        :requestCallback="requestRefreshCallback"
         />
 
         <city-list
         :cityList="cityList"
         :change="changeCity"
-        :requestCallback="requestRefreshCallback"
         />
       </div>
     </van-popup>
@@ -89,12 +87,7 @@ export default class SearchCity extends Vue {
     this.getCityList({
       data: {},
     });
-  }
-  private requestRefreshCallback(): void {
-    // this.changeRoomHasNextPage(true);
-    // this.searchRoom({
-    //   isMore: false,
-    // });
+    this.getGeoLocation();
   }
 }
 </script>

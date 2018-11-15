@@ -91,13 +91,15 @@ export default class RoomOtherInfo extends Vue {
 .room_other_info_wrap {
   color: #333333;
   margin-top: 10px;
-  padding: 15px;
+  padding: 15px 15px 0;
   background-color: #fff;
   > h4 {
     font-size: 18px;
-    margin-bottom: 10px;
+    line-height: 25px;
   }
   li.room_other_item > div {
+    box-sizing: border-box;
+    padding: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -115,7 +117,6 @@ export default class RoomOtherInfo extends Vue {
       > p {
         font-size: 12px;
         color: #999999;
-        margin-bottom: 10px;
       }
     }
     .room_other_item_right {
@@ -130,6 +131,9 @@ export default class RoomOtherInfo extends Vue {
         font-size: 12px;
       }
     }
+  }
+  li.room_other_item:last-child > div {
+    border: 0;
   }
 }
 </style>

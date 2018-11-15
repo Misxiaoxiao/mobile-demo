@@ -42,7 +42,7 @@ export default class RoomList extends Vue {
       let roomTitle: string = '';
       if (room.biz) { // 如果为b端房源
         types = room.biz_attr.beds[0].number;
-        roomTitle = room.biz_attr.beds[0].title;
+        roomTitle = room.biz_attr.type === 1 ? room.biz_attr.beds[0].title : room.title;
       } else { // 如果为c端房源
         roomTitle = `${this.setType(room.client_attr.beds[0].type)}·${room.client_attr.beds[0].title}`;
         types = [
@@ -84,7 +84,7 @@ export default class RoomList extends Vue {
       query: {
         biz: item.biz,
       },
-    })
+    });
     window.open(href, '_blank');
   }
 }

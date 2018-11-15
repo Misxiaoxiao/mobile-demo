@@ -22,11 +22,9 @@ export default class HotCity extends Vue {
 
   @Prop({default: ''}) private currentCity!: string;
   @Prop({default: {}}) private change!: any;
-  @Prop({default: {}}) private requestCallback!: any;
 
   private handleClick(city: string): void {
     this.change(city);
-    // this.searchRoom();
   }
 }
 </script>

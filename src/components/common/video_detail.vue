@@ -1,12 +1,12 @@
 <template>
   <div
-  class="video_detail_wrap"
+  class="video_detail_wrap photo"
   v-if="hasVideo"
-  :style="'background: url('+ video.screenshot +') no-repeat center; background-size: 100%;'"
+  :style="'background-image: url('+ video.screenshot +');'"
   >
     <span>{{refreshTime}}</span>
   </div>
-  <div class="video_detail_wrap no_video" v-else>
+  <div class="video_detail_wrap photo no_video" v-else>
     <span>{{refreshTime}}</span>
   </div>
 </template>
@@ -24,13 +24,12 @@ export default class VideoDetail extends Vue {
 
 <style lang='less'>
 .no_video {
-  background: url('../../assets/Need_video@2x.png') no-repeat center;
-  background-size: 100%;
+  background-image: url('../../assets/Need_video@2x.png');
 }
 .video_detail_wrap {
   position: relative;
   width: 100%;
-  height: 190px;
+  height: 12rem;
   border-radius: 5px;
   overflow: hidden;
   > img {
