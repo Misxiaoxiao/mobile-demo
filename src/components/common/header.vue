@@ -43,6 +43,7 @@ export default class RoomDetailHeader extends Vue {
   justify-content: space-between;
   align-items: center;
   border: 1px solid #EBEBEB;
+  background-color: #fff;
 }
 .room_detail_header_left {
   width: 20%;

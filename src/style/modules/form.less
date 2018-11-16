@@ -1,0 +1,47 @@
+.form {
+  &-row {
+    height: 48px;
+    > div {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+  &-col {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  &-label {
+    color: @color-f2;
+    font-size: @font-t1;
+  }
+  &-text {
+    color: @color-f1;
+    font-size: @font-t1;
+  }
+  &-placeholder {
+    color: @color-f4;
+    font-size: @font-t1;
+  }
+  &-right-icon {
+    color: @color-f3;
+    font-size: @font-t1;
+  }
+}
+
+.input_wrap {
+  background-color: #fff;
+  margin: 10px;
+  .van-search {
+    padding: 0;
+    border-radius: 50px;
+    .van-cell {
+      padding: 4px 8px;
+      border-radius: 50px;
+      background-color: #F3F4F5;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

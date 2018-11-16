@@ -1,8 +1,8 @@
 <template>
   <div class="user_wrap">
-    <common-header>
+    <!-- <common-header>
       <div slot="header_right" class="user_header_right">···</div>
-    </common-header>
+    </common-header> -->
     <div class="user_detail_wrap" v-if="!requesting">
       <div class="user_detail_info">
         <person-img

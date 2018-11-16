@@ -1,15 +1,30 @@
 <template>
   <div class="user_footer_wrap">
-    <div class="button-b1-active">关注</div>
-    <div class="button-b2-warn">私信联系</div>
-    <div class="button-b2-primary">评论/投诉</div>
+    <van-col :span="7">
+      <link-attention />
+    </van-col>
+    <van-col :span="7">
+      <link-contact />
+    </van-col>
+    <van-col :span="7">
+      <link-comment />
+    </van-col>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import LinkAttention from '@/components/operation/link_attention.vue';
+import LinkComment from '@/components/operation/link_comment.vue';
+import LinkContact from '@/components/operation/link_contact.vue';
 
-@Component
+@Component({
+  components: {
+    LinkAttention,
+    LinkComment,
+    LinkContact,
+  },
+})
 export default class UserFooter extends Vue {}
 </script>
 

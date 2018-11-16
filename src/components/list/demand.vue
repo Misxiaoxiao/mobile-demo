@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="demand_list_item">
+    <div class="demand_list_item" @click.stop="showMessage">
       <div class="demand_list_item_title">
         <person-img :info="demandItem.user" :formatTime="demandItem.demand.format_last_modify_time" />
       </div>
@@ -28,6 +28,12 @@ import PersonImg from '@/components/common/person_img.vue';
 })
 export default class DemandList extends Vue {
   @Prop({default: {}}) private demandItem!: any;
+
+  private showMessage(): void {
+    this.$dialog.alert({
+      message: '请下载App查看',
+    });
+  }
 }
 </script>
 

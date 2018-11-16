@@ -1,7 +1,7 @@
 <template>
   <div class="company_wrap">
     
-    <common-header />
+    <!-- <common-header /> -->
 
     <div class="company_detail_wrap" v-if="!requesting">
       <div class="company_detail_info">

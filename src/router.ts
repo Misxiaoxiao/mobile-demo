@@ -64,6 +64,14 @@ export default new Router({
       },
     },
     {
+      path: '/subscription',
+      name: 'subscription',
+      component: () => import('./views/subscription/index.vue'),
+      meta: {
+        title: '订阅房源',
+      },
+    },
+    {
       path: '/download',
       name: 'download',
       component: () => import('./views/download/index.vue'),

@@ -1,7 +1,7 @@
 <template>
   <div class="search_city" @click.stop="changePopup(true)">
     <i class="iconfont location_icon">&#xe680;</i>{{currentCity}}
-    <van-popup v-model="showPopup" position="right" :overlay="true">
+    <van-popup v-model="showPopup" position="right">
       <div class="popup_wrap_header">
         <i
         class="iconfont back"

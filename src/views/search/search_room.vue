@@ -44,7 +44,7 @@
           >
             <div class="banner">
               <p>
-                <i class="iconfont">&#xe658;</i>zuber定金协议 / 租赁合同，方便安全有保障
+                <i class="iconfont">&#xe658;</i>订阅房源，第一时间收到匹配推送
               </p>
               <i class="iconfont next_yellow_icon">&#xe601;</i>
             </div>

@@ -61,7 +61,7 @@ import { State, Action } from 'vuex-class';
 import Popup from '@/components/common/popup.vue';
 import RoomInput from '@/components/search/input.vue';
 import SearchFindList from '@/components/search/find_list.vue';
-import InputSearchList from '@/components/search/input_search_list.vue';
+import InputSearchList from '@/components/list/input_search_list.vue';
 
 @Component({
   components: {

@@ -12,7 +12,7 @@ import Platform from '@/utils/platform';
 export default class LinkEdit extends Vue {
   private jumpUrl: string = '';
 
-  @Prop({default: ''}) editClass!: string;
+  @Prop({default: ''}) private editClass!: string;
 
   private created(): void {
     const platform = new Platform();

@@ -28,19 +28,4 @@ export default class RoomInput extends Vue {
 </script>
 
 <style lang="less">
-.input_wrap {
-  background-color: #fff;
-  margin: 10px;
-  .van-search {
-    padding: 0;
-    border-radius: 50px;
-    .van-cell {
-      padding: 4px 8px;
-      border-radius: 50px;
-      background-color: #F3F4F5;
-      display: flex;
-      align-items: center;
-    }
-  }
-}
 </style>
