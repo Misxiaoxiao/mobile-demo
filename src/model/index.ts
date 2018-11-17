@@ -46,4 +46,12 @@ export const SHARE_INFO = {
   imgUrl: 'https://resources.zuber.im/mobile_share_logo.png',
 };
 
+export const SUBSCRIPTION_BED_COUNT = [
+  '1室', '2室', '3室', '4室+',
+];
+
+export const SUBSCRIPTION_ROOM_TYPE = [
+  '室友合租', '转租房源', '业主出租', '长租公寓',
+];
+
 export const APP_URL = 'http://a.app.qq.com/o/simple.jsp?pkgname=im.zuber.app';

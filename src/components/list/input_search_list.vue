@@ -42,6 +42,7 @@ export default class InputSearchList extends Vue {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: #fff;
     > p {
       font-size: 14px;
       color: #333333;

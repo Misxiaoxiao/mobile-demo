@@ -25,17 +25,19 @@
       </div>
     </div>
 
-    <input-search-list
-    :isShow="showInputSearchList"
-    :list="addresses"
-    :change="callback"
-    :requestCallback="request"
-    />
+    <div class="address_search_list_wrap">
+      <input-search-list
+      :isShow="isShow"
+      :list="addresses"
+      :change="callback"
+      :requestCallback="request"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import InputSearchList from '@/components/list/input_search_list.vue';
 
 @Component({
@@ -44,6 +46,38 @@ import InputSearchList from '@/components/list/input_search_list.vue';
   },
 })
 export default class AddressSearch extends Vue {
+  private val: string = '';
+  private isShow: boolean = false;
+
+  @Prop({default: {}}) private search!: any;
   @Prop({default: {}}) private changePopup!: any;
+  @Prop({default: []}) private addresses!: any[];
+  @Prop({default: {}}) private changeAddress!: any;
+
+  @Watch('val') private changeVal(): void {
+    this.search({
+      data: {
+        keyword: this.val,
+        city: '上海',
+      },
+    });
+  }
+
+  private show(bool: boolean): void {
+    this.isShow = bool;
+  }
+
+  private callback(val: string): void {
+    this.changeAddress({
+      name: val,
+    });
+    this.changePopup();
+    this.val = '';
+    this.isShow = false;
+  }
+
+  private request(): void {
+    // body
+  }
 }
 </script>

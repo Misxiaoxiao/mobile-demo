@@ -9,13 +9,24 @@
     <address-select
     :address="subCondition.address"
     :change="changeAddress"
+    :search="searchAddressByKeyword"
+    :addresses="addresses"
+    :changeAddress="changeAddress"
     />
 
-    <money-select />
+    <money-select
+    :change="changeMoney"
+    />
 
-    <time-select />
+    <time-select
+    :time="subCondition.time"
+    :change="changeTime"
+    />
 
-    <other-select />
+    <other-select
+    :other="subCondition.other"
+    :change="changeOther"
+    />
 
     <div class="subscription_footer">
       <div class="submit_btn">提交</div>
@@ -46,9 +57,9 @@ export default class SubscriptionForm extends Vue {
     city: '北京',
     address: {
       name: '',
-      isWork: false,
+      isWork: 0,
     },
-    money: 0,
+    money: '',
     time: '', // 2018-11-28
     other: {
       item: 0, // 0 表示没有  1 为整租  2为合租
@@ -58,6 +69,8 @@ export default class SubscriptionForm extends Vue {
     },
   };
 
+  @State((state: any) => state.LocateModule.addresses) private addresses!: string;
+
   @Action('searchAddressByKeyword') private searchAddressByKeyword!: any;
 
   private changeCity(city: string): void {
@@ -66,6 +79,18 @@ export default class SubscriptionForm extends Vue {
 
   private changeAddress(obj: any): void {
     this.subCondition.address = Object.assign({}, this.subCondition.address, obj);
+  }
+
+  private changeMoney(money: string): void {
+    this.subCondition.money = money;
+  }
+
+  private changeTime(time: string): void {
+    this.subCondition.time = time;
+  }
+
+  private changeOther(obj: any): void {
+    this.subCondition.other = Object.assign({}, this.subCondition.other, obj);
   }
 }
 </script>
