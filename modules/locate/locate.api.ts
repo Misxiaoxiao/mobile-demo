@@ -1,4 +1,4 @@
-import { MapResource } from '../../api.config'
+import { MapResource } from '../../api/config'
 
 interface QueryParams {
     keyword: string;

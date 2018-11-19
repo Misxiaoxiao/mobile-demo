@@ -1,4 +1,4 @@
-import { ViewResource, BizResource, FollowResource } from '../../api.config'
+import { ViewResource, BizResource, FollowResource } from '../../api/config'
 
 interface IdParams {
     id: string;

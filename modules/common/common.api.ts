@@ -1,4 +1,4 @@
-import { CommonResource } from '../../api.config'
+import { CommonResource } from '../../api/config'
 import { DeviceModel } from './common.model'
 
 interface TrafficParams {

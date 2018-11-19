@@ -11,7 +11,7 @@ import {
 } from './locate.types'
 
 import { Location } from './locate.model'
-import {token} from '@/vuex/api.config'
+import {token} from '@/vuex/api/config'
 
 export class LocateState {
     querying: boolean = false

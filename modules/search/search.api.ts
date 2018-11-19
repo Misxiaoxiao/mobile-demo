@@ -1,4 +1,4 @@
-import { SearchResource } from '../../api.config'
+import { SearchResource } from '../../api/config'
 
 interface SearchCondition {
     city: string;

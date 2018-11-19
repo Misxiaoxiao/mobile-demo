@@ -1,4 +1,4 @@
-import {AuthResource} from '../../api.config'
+import {AuthResource} from '../../api/config'
 
 type Source = 'weixin' | 'weibo'
 

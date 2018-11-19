@@ -1,17 +1,18 @@
-import Interface from '@/interface'
+import Token from '@/interface/authorization/token'
+import ApiResource from './resource'
 
 const storage = window.localStorage
 
 const API_VERSION = 'client';
 const API_ROOT = 'https://services.api.zuker.im/client'
 
-export const token = new Interface.Token('zuber-', {
+export const token = new Token('zuber-', {
     getItem: (key: string): string | null => storage.getItem(key),
     setItem: (key: string, value: string): void => storage.setItem(key, value),
     removeItem: (key: string): void => storage.removeItem(key)
 })
 
-const api = new Interface.ApiResource(API_ROOT, API_VERSION, token)
+const api = new ApiResource(API_ROOT, API_VERSION, token)
 
 export const AuthResource = () => api.resource('/users')
 export const CommonResource = () => api.resource('/commons' + token.getToken('api'))

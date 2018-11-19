@@ -1,4 +1,4 @@
-import { FileResource } from '../../api.config'
+import { FileResource } from '../../api/config'
 
 export default {
     getTokens: (count: number) => {

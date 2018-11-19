@@ -1,4 +1,4 @@
-import { ContractResource } from '../../api.config'
+import { ContractResource } from '../../api/config'
 
 interface IdParams {
     id?: string;
