@@ -1,10 +1,45 @@
 <template>
   <div
-  :class="'condition_locate' + (bool || this.type !== '' ? ' condition_locate_active' : '')"
-  @click.stop="toggleTypePopup">
-    {{label}} <i :class="'snajiao_icon' + (bool || this.type !== '' ? ' snajiao_icon_active' : '')"></i>
-    <div class="condition_locate_wrap" v-show="bool">
-      <div :class="'row' + (item.value !== '' && type === item.value ? ' active' : '')" v-for="(item, i) in items" :key="i" @click.stop="handleClick(item.value)">{{item.key}}</div>
+  :class="bool || this.label !== '整租合租' ? 'condition-btn active' : 'condition-btn'"
+  >
+    <p
+    @click.stop="toggleTypePopup"
+    >
+      {{label}}
+      <i :class="'snajiao_icon' + (bool || this.label !== '整租合租' ? ' snajiao_icon_active' : '')"></i>
+    </p>
+    <div class="condition-wrap" v-show="bool">
+      <div class="type_wrap">
+        <div class="type_wrap_content">
+          <div class="condition-label" style="margin-top: 0;">整租</div>
+          <div class="condition-content">
+            <van-col
+            :span="6"
+            v-for="(n, i) in bedCount"
+            :key="i"
+            >
+              <div
+              :class="(type.bedCount - 1) === i ? 'button-b1-active' : 'button-b1'"
+              @click.stop="changeBedCount(i)"
+              >{{n}}</div>
+            </van-col>
+          </div>
+          <div class="condition-label">合租</div>
+          <div class="condition-content">
+            <van-col
+            :span="6"
+            v-for="(n, i) in roomType"
+            :key="i"
+            >
+              <div
+              :class="(type.type - 1) === i ? 'button-b1-active' : 'button-b1'"
+              @click.stop="changeType(i)"
+              >{{n}}</div>
+            </van-col>
+          </div>
+        </div>
+        <div class="type_wrap_btn" @click.stop="clickLimit">不限</div>
+      </div>
     </div>
   </div>
 </template>
@@ -12,27 +47,56 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
-import { ROOM_CONDITION_TYPE_ITEMS } from '@/model/index';
+import { BED_COUNT, CONDITION_ROOM_TYPE } from '@/model/index';
 
 @Component
-export default class RoomConditionLocate extends Vue {
-  private items: any[] = ROOM_CONDITION_TYPE_ITEMS;
-  @Prop({default: ''}) private type!: any;
+export default class RoomConditionType extends Vue {
+  private bedCount: any[] = BED_COUNT;
+  private roomType: any[] = CONDITION_ROOM_TYPE;
+  @Prop({default: {}}) private type!: any;
   @Prop({default: false}) private bool!: boolean;
   @Prop({default: {}}) private show!: any;
   @Prop({default: {}}) private change!: any;
   @Prop({default: {}}) private requestCallback!: any;
   get label(): any {
-    if (this.type === '') {
-      return '整租合租';
-    } else {
-      for (const i of this.items) {
-        if (i.value === this.type) {
-          return i.key;
-        }
-      }
+    if (this.type.bedCount !== '') {
+      return `整租${this.bedCount[this.type.bedCount - 1]}`;
+    } else if (this.type.type !== '') {
+      return this.roomType[this.type.type - 1];
     }
+    return '整租合租';
   }
+
+  private changeBedCount(i: number): void {
+    const obj = {
+      bedCount: (+i + 1),
+      type: '',
+    };
+    this.change(obj);
+    this.requestCallback();
+    this.show(false);
+  }
+
+  private changeType(i: number): void {
+    const obj = {
+      bedCount: '',
+      type: (+i + 1),
+    };
+    this.change(obj);
+    this.requestCallback();
+    this.show(false);
+  }
+
+  private clickLimit(): void {
+    const obj = {
+      bedCount: '',
+      type: '',
+    };
+    this.change(obj);
+    this.requestCallback();
+    this.show(false);
+  }
+
   private toggleTypePopup(): void {
     if (this.bool) {
       this.show(false);
@@ -40,37 +104,25 @@ export default class RoomConditionLocate extends Vue {
       this.show(true);
     }
   }
-  private handleClick(i: any): void {
-    this.change(i);
-    this.show(false);
-    this.requestCallback();
-  }
 }
 </script>
 
 <style lang="less">
-.condition_locate {
-  width: 25%;
-  justify-content: center;
-  font-size: 12px;
-  color: #333333;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-}
-.condition_locate_active {
-  color: #66D4C3;
-}
-.snajiao_icon {
-  width: 16px;
-  height: 11px;
-  background: url('../../assets/Filter_normall@2x.png') no-repeat center;
-  background-size: 50%;
-}
-.snajiao_icon_active {
-  background: url('../../assets/Filter_col@2x.png') no-repeat center;
-  background-size: 50%;
+.type_wrap {
+  background-color: #fff;
+  position: relative;
+  > .type_wrap_content {
+    padding: 15px 15px 15px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+  }
+  .type_wrap_btn {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    border-top: 1px solid #eee;
+  }
 }
 </style>

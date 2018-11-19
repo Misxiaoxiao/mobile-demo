@@ -1,7 +1,14 @@
 <template>
-  <div :class="'condition_locate' + (bool || gender !== '' ? ' condition_locate_active' : '')" @click.stop="toggleClick">
-    {{gender === '' ? '性别' : (gender === 'm' ? '限男生' : '限女生')}} <i :class="'snajiao_icon' + (bool || gender !== '' ? ' snajiao_icon_active' : '')"></i>
-    <div class="condition_locate_wrap" v-show="bool">
+  <div
+  :class="bool || gender !== '' ? 'condition-btn active' : 'condition-btn'"
+  >
+    <p
+    @click.stop="toggleClick"
+    >
+      {{gender === '' ? '性别' : (gender === 'm' ? '限男生' : '限女生')}}
+      <i :class="'snajiao_icon' + (bool || gender !== '' ? ' snajiao_icon_active' : '')"></i>
+    </p>
+    <div class="condition-wrap" v-show="bool">
       <div :class="'row' + (gender === 'm' ? ' active' : '')" @click.stop="handleClick('m')">
         限男生
       </div>
@@ -39,28 +46,4 @@ export default class DemandConditionSex extends Vue {
 </script>
 
 <style lang="less">
-.condition_locate {
-  width: 25%;
-  font-size: 12px;
-  color: #333333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-}
-.condition_locate_active {
-  color: #66D4C3;
-}
-.snajiao_icon {
-  width: 16px;
-  height: 11px;
-  background: url('../../assets/Filter_normall@2x.png') no-repeat center;
-  background-size: 50%;
-}
-.snajiao_icon_active {
-  background: url('../../assets/Filter_col@2x.png') no-repeat center;
-  background-size: 50%;
-}
 </style>

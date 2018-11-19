@@ -10,6 +10,7 @@ import { State, Action } from 'vuex-class';
 
 @Component
 export default class FavorRoom extends Vue {
+  @Prop({default: false}) private collected!: boolean;
   @State((state: any) => state.AuthModule.ifLogged) private ifLogged!: boolean;
 
   private collect(): void {

@@ -123,13 +123,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { SUBSCRIPTION_BED_COUNT, SUBSCRIPTION_ROOM_TYPE } from '@/model/index';
+import { BED_COUNT, SUBSCRIPTION_ROOM_TYPE } from '@/model/index';
 
 @Component
 export default class OtherSelect extends Vue {
   private isOpenOne: boolean = false;
   private isOpenTwo: boolean = false;
-  private bedCount: any[] = SUBSCRIPTION_BED_COUNT;
+  private bedCount: any[] = BED_COUNT;
   private roomType: any[] = SUBSCRIPTION_ROOM_TYPE;
 
   private bedCountLabel: string = '';

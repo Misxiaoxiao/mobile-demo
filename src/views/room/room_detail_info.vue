@@ -59,7 +59,7 @@ export default class RoomDetailInfo extends Vue {
           biz: true,
           photo: this.bedDetail.bed.photo.src, // 图片
           type: this.bedDetail.room.biz_attr.type,
-          photos: this.bedDetail.bed.photos,
+          photos: this.bedDetail.bed.photos ? this.bedDetail.bed.photos : [],
           hasVideo: this.bedDetail.bed.has_video, // 视频
           video: this.bedDetail.bed.video ? this.bedDetail.bed.video : '',
           refreshTime: this.bedDetail.bed.refresh_time,
@@ -92,7 +92,7 @@ export default class RoomDetailInfo extends Vue {
         return {
           biz: false,
           photo: this.bedDetail.bed.photo.src, // 图片
-          photos: this.bedDetail.bed.photos,
+          photos: this.bedDetail.bed.photos ? this.bedDetail.bed.photos : [],
           hasVideo: this.bedDetail.bed.has_video, // 视频
           video: this.bedDetail.bed.video ? this.bedDetail.bed.video : '',
           refreshTime: this.bedDetail.bed.refresh_time,

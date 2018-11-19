@@ -58,6 +58,7 @@ export default class DemandList extends Vue {
     display: flex;
     font-size: 12px;
     color: #888888;
+    height: 24px;
   }
   .position_icon {
     width: 10px;

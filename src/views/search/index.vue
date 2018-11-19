@@ -95,7 +95,10 @@ export default class SearchIndex extends Vue {
   private roomCondition: any = {
     region: '',
     hasVideo: false,
-    type: '',
+    type: {
+      bedCount: '',
+      type: '',
+    },
     location: {
       lat: -1,
       lng: -1,
@@ -212,7 +215,10 @@ export default class SearchIndex extends Vue {
     const roomCondition: any = {
       region: '',
       hasVideo: false,
-      type: '',
+      type: {
+        bedCount: '',
+        type: '',
+      },
       location: {
         lat: -1,
         lng: -1,
@@ -254,8 +260,8 @@ export default class SearchIndex extends Vue {
     this.roomCondition.hasVideo = bool;
   }
   // 类型
-  private changeRoomType(val: string): void {
-    this.roomCondition.type = val;
+  private changeRoomType(obj: any): void {
+    this.roomCondition.type = Object.assign({}, this.roomCondition.type, obj);
   }
   // 更多
   private changeRoomOther(obj: any): void {
@@ -302,7 +308,8 @@ export default class SearchIndex extends Vue {
       has_video: this.roomCondition.hasVideo ? 1 : 0,
       region: this.roomCondition.region,
       sex: this.roomCondition.other.gender,
-      type: (this.roomCondition.type).toString(),
+      bed_count: this.roomCondition.type.bedCount,
+      type: (this.roomCondition.type.type).toString(),
       room_type_affirm: (this.roomCondition.other.type).toString(),
       sequence,
       longitude: this.roomCondition.location.lng === -1 ? '' : this.roomCondition.location.lng,

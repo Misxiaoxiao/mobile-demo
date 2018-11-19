@@ -39,6 +39,10 @@ export const ROOM_CONDITION_TYPE_ITEMS: any[] = [
   {key: '不限', value: ''},
 ];
 
+export const CONDITION_ROOM_TYPE = [
+  '独立单间', '床位',
+];
+
 export const SHARE_INFO = {
   title: 'zuber-白领租房平台，租房必备',
   link: window.location.href,
@@ -46,7 +50,7 @@ export const SHARE_INFO = {
   imgUrl: 'https://resources.zuber.im/mobile_share_logo.png',
 };
 
-export const SUBSCRIPTION_BED_COUNT = [
+export const BED_COUNT = [
   '1室', '2室', '3室', '4室+',
 ];
 

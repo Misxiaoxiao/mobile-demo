@@ -1,17 +1,30 @@
 <template>
-  <div :class="'condition_locate' + (bool || label !== '预算' ? ' condition_locate_active' : '')" @click.stop="toggleClick">
-    {{label}} <i :class="'snajiao_icon' + (bool || label !== '预算' ? ' snajiao_icon_active' : '')"></i>
-    <div class="condition_locate_wrap" v-show="bool">
+  <div
+  :class="bool || label !== '预算' ? 'condition-btn active' : 'condition-btn'"
+  >
+    <p
+    @click.stop="toggleClick"
+    >
+      {{label}}
+      <i :class="'snajiao_icon' + (bool || label !== '预算' ? ' snajiao_icon_active' : '')"></i>
+    </p>
+    <div class="condition-wrap" v-show="bool">
       <div class="demand_money_wrap">
 
-        <div class="other_wrap_title">预算</div>
-        <div class="other_wrap_content">
-          <div
+        <div class="condition-label" style="margin-top: 0;">预算</div>
+        <div class="condition-content">
+          <van-col
+          :span="8"
           v-for="(n, i) in moneyCondition"
           :key="i"
-          :class="'wid30' + (conditionMoney === i ? ' active' : '')"
-          @click.stop="changMoney(i)"
-          >{{n.value}}</div>
+          >
+            <div
+            :class="conditionMoney === i ? 'button-b1-active' : 'button-b1'"
+            @click.stop="changMoney(i)"
+            >
+              {{n.value}}
+            </div>
+          </van-col>
         </div>
 
         <div class="type_btns">

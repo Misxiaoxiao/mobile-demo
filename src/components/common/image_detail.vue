@@ -3,7 +3,7 @@
   :style="'background-image: url('+ photoSrc +');'"
   @click.stop="showImagePreview"
   >
-    <span>
+    <span v-if="photos.length > 0">
       <i class="iconfont">&#xe65a;</i>
       {{photos.length}}
     </span>
@@ -20,22 +20,31 @@ export default class ImageDetail extends Vue {
   @Prop({default: {}}) private photos!: any;
 
   get Images(): string[] {
-    return this.photos.map((n: any, i: any) => {
-      return n.src;
-    });
+    if (this.photos.length > 0) {
+      return this.photos.map((n: any, i: any) => {
+        return n.src;
+      });
+    }
+    return [];
   }
 
   private showImagePreview(position: any, timer: any) {
-    const that = this;
-    const instance = ImagePreview({
-      images: that.Images,
-      startPosition: typeof position === 'number' ? position : 0,
-    });
+    if (this.photos.length > 0) {
+      const that = this;
+      const instance = ImagePreview({
+        images: that.Images,
+        startPosition: typeof position === 'number' ? position : 0,
+      });
 
-    if (timer) {
-      setTimeout(() => {
-        instance.close();
-      }, timer);
+      if (timer) {
+        setTimeout(() => {
+          instance.close();
+        }, timer);
+      }
+    } else {
+      this.$dialog.alert({
+        message: '暂无照片，请上传图片',
+      });
     }
   }
 }

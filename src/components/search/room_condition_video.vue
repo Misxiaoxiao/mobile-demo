@@ -1,10 +1,12 @@
 <template>
   <div
-  :class="'condition_locate' + (bool || label !== '有无视频' ? ' condition_locate_active' : '')"
+  :class="bool || label !== '有无视频' ? 'condition-btn active' : 'condition-btn'"
   @click.stop="toggleVideoPopup">
-    {{label}}
-    <i :class="'snajiao_icon' + (bool || label !== '有无视频' ? ' snajiao_icon_active' : '')"></i>
-    <div class="condition_locate_wrap" v-show="bool">
+    <p>
+      {{label}}
+      <i :class="'snajiao_icon' + (bool || label !== '有无视频' ? ' snajiao_icon_active' : '')"></i>
+    </p>
+    <div class="condition-wrap" v-show="bool">
       <div
       :class="'row' + (label === '有视频' ? ' active' : '')"
       @click.stop="handleClick(true)">
@@ -49,38 +51,7 @@ export default class RoomConditionVideo extends Vue {
 </script>
 
 <style lang="less">
-.condition_locate {
-  width: 25%;
-  justify-content: center;
-  font-size: 12px;
-  color: #333333;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-}
-.condition_locate_active {
-  color: #66D4C3;
-}
-.snajiao_icon {
-  width: 16px;
-  height: 11px;
-  background: url('../../assets/Filter_normall@2x.png') no-repeat center;
-  background-size: 50%;
-}
-.snajiao_icon_active {
-  background: url('../../assets/Filter_col@2x.png') no-repeat center;
-  background-size: 50%;
-}
-.condition_locate_wrap {
-  position: absolute;
-  z-index: 10;
-  top: 25px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+.condition-wrap {
   > .row {
     box-sizing: border-box;
     // padding: 15px;

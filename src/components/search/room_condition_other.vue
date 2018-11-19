@@ -1,44 +1,69 @@
 <template>
   <div
-  :class="'condition_locate' + (bool || label !== '更多筛选' ? ' condition_locate_active' : '')"
-  @click.stop="toggleOtherPopup">
-    {{label}} <i :class="'snajiao_icon' + (bool || label !== '更多筛选' ? ' snajiao_icon_active' : '')"></i>
-    <div class="condition_locate_wrap" v-show="bool">
+  :class="bool || label !== '更多筛选' ? 'condition-btn active' : 'condition-btn'"
+  >
+    <p
+    @click.stop="toggleOtherPopup"
+    >
+      {{label}}
+      <i :class="'snajiao_icon' + (bool || label !== '更多筛选' ? ' snajiao_icon_active' : '')"></i>
+    </p>
+    <div class="condition-wrap" v-show="bool">
       <div class="other_wrap">
-
-        <div class="other_wrap_title">性别限制</div>
         <div class="other_wrap_content">
-          <div
-          v-for="(n, i) in gender"
-          :key="i"
-          :class="condition.gender === n.key ? 'active' : ''"
-          @click.stop="changeGender(n.key)"
-          >{{n.value}}</div>
-        </div>
+          <div class="condition-label" style="margin-top: 0;">性别限制</div>
+          <div class="condition-content">
+            <van-col
+              :span="6"
+              v-for="(n, i) in gender"
+              :key="i"
+              >
+              <div
+              :class="condition.gender === n.key ? 'button-b1-active' : 'button-b1'"
+              @click.stop="changeGender(n.key)"
+              >{{n.value}}</div>
+            </van-col>
+          </div>
 
-        <div class="other_wrap_title">租期</div>
-        <div class="other_wrap_content">
-          <div
-          :class="condition.shortRent ? 'active' : ''"
-          @click.stop="changeShortRent">可短租</div>
-        </div>
+          <div class="condition-label">租期</div>
+          <div class="condition-content">
+            <van-col :span="6">
+              <div
+              :class="condition.shortRent ? 'button-b1-active' : 'button-b1'"
+              @click.stop="changeShortRent"
+              >可短租</div>
+            </van-col>
+          </div>
 
-        <div class="other_wrap_title">房源类型 <i class="iconfont problem_icon">&#xe604;</i></div>
-        <div class="other_wrap_content">
-          <div
-          v-for="(n, i) in type"
-          :key="i"
-          @click.stop="changeType(n)"
-          :class="condition.type.indexOf(n) > -1 ? 'active' : ''">{{n}}</div>
-        </div>
+          <div class="condition-label">房源类型 <i class="iconfont problem_icon" @click.stop="gotoRoomType">&#xe604;</i></div>
+          <div class="condition-content">
+            <van-col
+            :span="6"
+            v-for="(n, i) in type"
+            :key="i"
+            >
+              <div
+              :class="condition.type.indexOf(n) > -1 ? 'button-b1-active' : 'button-b1'"
+              @click.stop="changeType(n)"
+              >{{n}}</div>
+            </van-col>
+          </div>
 
-        <div class="other_wrap_title">租金</div>
-        <div class="other_wrap_content">
-          <div
-          v-for="(n, i) in money"
-          :key="i"
-          :class="'wid30' + (condition.money === i ? ' active' : '')"
-          @click.stop="changMoney(i)">{{n.value}}</div>
+          <div class="condition-label">租金</div>
+          <div class="condition-content">
+            <van-col
+            :span="8"
+            v-for="(n, i) in money"
+            :key="i"
+            >
+              <div
+              :class="condition.money === i ? 'button-b1-active' : 'button-b1'"
+              @click.stop="changMoney(i)"
+              >
+                {{n.value}}
+              </div>
+            </van-col>
+          </div>
         </div>
 
         <div class="type_btns">
@@ -153,68 +178,29 @@ export default class RoomConditionOther extends Vue {
     this.show(false);
     this.requestCallback();
   }
+  // 前往房源类型页面
+  private gotoRoomType(): void {
+    this.$router.push({
+      name: 'descriptionRoom',
+    });
+  }
 }
 </script>
 
 <style lang="less">
 .problem_icon {
+  font-size: 14px;
   color: #66D4C3;
-}
-.condition_locate {
-  width: 25%;
-  justify-content: center;
-  font-size: 12px;
-  color: #333333;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-}
-.condition_locate_active {
-  color: #66D4C3;
-}
-.snajiao_icon {
-  width: 16px;
-  height: 11px;
-  background: url('../../assets/Filter_normall@2x.png') no-repeat center;
-  background-size: 50%;
-}
-.snajiao_icon_active {
-  background: url('../../assets/Filter_col@2x.png') no-repeat center;
-  background-size: 50%;
 }
 .other_wrap {
   background-color: #fff;
-  height: 415px;
-  padding: 15px 15px 15px;
   position: relative;
-  .other_wrap_title {
-    font-size: 14px;
-    color: #666666;
-  }
-  .other_wrap_content {
-    overflow: hidden;
-    > div {
-      font-size: 12px;
-      width: 21%;
-      margin: 4px;
-      line-height: 30px;
-      text-align: center;
-      color: #999;
-      border: 1px solid #D9D9D9;
-      border-radius: 2px;
-      float: left;
-      margin-top: 10px;
-    }
-    > div.wid30 {
-      width: 29%;
-    }
-    > div.active {
-      background-color: #F0FFFD;
-      border: 1px solid #66D4C3;
-      color: #66D4C3;
-    }
+  > .other_wrap_content {
+    padding: 15px 15px 15px;
+    box-sizing: border-box;
+    height: 430px;
+    overflow-y: scroll;
+    padding-bottom: 80px;
   }
   .type_btns {
     position: absolute;
@@ -225,6 +211,8 @@ export default class RoomConditionOther extends Vue {
     padding: 15px;
     display: flex;
     justify-content: space-between;
+    background-color: #fff;
+    border-top: 1px solid #eee;
     .clear_btn {
       width: 30%;
       line-height: 40px;
