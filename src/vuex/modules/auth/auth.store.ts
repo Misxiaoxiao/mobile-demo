@@ -4,7 +4,7 @@ import {
     CLEAN_USER_AUTH
 } from './auth.types'
 
-import { token } from '@/vuex/api.config'
+import { token } from '@/vuex/api/config'
 
 export class AuthState {
     ifLogged: boolean = token.getToken('uid') && true

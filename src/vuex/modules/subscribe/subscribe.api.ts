@@ -1,4 +1,4 @@
-import { UserResource } from '../../api.config'
+import { UserResource } from '../../api/config'
 import { SubscribeForm } from './subscribe.model'
 
 interface RejectParams {

@@ -1,4 +1,4 @@
-import { CommonResource, UserResource } from '../../api.config'
+import { CommonResource, UserResource } from '../../api/config'
 
 interface PhoneParams {
     phone: string;

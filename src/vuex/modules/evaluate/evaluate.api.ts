@@ -1,4 +1,4 @@
-import { EvaluateResource } from '../../api.config'
+import { EvaluateResource } from '../../api/config'
 
 interface IdParams {
     object_uid?: string;
