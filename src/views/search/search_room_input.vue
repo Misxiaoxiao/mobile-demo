@@ -20,7 +20,7 @@
         <input-search-list
         :isShow="showInputSearchList"
         :list="addresses"
-        :change="callback"
+        :change="regionCallback"
         :requestCallback="request"
         />
 
@@ -38,16 +38,16 @@
         v-if="regions && regions.length > 0"
         :label="'通过区域查找'"
         :list="regions"
-        :current="roomCondition.region"
-        :callback="callback"
+        :current="roomCondition.region.region"
+        :callback="regionCallback"
         />
 
         <search-find-list
         v-if="lines && lines.length > 0"
         :label="'通过地铁查找'"
         :list="lines"
-        :current="roomCondition.region"
-        :callback="callback"
+        :current="roomCondition.region.subwayLine"
+        :callback="lineCallback"
         />
 
       </div>
@@ -103,10 +103,20 @@ export default class SearchRoomInput extends Vue {
   }
 
   private cancleLimit(): void {
-    this.callback('');
+    this.changeRoomRegion({
+      region: '',
+      subwayLine: '',
+    });
+    this.changePopup(false);
+    this.request();
   }
-  private callback(region: string): void {
-    this.changeRoomRegion(region);
+  private regionCallback(region: string): void {
+    this.changeRoomRegion({region, subwayLine: ''});
+    this.changePopup(false);
+    this.request();
+  }
+  private lineCallback(subwayLine: string): void {
+    this.changeRoomRegion({subwayLine, region: ''});
     this.changePopup(false);
     this.request();
   }

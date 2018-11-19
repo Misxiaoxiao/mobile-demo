@@ -6,7 +6,7 @@
         <room-condition-locate
         :bool="roomSearchByInput"
         :show="changeRoomSearchInputPopup"
-        :region="roomCondition.region"
+        :region="region"
         />
 
         <room-condition-video
@@ -111,6 +111,15 @@ export default class SearchRoom extends Vue {
 
   get finished(): boolean {
     return !this.hasNextRentPage || this.searching;
+  }
+
+  get region(): string {
+    if (this.roomCondition.region.region !== '') {
+      return this.roomCondition.region.region;
+    } else if (this.roomCondition.region.subwayLine !== '') {
+      return this.roomCondition.region.subwayLine;
+    }
+    return '';
   }
 
   private onLoad(): void {

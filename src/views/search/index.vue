@@ -93,7 +93,10 @@ export default class SearchIndex extends Vue {
   private roomSearchByOther: boolean = false;
 
   private roomCondition: any = {
-    region: '',
+    region: {
+      region: '',
+      subwayLine: '',
+    },
     hasVideo: false,
     type: {
       bedCount: '',
@@ -252,8 +255,8 @@ export default class SearchIndex extends Vue {
 
   // 改变房源房间选择条件
   // 区域
-  private changeRoomRegion(val: string): void {
-    this.roomCondition.region = val;
+  private changeRoomRegion(obj: any): void {
+    this.roomCondition.region = Object.assign({}, this.roomCondition.region, obj);
   }
   // 视频
   private changeRoomHasVideo(bool: boolean): void {
@@ -306,7 +309,8 @@ export default class SearchIndex extends Vue {
       cost2: this.roomCondition.other.money.max,
       has_short_rent: this.roomCondition.other.shortRent ? 1 : 0,
       has_video: this.roomCondition.hasVideo ? 1 : 0,
-      region: this.roomCondition.region,
+      region: this.roomCondition.region.region,
+      subway_line: this.roomCondition.region.subwayLine,
       sex: this.roomCondition.other.gender,
       bed_count: this.roomCondition.type.bedCount,
       type: (this.roomCondition.type.type).toString(),
