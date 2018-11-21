@@ -6,7 +6,7 @@
       </div>
       <div class="room_list_item_right">
         <h4>{{roomItem.fullTitle}}</h4>
-        <p>{{roomItem.roomTitle}}</p>
+        <p class="text-ellipsis">{{roomItem.roomTitle}}</p>
         <div class="room_type" v-show="(typeof roomItem.types) === 'string'">
           {{roomItem.types}}
         </div>

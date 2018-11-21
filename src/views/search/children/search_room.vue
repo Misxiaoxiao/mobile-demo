@@ -155,6 +155,7 @@ export default class SearchRoom extends Vue {
   height: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
+  background-color: #fff;
   > div {
     flex: 1;
   }
@@ -165,6 +166,7 @@ export default class SearchRoom extends Vue {
   .van-pull-refresh {
     height: 100%;
     overflow-y: scroll;
+    -webkit-overflow-scrolling : touch;
   }
 }
 </style>

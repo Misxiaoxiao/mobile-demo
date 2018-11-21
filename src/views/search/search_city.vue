@@ -60,7 +60,6 @@ export default class SearchCity extends Vue {
   @State((state: any) => state.LocateModule.locating) private locating!: string;
   @State((state: any) => state.CommonModule.cities) private cities!: any;
 
-  @Action('getGeoLocation') private getGeoLocation!: any;
   @Action('getCityList') private getCityList!: any;
 
   get cityList(): any {
@@ -87,7 +86,6 @@ export default class SearchCity extends Vue {
     this.getCityList({
       data: {},
     });
-    this.getGeoLocation();
   }
 }
 </script>

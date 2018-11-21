@@ -152,6 +152,10 @@ export default class SearchDemandInput extends Vue {
   .search_input_content {
     position: relative;
     flex: 1;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling : touch;
+    padding-bottom: 15px;
     .currentPlace {
       display: flex;
       justify-content: space-between;

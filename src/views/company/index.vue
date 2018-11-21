@@ -88,6 +88,7 @@ export default class CompanyIndex extends Vue {
     flex: 1;
     width: 100%;
     overflow-y: scroll;
+    -webkit-overflow-scrolling : touch;
     background-color: #F3F4F5;
     .company_detail_info {
       padding: 15px 15px 0;

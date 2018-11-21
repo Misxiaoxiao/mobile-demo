@@ -80,12 +80,9 @@ export default class PersonImg extends Vue {
         color: #ccc;
         background-color: #eee;
         border-radius: 10px;
-        padding: 1px 4px;
         font-size: 10px;
-        margin-left: 5px;
-        padding-right: 5px;
         > i {
-          font-size: 6px;
+          font-size: 8px;
         }
       }
       > span.active {
@@ -94,7 +91,6 @@ export default class PersonImg extends Vue {
         background-color: #F0FFFD;
       }
     }
-    font-size: 10px;
   }
   .person_time {
     float: right;

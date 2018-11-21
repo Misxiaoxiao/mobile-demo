@@ -88,6 +88,7 @@ export default class DetailIndex extends Vue {
   .room_detail_content {
     flex: 1;
     overflow-y: scroll;
+    -webkit-overflow-scrolling : touch;
     background-color: #F3F4F5;
   }
 }
