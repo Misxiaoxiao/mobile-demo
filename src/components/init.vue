@@ -90,9 +90,6 @@ export default class InitApp extends Vue {
     }
   }
   private deal(): void {
-    // 定位
-    this.getGeoLocation();
-    this.locateCurrentCity();
     // this.share();
     // this.getAppInfo();
     if (this.$route.query.state || this.$route.query.source) {
@@ -104,6 +101,9 @@ export default class InitApp extends Vue {
       }
     } else {
       this.init();
+      // 定位
+      this.getGeoLocation();
+      this.locateCurrentCity();
     }
     this.redirect();
   }

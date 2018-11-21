@@ -80,9 +80,13 @@ export default class PersonImg extends Vue {
         color: #ccc;
         background-color: #eee;
         border-radius: 10px;
-        font-size: 10px;
+        font-size: 12px;
+        height: 15px;
+        line-height: 15px;
+        padding: 0 4px;
+        margin-left: 5px;
         > i {
-          font-size: 8px;
+          font-size: 12px;
         }
       }
       > span.active {
