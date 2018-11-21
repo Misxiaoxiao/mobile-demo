@@ -29,37 +29,33 @@
       />
     </div>
     <div class="search_content_wrap">
-
-      <search-room
-      :roomSearchByInput="roomSearchByInput"
-      :changeRoomSearchInputPopup="changeRoomSearchInputPopup"
-      :roomSearchByVideo="roomSearchByVideo"
-      :changeRoomSearchByVideoPopup="changeRoomSearchByVideoPopup"
-      :roomSearchByType="roomSearchByType"
-      :changeRoomSearchByTypePopup="changeRoomSearchByTypePopup"
-      :roomSearchByOther="roomSearchByOther"
-      :changeRoomSearchByOtherPopup="changeRoomSearchByOtherPopup"
-      :roomCondition="roomCondition"
-      :changeRoomRegion="changeRoomRegion"
-      :changeRoomHasVideo="changeRoomHasVideo"
-      :changeRoomType="changeRoomType"
-      :changeRoomOther="changeRoomOther"
-      :request="requestRoomCallback"
-      />
-
-      <search-demand
-      :demandSearchByInput="demandSearchByInput"
-      :changeDemandSearchInputPopup="changeDemandSearchInputPopup"
-      :demandSearchByGender="demandSearchByGender"
-      :changeDemandSearchGenderPopup="changeDemandSearchGenderPopup"
-      :demandSearchByMoney="demandSearchByMoney"
-      :changeDemandSearchMoneyPopup="changeDemandSearchMoneyPopup"
-      :demandCondition="demandCondition"
-      :changeDemandRegion="changeDemandRegion"
-      :changeDemandGender="changeDemandGender"
-      :changeDemandMoney="changeDemandMoney"
-      :changeDemandLocation="changeDemandLocation"
-      :request="requestDemandCallback"
+      <router-view
+        :roomSearchByInput="roomSearchByInput"
+        :changeRoomSearchInputPopup="changeRoomSearchInputPopup"
+        :roomSearchByVideo="roomSearchByVideo"
+        :changeRoomSearchByVideoPopup="changeRoomSearchByVideoPopup"
+        :roomSearchByType="roomSearchByType"
+        :changeRoomSearchByTypePopup="changeRoomSearchByTypePopup"
+        :roomSearchByOther="roomSearchByOther"
+        :changeRoomSearchByOtherPopup="changeRoomSearchByOtherPopup"
+        :roomCondition="roomCondition"
+        :changeRoomRegion="changeRoomRegion"
+        :changeRoomHasVideo="changeRoomHasVideo"
+        :changeRoomType="changeRoomType"
+        :changeRoomOther="changeRoomOther"
+        :requestRoom="requestRoomCallback"
+        :demandSearchByInput="demandSearchByInput"
+        :changeDemandSearchInputPopup="changeDemandSearchInputPopup"
+        :demandSearchByGender="demandSearchByGender"
+        :changeDemandSearchGenderPopup="changeDemandSearchGenderPopup"
+        :demandSearchByMoney="demandSearchByMoney"
+        :changeDemandSearchMoneyPopup="changeDemandSearchMoneyPopup"
+        :demandCondition="demandCondition"
+        :changeDemandRegion="changeDemandRegion"
+        :changeDemandGender="changeDemandGender"
+        :changeDemandMoney="changeDemandMoney"
+        :changeDemandLocation="changeDemandLocation"
+        :requestDemand="requestDemandCallback"
       />
 
     </div>
@@ -72,8 +68,6 @@ import SearchCity from './search_city.vue';
 import SearchTab from './search_tab.vue';
 import SearchRoomInput from './search_room_input.vue';
 import SearchDemandInput from './search_demand_input.vue';
-import SearchRoom from './search_room.vue';
-import SearchDemand from './search_demand.vue';
 import { State, Action } from 'vuex-class';
 
 @Component({
@@ -82,8 +76,6 @@ import { State, Action } from 'vuex-class';
     SearchTab,
     SearchRoomInput,
     SearchDemandInput,
-    SearchRoom,
-    SearchDemand,
   },
 })
 export default class SearchIndex extends Vue {

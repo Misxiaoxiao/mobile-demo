@@ -1,12 +1,12 @@
 <template lang="html">
-  <div class="room_detail_header">
-    <div class="room_detail_header_left">
+  <div class="common_header_wrap">
+    <div class="common_header_wrap_left">
       <i class="iconfont" @click.stop="goBack">&#xe603;</i>
     </div>
-    <div class="room_detail_header_title">
+    <div class="common_header_wrap_title">
       {{label}}
     </div>
-    <div class="room_detail_header_right">
+    <div class="common_header_wrap_right">
       <slot name="header_right" />
     </div>
   </div>
@@ -34,7 +34,7 @@ export default class RoomDetailHeader extends Vue {
   color: #5B5B5B;
   font-size: 20px;
 }
-.room_detail_header {
+.common_header_wrap {
   box-sizing: border-box;
   width: 100%;
   padding: 12px 15px;
@@ -45,15 +45,15 @@ export default class RoomDetailHeader extends Vue {
   border: 1px solid #EBEBEB;
   background-color: #fff;
 }
-.room_detail_header_left {
+.common_header_wrap_left {
   width: 20%;
 }
-.room_detail_header_title {
+.common_header_wrap_title {
   font-size: 18px;
   color: #333;
   font-weight: 500;
 }
-.room_detail_header_right {
+.common_header_wrap_right {
   width: 20%;
   color: #999999;
   display: flex;
