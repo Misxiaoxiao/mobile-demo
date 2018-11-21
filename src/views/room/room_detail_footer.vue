@@ -60,6 +60,7 @@ export default class RoomDetailFooter extends Vue {
   display: flex;
   justify-content: space-between;
   border-top: 1px solid #EFEFEF;
+  background-color: #fff;
   .van-col {
     display: flex;
     justify-content: space-between;

@@ -55,10 +55,13 @@ export default class CompanyPerson extends Vue {
   background-color: #fff;
   margin-top: 10px;
   box-sizing: border-box;
+  overflow: hidden;
   .company_person_title {
     padding: 15px;
   }
   .company_person_list {
+    background-color: #fff;
+    margin-bottom: 15px;
     .staffs_item {
       border: 1px solid #ccc;
       margin: 5px;
@@ -87,7 +90,7 @@ export default class CompanyPerson extends Vue {
       .staffs_btn {
         font-size: 10px;
         border-radius: 10px;
-        padding: 0 3px;
+        padding: 3px;
       }
     }
   }

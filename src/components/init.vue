@@ -18,8 +18,6 @@ export default class InitApp extends Vue {
   @Action('getUserInfo') private getUserInfo: any;
   @Action('sendDeviceInfo') private sendDeviceInfo: any;
   @Action('getShareBonus') private getShareBonus: any;
-  @Action('getGeoLocation') private getGeoLocation!: any;
-  @Action('locateCurrentCity') private locateCurrentCity!: any;
   // @Action('configShareInfo') private configShareInfo: any;
   // @Action('getAppInfo') private getAppInfo: any;
   private created(): void {
@@ -101,9 +99,6 @@ export default class InitApp extends Vue {
       }
     } else {
       this.init();
-      // 定位
-      this.getGeoLocation();
-      this.locateCurrentCity();
     }
     this.redirect();
   }

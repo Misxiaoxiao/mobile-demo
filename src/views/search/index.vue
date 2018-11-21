@@ -137,6 +137,8 @@ export default class SearchIndex extends Vue {
   @Action('getBedList') private getBedList: any;
   @Action('getDemandList') private getDemandList: any;
   @Action('getCityTraffic') private getCityTraffic!: any;
+  @Action('getGeoLocation') private getGeoLocation!: any;
+  @Action('locateCurrentCity') private locateCurrentCity!: any;
 
   @Watch('currentCity') private changeCity(): void {
     if (this.$route.name === 'room') {
@@ -336,6 +338,8 @@ export default class SearchIndex extends Vue {
   }
 
   private mounted(): void {
+    this.getGeoLocation();
+    this.locateCurrentCity();
     this.getCityTraffic({
       data: {
         city: this.currentCity,

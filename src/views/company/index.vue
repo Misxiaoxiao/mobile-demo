@@ -94,8 +94,9 @@ export default class CompanyIndex extends Vue {
       padding: 15px 15px 0;
       box-sizing: border-box;
       background-color: #fff;
+      overflow: hidden;
       .company_des {
-        margin-top: 10px;
+        margin: 10px 0;
       }
       .company_img {
         width: 60px;
