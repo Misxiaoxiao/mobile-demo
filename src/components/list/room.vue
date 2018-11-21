@@ -7,11 +7,11 @@
       <div class="room_list_item_right">
         <h4>{{roomItem.fullTitle}}</h4>
         <p class="text-ellipsis">{{roomItem.roomTitle}}</p>
-        <div class="room_type" v-show="(typeof roomItem.types) === 'string'">
+        <div class="room_type" v-if="(typeof roomItem.types) === 'string'">
           {{roomItem.types}}
         </div>
         <div class="room_type" v-show="(typeof roomItem.types) === 'object'">
-          <span v-for="(item, i) in roomItem.types" :key="i" v-show="item !== ''">{{item}}</span>
+          <span v-for="(item, i) in roomItem.types" :key="i" v-if="item !== ''">{{item}}</span>
         </div>
         <div class="room_info">
           <p>{{roomItem.money}}<span>元/月</span></p>
@@ -97,6 +97,7 @@ export default class RoomList extends Vue {
 .room_list_item {
   overflow: hidden;
   display: flex;
+  overflow: hidden;
   .room_list_item_left {
     width: 120px;
     height: 90px;
@@ -109,6 +110,7 @@ export default class RoomList extends Vue {
     float: left;
     margin-left: 10px;
     color: #999999;
+    overflow: hidden;
     h4 {
       font-size: 15px;
       font-weight: 400;
