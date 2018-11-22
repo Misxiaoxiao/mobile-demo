@@ -354,6 +354,7 @@ export default class SearchIndex extends Vue {
   position: absolute;
   width: 100%;
   height: 100%;
+  z-index: 1;
   display: flex;
   flex-direction: column;
 }
