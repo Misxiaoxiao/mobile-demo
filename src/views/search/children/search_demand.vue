@@ -123,10 +123,6 @@ export default class SearchDemand extends Vue {
   transform: translate(100%);
 }
 .condition_wrap {
-  position: fixed;
-  top: 40px;
-  width: 100%;
-  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
