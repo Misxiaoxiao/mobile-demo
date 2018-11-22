@@ -56,6 +56,10 @@ export default class RoomDetailFooter extends Vue {
 
 <style lang="less">
 .room_detail_footer_wrap {
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  bottom: 0;
   padding: 7px 15px 8px;
   display: flex;
   justify-content: space-between;

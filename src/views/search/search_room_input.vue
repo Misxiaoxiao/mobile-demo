@@ -177,7 +177,7 @@ export default class SearchRoomInput extends Vue {
     flex: 1;
     box-sizing: border-box;
     overflow-y: scroll;
-    -webkit-overflow-scrolling : touch;
+    // -webkit-overflow-scrolling : touch;
     padding-bottom: 15px;
     .currentPlace {
       display: flex;
