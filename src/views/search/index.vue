@@ -357,26 +357,32 @@ export default class SearchIndex extends Vue {
   z-index: 1;
   display: flex;
   flex-direction: column;
+  padding-top: 90px;
+  overflow: auto;
 }
 .search_header_wrap {
   z-index: 999;
   height: 16px;
-  padding: 16px 15px;
+  padding: 25px 15px;
   font-size: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 .search_content_wrap {
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   flex: 1;
-  > div {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
+  // > div {
+  //   position: absolute;
+  //   top: 0;
+  //   width: 100%;
+  //   height: 100%;
+  // }
 }
 </style>

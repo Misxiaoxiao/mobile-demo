@@ -36,11 +36,12 @@
       </div>
 
       <div class="list_wrap">
-        <van-pull-refresh v-model="refreshing" @refresh="onRefresh" @scroll="onScroll">
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
           <van-list
             v-model="loading"
             :finished="finished"
             @load="onLoad"
+            @scroll="onScroll"
           >
             
             <common-banner />
@@ -153,6 +154,10 @@ export default class SearchRoom extends Vue {
   transform: translate(-100%);
 }
 .condition_wrap {
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -160,6 +165,7 @@ export default class SearchRoom extends Vue {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
   background-color: #fff;
+  z-index: 999;
   > div {
     flex: 1;
   }
