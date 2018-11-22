@@ -351,7 +351,7 @@ export default class SearchIndex extends Vue {
 
 <style lang="less">
 .search {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   display: flex;

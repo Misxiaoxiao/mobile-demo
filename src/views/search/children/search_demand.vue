@@ -139,7 +139,7 @@ export default class SearchDemand extends Vue {
   height: 95%;
   .van-pull-refresh {
     height: 100%;
-    overflow-y: scroll;
+    // overflow-y: scroll;
   }
 }
 </style>
