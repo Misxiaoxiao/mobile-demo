@@ -34,7 +34,6 @@ export default class InputSearchList extends Vue {
 <style lang="less">
 .search_input_list {
   overflow-y: scroll;
-  // -webkit-overflow-scrolling : touch;
   .search_input_list_item {
     box-sizing: border-box;
     height: 60px;

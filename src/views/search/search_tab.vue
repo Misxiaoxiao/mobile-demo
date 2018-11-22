@@ -10,7 +10,7 @@
     >求租</div>
     <div
     class="tab_line"
-    :style="{transform: 'translate(' + ($route.name === 'room' ? '20px' : '79px') + ')'}"
+    :style="{transform: 'translate(' + ($route.name === 'room' ? '90%' : '370%') + ')'}"
     ></div>
   </div>
 </template>

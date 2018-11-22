@@ -166,7 +166,6 @@ export default class SearchRoom extends Vue {
   .van-pull-refresh {
     height: 100%;
     overflow-y: scroll;
-    // -webkit-overflow-scrolling : touch;
   }
 }
 </style>

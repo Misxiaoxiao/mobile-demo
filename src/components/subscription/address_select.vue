@@ -98,7 +98,6 @@ export default class AddressSelect extends Vue {
   .address_search_list_wrap {
     flex: 1;
     overflow: scroll;
-    // -webkit-overflow-scrolling : touch;
   }
 }
 </style>

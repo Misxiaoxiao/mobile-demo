@@ -115,7 +115,6 @@ export default class RoomConditionType extends Vue {
     padding: 15px 15px 15px;
     box-sizing: border-box;
     overflow-y: scroll;
-    // -webkit-overflow-scrolling : touch;
   }
   .type_wrap_btn {
     height: 50px;

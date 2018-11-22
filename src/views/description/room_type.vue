@@ -46,7 +46,6 @@ export default class RoomTypeDescription extends Vue {
   > .content_list {
     flex: 1;
     overflow-y: scroll;
-    // -webkit-overflow-scrolling : touch;
     background-color: #fff;
     > li {
       padding: 15px;

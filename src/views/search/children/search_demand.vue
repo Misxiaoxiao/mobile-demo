@@ -137,11 +137,9 @@ export default class SearchDemand extends Vue {
 .list_wrap {
   width: 100%;
   height: 95%;
-  // overflow-y: scroll;
   .van-pull-refresh {
     height: 100%;
     overflow-y: scroll;
-    // -webkit-overflow-scrolling : touch;
   }
 }
 </style>

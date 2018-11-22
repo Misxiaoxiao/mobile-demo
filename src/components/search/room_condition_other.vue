@@ -201,7 +201,6 @@ export default class RoomConditionOther extends Vue {
     height: 430px;
     overflow-y: scroll;
     padding-bottom: 80px;
-    // -webkit-overflow-scrolling : touch;
   }
   .type_btns {
     position: absolute;
