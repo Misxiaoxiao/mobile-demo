@@ -95,17 +95,22 @@ export default class SearchDemand extends Vue {
   }
 
   private onRefresh(): void {
+    this.loading = true;
     this.requestDemand(() => {
       this.refreshing = false;
     }, false);
   }
   private onLoad(): void {
+    this.loading = true;
     this.requestDemand(() => {
       this.loading = false;
     }, true);
   }
   private mounted(): void {
-    this.requestDemand();
+    this.loading = true;
+    this.requestDemand(() => {
+      this.loading = false;
+    });
   }
 }
 </script>
