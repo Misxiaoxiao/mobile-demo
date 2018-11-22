@@ -24,31 +24,33 @@
         :requestCallback="request"
         />
 
-        <div class="currentPlace">
-          <p>
-            <i class="location_icon"></i>
-            <span v-if="locateAddress.addressComponent">
-              {{locateAddress.addressComponent.street}}{{locateAddress.addressComponent.streetNumber}}
-            </span>
-          </p>
-          <i class="slocation_icon"></i>
+        <div class="search_input_content_div">
+          <div class="currentPlace">
+            <p>
+              <i class="location_icon"></i>
+              <span v-if="locateAddress.addressComponent">
+                {{locateAddress.addressComponent.street}}{{locateAddress.addressComponent.streetNumber}}
+              </span>
+            </p>
+            <i class="slocation_icon"></i>
+          </div>
+
+          <search-find-list
+          v-if="regions && regions.length > 0"
+          :label="'通过区域查找'"
+          :list="regions"
+          :current="roomCondition.region.region"
+          :callback="regionCallback"
+          />
+
+          <search-find-list
+          v-if="lines && lines.length > 0"
+          :label="'通过地铁查找'"
+          :list="lines"
+          :current="roomCondition.region.subwayLine"
+          :callback="lineCallback"
+          />
         </div>
-
-        <search-find-list
-        v-if="regions && regions.length > 0"
-        :label="'通过区域查找'"
-        :list="regions"
-        :current="roomCondition.region.region"
-        :callback="regionCallback"
-        />
-
-        <search-find-list
-        v-if="lines && lines.length > 0"
-        :label="'通过地铁查找'"
-        :list="lines"
-        :current="roomCondition.region.subwayLine"
-        :callback="lineCallback"
-        />
 
       </div>
     </popup>
@@ -176,8 +178,21 @@ export default class SearchRoomInput extends Vue {
     position: relative;
     flex: 1;
     box-sizing: border-box;
-    overflow-y: scroll;
     padding-bottom: 15px;
+    overflow: hidden;
+    > .search_input_content_div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      background: #fff;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling : touch;
+      z-index: 1;
+      padding-bottom: 15px;
+    }
     .currentPlace {
       display: flex;
       justify-content: space-between;
@@ -205,14 +220,6 @@ export default class SearchRoomInput extends Vue {
         background: url('../../assets/locate@2x.png') no-repeat center;
         background-size: 50%;
       }
-    }
-    .search_input_list {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #fff;
     }
   }
 }

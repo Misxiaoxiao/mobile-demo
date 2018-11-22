@@ -162,10 +162,11 @@ export default class SearchRoom extends Vue {
 }
 .list_wrap {
   width: 100%;
-  height: 95%;
+  height: 101%;
   .van-pull-refresh {
     height: 100%;
     overflow-y: scroll;
+    -webkit-overflow-scrolling : touch;
   }
 }
 </style>

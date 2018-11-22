@@ -24,23 +24,25 @@
         :requestCallback="request"
         />
 
-        <div class="currentPlace">
-          <p>
-            <i class="location_icon"></i>
-            <span v-if="locateAddress.addressComponent">
-              {{locateAddress.addressComponent.street}}{{locateAddress.addressComponent.streetNumber}}
-            </span>
-          </p>
-          <i class="slocation_icon"></i>
-        </div>
+        <div class="search_input_content_div">
+          <div class="currentPlace">
+            <p>
+              <i class="location_icon"></i>
+              <span v-if="locateAddress.addressComponent">
+                {{locateAddress.addressComponent.street}}{{locateAddress.addressComponent.streetNumber}}
+              </span>
+            </p>
+            <i class="slocation_icon"></i>
+          </div>
 
-        <search-find-list
-        v-if="regions && regions.length > 0"
-        :label="'通过区域查找'"
-        :list="regions"
-        :current="demandCondition.region"
-        :callback="callback"
-        />
+          <search-find-list
+          v-if="regions && regions.length > 0"
+          :label="'通过区域查找'"
+          :list="regions"
+          :current="demandCondition.region"
+          :callback="callback"
+          />
+        </div>
 
       </div>
     </popup>
@@ -122,7 +124,7 @@ export default class SearchDemandInput extends Vue {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  z-index: 999;
+  z-index: 1;
   top: 0;
   left: 0;
   background-color: #fff;
@@ -153,8 +155,19 @@ export default class SearchDemandInput extends Vue {
     position: relative;
     flex: 1;
     box-sizing: border-box;
-    overflow-y: scroll;
-    padding-bottom: 15px;
+    > .search_input_content_div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling : touch;
+      z-index: 1;
+      padding-bottom: 15px;
+      box-sizing: border-box;
+    }
     .currentPlace {
       display: flex;
       justify-content: space-between;
@@ -182,15 +195,7 @@ export default class SearchDemandInput extends Vue {
         background: url('../../assets/locate@2x.png') no-repeat center;
         background-size: 50%;
       }
-    }
-    .search_input_list {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #fff;
-    }
+    }    
   }
 }
 </style>

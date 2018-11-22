@@ -99,12 +99,12 @@ export default class UserIndex extends Vue {
 }
 .user_wrap {
   display: flex;
-  height: 100%;
+  height: 101%;
   flex-direction: column;
   .user_detail_wrap {
     flex: 1;
     overflow-y: scroll;
-    // -webkit-overflow-scrolling : touch;
+    -webkit-overflow-scrolling : touch;
     background-color: #F3F4F5;
     margin-bottom: 60px;
     .user_detail_info {

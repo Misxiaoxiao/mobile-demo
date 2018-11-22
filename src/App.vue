@@ -26,7 +26,5 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   -webkit-overflow-scrolling : touch; // 滚动bug
-  -webkit-backface-visibility: hidden;
-  // -webkit-transform: translate3d(0,0,0);
 }
 </style>

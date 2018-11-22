@@ -33,7 +33,15 @@ export default class InputSearchList extends Vue {
 
 <style lang="less">
 .search_input_list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
   overflow-y: scroll;
+  -webkit-overflow-scrolling : touch;
+  z-index: 2;
   .search_input_list_item {
     box-sizing: border-box;
     height: 60px;

@@ -198,8 +198,9 @@ export default class RoomConditionOther extends Vue {
   > .other_wrap_content {
     padding: 15px 15px 15px;
     box-sizing: border-box;
-    height: 375px;
+    height: 300px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling : touch;
     padding-bottom: 80px;
   }
   .type_btns {

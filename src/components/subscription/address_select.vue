@@ -74,7 +74,7 @@ export default class AddressSelect extends Vue {
 .address_list_wrap {
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 101%;
   bottom: 0;
   left: 0;
   background-color: #f3f4f5;
@@ -98,6 +98,7 @@ export default class AddressSelect extends Vue {
   .address_search_list_wrap {
     flex: 1;
     overflow: scroll;
+    -webkit-overflow-scrolling : touch;
   }
 }
 </style>
