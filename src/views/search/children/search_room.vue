@@ -36,7 +36,7 @@
       </div>
 
       <div class="list_wrap">
-        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh" @scroll="onScroll">
           <van-list
             v-model="loading"
             :finished="finished"
@@ -119,6 +119,10 @@ export default class SearchRoom extends Vue {
       return this.roomCondition.region.subwayLine;
     }
     return '';
+  }
+
+  private onScroll(): void {
+    console.log(11);
   }
 
   private onLoad(): void {
