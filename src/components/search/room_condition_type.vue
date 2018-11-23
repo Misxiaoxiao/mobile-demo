@@ -70,7 +70,7 @@ export default class RoomConditionType extends Vue {
   private changeBedCount(i: number): void {
     const obj = {
       bedCount: (+i + 1),
-      type: '',
+      type: 3,
     };
     this.change(obj);
     this.requestCallback();
