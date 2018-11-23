@@ -9,7 +9,7 @@
         <span v-if="demandItem.demand.dateDetail">{{demandItem.demand.dateDetail}}</span>
       </div>
       <div class="demand_list_des">{{demandItem.demand.content}}</div>
-      <div class="demand_list_position">
+      <div class="demand_list_position" v-if="demandItem.demand.localization !== ''">
         <i class="position_icon iconfont">&#xe680;</i>
         {{demandItem.demand.localization}}
       </div>

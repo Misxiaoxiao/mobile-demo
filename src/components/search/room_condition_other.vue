@@ -8,106 +8,68 @@
       {{label}}
       <i :class="'snajiao_icon' + (bool || label !== '更多筛选' ? ' snajiao_icon_active' : '')"></i>
     </p>
-    <div class="condition-wrap" v-show="bool">
+    <div class="condition-wrap" v-if="bool">
       <div class="other_wrap">
-        <div class="other_wrap_content">
-          <my-scroll>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-          </my-scroll>
-          <!-- <div class="condition-label" style="margin-top: 0;">性别限制</div>
-          <div class="condition-content">
-            <van-col
+        <my-scroll  class="other_wrap_content">
+
+          <div>
+
+            <div class="condition-label" style="margin-top: 0;">性别限制</div>
+            <div class="condition-content">
+              <van-col
+                :span="6"
+                v-for="(n, i) in gender"
+                :key="i"
+                >
+                <div
+                :class="condition.gender === n.key ? 'button-b1-active' : 'button-b1'"
+                @click.stop="changeGender(n.key)"
+                >{{n.value}}</div>
+              </van-col>
+            </div>
+
+            <div class="condition-label">租期</div>
+            <div class="condition-content">
+              <van-col :span="6">
+                <div
+                :class="condition.shortRent ? 'button-b1-active' : 'button-b1'"
+                @click.stop="changeShortRent"
+                >可短租</div>
+              </van-col>
+            </div>
+
+            <div class="condition-label">房源类型 <i class="iconfont problem_icon" @click.stop="gotoRoomType">&#xe604;</i></div>
+            <div class="condition-content">
+              <van-col
               :span="6"
-              v-for="(n, i) in gender"
+              v-for="(n, i) in type"
               :key="i"
               >
-              <div
-              :class="condition.gender === n.key ? 'button-b1-active' : 'button-b1'"
-              @click.stop="changeGender(n.key)"
-              >{{n.value}}</div>
-            </van-col>
-          </div> -->
+                <div
+                :class="condition.type.indexOf(n) > -1 ? 'button-b1-active' : 'button-b1'"
+                @click.stop="changeType(n)"
+                >{{n}}</div>
+              </van-col>
+            </div>
 
-          <!-- <div class="condition-label">租期</div>
-          <div class="condition-content">
-            <van-col :span="6">
-              <div
-              :class="condition.shortRent ? 'button-b1-active' : 'button-b1'"
-              @click.stop="changeShortRent"
-              >可短租</div>
-            </van-col>
-          </div> -->
-
-          <!-- <div class="condition-label">房源类型 <i class="iconfont problem_icon" @click.stop="gotoRoomType">&#xe604;</i></div>
-          <div class="condition-content">
-            <van-col
-            :span="6"
-            v-for="(n, i) in type"
-            :key="i"
-            >
-              <div
-              :class="condition.type.indexOf(n) > -1 ? 'button-b1-active' : 'button-b1'"
-              @click.stop="changeType(n)"
-              >{{n}}</div>
-            </van-col>
-          </div> -->
-
-          <!-- <div class="condition-label">租金</div>
-          <div class="condition-content">
-            <van-col
-            :span="8"
-            v-for="(n, i) in money"
-            :key="i"
-            >
-              <div
-              :class="condition.money === i ? 'button-b1-active' : 'button-b1'"
-              @click.stop="changMoney(i)"
+            <div class="condition-label">租金</div>
+            <div class="condition-content">
+              <van-col
+              :span="8"
+              v-for="(n, i) in money"
+              :key="i"
               >
-                {{n.value}}
-              </div>
-            </van-col>
-          </div> -->
-        </div>
+                <div
+                :class="condition.money === i ? 'button-b1-active' : 'button-b1'"
+                @click.stop="changMoney(i)"
+                >
+                  {{n.value}}
+                </div>
+              </van-col>
+            </div>
+          </div>
+
+        </my-scroll>
 
         <div class="type_btns">
           <div class="clear_btn" @click.stop="clearAll">清除</div>
@@ -148,11 +110,29 @@ export default class RoomConditionOther extends Vue {
   @Prop({default: {}}) private requestCallback!: any;
   private toggleOtherPopup(): void {
     this.conditionNum = 0;
+    this.setCondition();
     if (this.bool) {
       this.show(false);
     } else {
       this.show(true);
     }
+  }
+  // 计算选中的条件
+  private setCondition(): void {
+    let moneyIndex: number = -1;
+    this.money.forEach((item, i) => {
+      if (item.max === this.other.money.max && item.min === this.other.money.min) {
+        moneyIndex = i;
+        return;
+      }
+    });
+    const obj = {
+      gender: this.other.gender,
+      money: moneyIndex === -1 ? '' : moneyIndex,
+      shortRent: this.other.shortRent,
+      type: this.other.type === '' ? [] : this.other.type.split(','),
+    };
+    this.condition = Object.assign({}, this.condition, obj);
   }
   // 改变性别
   private changeGender(i: number): void {
@@ -199,11 +179,11 @@ export default class RoomConditionOther extends Vue {
     if (this.condition.gender !== '') {
       this.conditionNum++;
     }
-    if (this.condition.LeasePeriod) {
+    if (this.condition.shortRent) {
       this.conditionNum++;
     }
     if (this.condition.type.length > 0) {
-      this.conditionNum++;
+      this.conditionNum += this.condition.type.length;
     }
     if (this.condition.money !== '') {
       this.conditionNum++;
@@ -216,7 +196,7 @@ export default class RoomConditionOther extends Vue {
     const obj = {
       gender: this.condition.gender,
       shortRent: this.condition.shortRent,
-      type: this.condition.type,
+      type: this.condition.type.toString(),
       money: {
         min: this.condition.money === '' ? 0 : this.money[this.condition.money].min,
         max: this.condition.money === '' ? 0 : this.money[this.condition.money].max,
@@ -247,13 +227,16 @@ export default class RoomConditionOther extends Vue {
     padding: 15px 15px 15px;
     box-sizing: border-box;
     height: 300px;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling : touch;
+    overflow: hidden;
     padding-bottom: 80px;
+    > div {
+      // height: 100%;
+      overflow: hidden;
+    }
   }
   .type_btns {
     position: absolute;
-    bottom: 0;
+    bottom: -70;
     left: 0;
     width: 100%;
     box-sizing: border-box;
