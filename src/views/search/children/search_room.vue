@@ -66,6 +66,7 @@ import RoomConditionType from '@/components/search/room_condition_type.vue';
 import RoomConditionOther from '@/components/search/room_condition_other.vue';
 import CommonBanner from '@/components/common/banner.vue';
 import RoomList from '@/components/list/room.vue';
+// import MyScroll from '@/components/common/my_scroll.vue';
 
 @Component({
   components: {
@@ -75,6 +76,7 @@ import RoomList from '@/components/list/room.vue';
     RoomConditionOther,
     CommonBanner,
     RoomList,
+    // MyScroll,
   },
 })
 export default class SearchRoom extends Vue {
@@ -162,7 +164,7 @@ export default class SearchRoom extends Vue {
 }
 .list_wrap {
   width: 100%;
-  height: 101%;
+  height: 95%;
   .van-pull-refresh {
     height: 100%;
     overflow-y: scroll;

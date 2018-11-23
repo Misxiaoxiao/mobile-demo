@@ -11,7 +11,50 @@
     <div class="condition-wrap" v-show="bool">
       <div class="other_wrap">
         <div class="other_wrap_content">
-          <div class="condition-label" style="margin-top: 0;">性别限制</div>
+          <my-scroll>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+          </my-scroll>
+          <!-- <div class="condition-label" style="margin-top: 0;">性别限制</div>
           <div class="condition-content">
             <van-col
               :span="6"
@@ -23,9 +66,9 @@
               @click.stop="changeGender(n.key)"
               >{{n.value}}</div>
             </van-col>
-          </div>
+          </div> -->
 
-          <div class="condition-label">租期</div>
+          <!-- <div class="condition-label">租期</div>
           <div class="condition-content">
             <van-col :span="6">
               <div
@@ -33,9 +76,9 @@
               @click.stop="changeShortRent"
               >可短租</div>
             </van-col>
-          </div>
+          </div> -->
 
-          <div class="condition-label">房源类型 <i class="iconfont problem_icon" @click.stop="gotoRoomType">&#xe604;</i></div>
+          <!-- <div class="condition-label">房源类型 <i class="iconfont problem_icon" @click.stop="gotoRoomType">&#xe604;</i></div>
           <div class="condition-content">
             <van-col
             :span="6"
@@ -47,9 +90,9 @@
               @click.stop="changeType(n)"
               >{{n}}</div>
             </van-col>
-          </div>
+          </div> -->
 
-          <div class="condition-label">租金</div>
+          <!-- <div class="condition-label">租金</div>
           <div class="condition-content">
             <van-col
             :span="8"
@@ -63,7 +106,7 @@
                 {{n.value}}
               </div>
             </van-col>
-          </div>
+          </div> -->
         </div>
 
         <div class="type_btns">
@@ -79,8 +122,13 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import { ROOM_CONDITION_GENDER, ROOM_CONDITION_TYPE, ROOM_CONDITION_MONEY } from '@/model/index';
+import MyScroll from '@/components/common/my_scroll.vue';
 
-@Component
+@Component({
+  components: {
+    MyScroll,
+  },
+})
 export default class RoomConditionOther extends Vue {
   private gender: any[] = ROOM_CONDITION_GENDER;
   private type: any[] = ROOM_CONDITION_TYPE;
