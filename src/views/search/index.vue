@@ -101,7 +101,7 @@ export default class SearchIndex extends Vue {
     other: {
       gender: '',
       shortRent: false,
-      type: [],
+      type: '',
       money: {
         min: 0,
         max: 0,
@@ -223,7 +223,7 @@ export default class SearchIndex extends Vue {
       other: {
         gender: '',
         shortRent: false,
-        type: [],
+        type: '',
         money: {
           min: 0,
           max: 0,
@@ -308,7 +308,7 @@ export default class SearchIndex extends Vue {
       sex: this.roomCondition.other.gender,
       bed_count: this.roomCondition.type.bedCount,
       type: (this.roomCondition.type.type).toString(),
-      room_type_affirm: (this.roomCondition.other.type).toString(),
+      room_type_affirm: this.roomCondition.other.type,
       sequence,
       longitude: this.roomCondition.location.lng === -1 ? '' : this.roomCondition.location.lng,
       latitude: this.roomCondition.location.lat === -1 ? '' : this.roomCondition.location.lat,
@@ -325,6 +325,7 @@ export default class SearchIndex extends Vue {
     const data = {
       city: this.currentCity,
       sequence,
+      region: this.demandCondition.region,
       gender: this.demandCondition.gender,
       cost1: this.demandCondition.money.min,
       cost2: this.demandCondition.money.max,
