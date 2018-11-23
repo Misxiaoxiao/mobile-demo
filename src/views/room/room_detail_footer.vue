@@ -1,5 +1,5 @@
 <template>
-  <van-row v-if="bedDetail.myself && !bedDetail.room.biz">
+  <van-row class="room_detail_footer_wrap" v-if="bedDetail.myself && !bedDetail.room.biz">
     <van-col :span="4" >
       <link-edit :editClass="'collect_btn_1'" />
     </van-col>
@@ -8,7 +8,7 @@
     </van-col>
   </van-row>
 
-  <van-row v-else-if="bedDetail.myself && bedDetail.room.biz">
+  <van-row class="room_detail_footer_wrap" v-else-if="bedDetail.myself && bedDetail.room.biz">
     <van-col :span="24" class="collect_btn">
       <link-edit :editClass="'collect_btn_2'" />
     </van-col>
