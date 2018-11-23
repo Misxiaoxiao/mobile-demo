@@ -12,6 +12,10 @@
       <p>{{item.name}}</p>
       <span>{{item.address}}</span>
     </div>
+    <div class="search_input_list_item" v-if="!querying && list.length === 0">
+      <p>没有查到你输入的地址</p>
+      <span>请检查</span>
+    </div>
   </div>
 </template>
 
@@ -21,9 +25,11 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 @Component
 export default class InputSearchList extends Vue {
   @Prop({default: false}) private isShow!: boolean;
+  @Prop({default: false}) private querying!: boolean;
   @Prop({default: []}) private list!: any[];
   @Prop({default: {}}) private change!: any;
   @Prop({default: {}}) private requestCallback!: any;
+
   private handleClick(obj: any): void {
     this.change(obj.region);
     this.requestCallback();

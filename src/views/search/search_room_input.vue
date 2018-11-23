@@ -1,7 +1,7 @@
 <template>
   <div class="search_input" @click.stop="changePopup(true)" v-show="$route.name === 'room'">
     <i class="search_icon"></i>搜索
-    <popup :isShow="showPopup" class="input_popup_wrap">
+    <van-popup v-model="showPopup" position="right" class="input_popup_wrap">
       <div class="search_input_header_wrap">
         <div class="search_input_header">
           <div class="search_input_header_back" @click.stop="changePopup(false)" >×</div>
@@ -20,6 +20,7 @@
         <input-search-list
         :isShow="showInputSearchList"
         :list="addresses"
+        :querying="querying"
         :change="regionCallback"
         :requestCallback="request"
         />
@@ -53,7 +54,7 @@
         </div>
 
       </div>
-    </popup>
+    </van-popup>
   </div>
 </template>
 
@@ -85,6 +86,7 @@ export default class SearchRoomInput extends Vue {
   @State((state: any) => state.LocateModule.locate_address) private locateAddress!: string;
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
   @State((state: any) => state.LocateModule.addresses) private addresses!: string;
+  @State((state: any) => state.LocateModule.querying) private querying!: string;
   @State((state: any) => state.CommonModule.city_traffic) private cityTraffic!: any;
 
   @Action('searchAddressByKeyword') private searchAddressByKeyword!: any;
@@ -148,7 +150,7 @@ export default class SearchRoomInput extends Vue {
   width: 100%;
   height: 100%;
   z-index: 999;
-  top: 0;
+  bottom: 0;
   left: 0;
   background-color: #fff;
   .search_input_header {

@@ -1,10 +1,8 @@
 <template>
   <div class="input_wrap">
     <van-search
-    placeholder="输入地址查询房源"
-    v-model="val"
-    @focus.stop="show(true)"
-    @blur.stop="show(false)" />
+    placeholder="输入路名、小区、办公楼等"
+    v-model="val" />
   </div>
 </template>
 
@@ -13,16 +11,25 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 @Component
 export default class RoomInput extends Vue {
+  private timer: any = null;
   private val: string = '';
   @Prop({default: {}}) private show!: any;
   @Prop({default: {}}) private changeVal!: any;
   @Watch('val') private change(newVal: string): void {
-    this.changeVal({
-      data: {
-        keyword: this.val,
-        city: '上海',
-      },
-    });
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      if (this.val.length > 0) {
+        this.show(true);
+      } else {
+        this.show(false);
+      }
+      this.changeVal({
+        data: {
+          keyword: this.val,
+          city: '上海',
+        },
+      });
+    }, 200);
   }
 }
 </script>
