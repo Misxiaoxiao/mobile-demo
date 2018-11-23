@@ -41,6 +41,7 @@
             v-model="loading"
             :finished="finished"
             @load="onLoad"
+            @scroll="onScroll"
           >
             
             <common-banner />
@@ -121,6 +122,10 @@ export default class SearchRoom extends Vue {
       return this.roomCondition.region.subwayLine;
     }
     return '';
+  }
+
+  private onScroll(): void {
+    console.log(11);
   }
 
   private onLoad(): void {
