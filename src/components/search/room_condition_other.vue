@@ -1,15 +1,14 @@
 <template>
   <div
   :class="bool || label !== '更多筛选' ? 'condition-btn active' : 'condition-btn'"
+  @click.stop="toggleOtherPopup"
   >
-    <p
-    @click.stop="toggleOtherPopup"
-    >
+    <p>
       {{label}}
       <i :class="'snajiao_icon' + (bool || label !== '更多筛选' ? ' snajiao_icon_active' : '')"></i>
     </p>
     <div class="condition-wrap" v-if="bool">
-      <div class="other_wrap">
+      <div class="other_wrap" @click.stop="() => {}">
         <my-scroll  class="other_wrap_content">
 
           <div>

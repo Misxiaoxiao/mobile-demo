@@ -1,15 +1,14 @@
 <template>
   <div
   :class="bool || this.label !== '整租合租' ? 'condition-btn active' : 'condition-btn'"
+  @click.stop="toggleTypePopup"
   >
-    <p
-    @click.stop="toggleTypePopup"
-    >
+    <p>
       {{label}}
       <i :class="'snajiao_icon' + (bool || this.label !== '整租合租' ? ' snajiao_icon_active' : '')"></i>
     </p>
     <div class="condition-wrap" v-show="bool">
-      <div class="type_wrap">
+      <div class="type_wrap" @click.stop="() => {}">
         <div class="type_wrap_content">
           <div class="condition-label" style="margin-top: 0;">整租</div>
           <div class="condition-content">
