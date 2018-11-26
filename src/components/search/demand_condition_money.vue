@@ -1,15 +1,14 @@
 <template>
   <div
   :class="bool || label !== '预算' ? 'condition-btn active' : 'condition-btn'"
+  @click.stop="toggleClick"
   >
-    <p
-    @click.stop="toggleClick"
-    >
+    <p>
       {{label}}
       <i :class="'snajiao_icon' + (bool || label !== '预算' ? ' snajiao_icon_active' : '')"></i>
     </p>
-    <div class="condition-wrap" v-show="bool">
-      <div class="demand_money_wrap">
+    <div class="condition-wrap" v-if="bool">
+      <div class="demand_money_wrap" @click.stop="() => {}">
 
         <div class="condition-label" style="margin-top: 0;">预算</div>
         <div class="condition-content">
@@ -44,7 +43,7 @@ import { ROOM_CONDITION_MONEY } from '@/model/index';
 @Component
 export default class DemandConditionMoney extends Vue {
   private moneyCondition: any[] = ROOM_CONDITION_MONEY;
-  private conditionMoney: string = '';
+  private conditionMoney: any = '';
   @Prop({default: {}}) private money!: any;
   @Prop({default: false}) private bool!: boolean;
   @Prop({default: {}}) private show!: any;
@@ -56,12 +55,24 @@ export default class DemandConditionMoney extends Vue {
     }
     return `${this.money.min}~${this.money.max === 0 ? '不限' : this.money.max}`;
   }
+
   private toggleClick(): void {
+    this.setMoneyCondition();
     if (this.bool) {
       this.show(false);
     } else {
       this.show(true);
     }
+  }
+  // 设置选中条件
+  private setMoneyCondition(): void {
+    this.conditionMoney = '';
+    this.moneyCondition.forEach((item, index) => {
+      if (this.money.min === item.min && this.money.max === item.max) {
+        this.conditionMoney = index;
+        return;
+      }
+    });
   }
   // 改变租金
   private changMoney(i: string): void {
@@ -74,19 +85,19 @@ export default class DemandConditionMoney extends Vue {
   // 清除
   private clear(): void {
     this.conditionMoney = '';
-    const obj = {
-      min: 0,
-      max: 0,
-    };
-    this.change(obj);
-    this.show(false);
-    this.requestCallback();
   }
   // 确定
   private enter(): void {
     const i: number = this.conditionMoney === '' ? -1 : Number(this.conditionMoney);
     if (i !== -1) {
       const obj = this.moneyCondition[i];
+      this.change(obj);
+    } else {
+      const obj = {
+        min: 0,
+        max: 0,
+        value: '',
+      };
       this.change(obj);
     }
     this.show(false);
