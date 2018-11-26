@@ -37,13 +37,19 @@
 
       <div class="list_wrap">
         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+
+          <div class="list_nothing_wrap" v-if="rentList.length === 0 && !searching">
+            <span>搜索不到相关信息</span>
+          </div>
+
           <van-list
+            v-else
             v-model="loading"
             :finished="finished"
             @load="onLoad"
           >
             
-            <common-banner />
+            <!-- <common-banner /> -->
 
             <van-cell v-for="(item, i) in rentList" :key="i">
               <room-list :room="item.room" />
@@ -80,7 +86,6 @@ import RoomList from '@/components/list/room.vue';
   },
 })
 export default class SearchRoom extends Vue {
-  private loading: boolean = false;
   private refreshing: boolean = false;
 
   @Prop({default: false}) private roomSearchByInput!: boolean;
@@ -114,6 +119,17 @@ export default class SearchRoom extends Vue {
     return !this.hasNextRentPage || this.searching;
   }
 
+  set loading(a: any) {
+    // body
+  }
+
+  get loading() {
+    if (this.refreshing) {
+      return false;
+    }
+    return this.searching;
+  }
+
   get region(): string {
     if (this.roomCondition.region.region !== '') {
       return this.roomCondition.region.region;
@@ -125,9 +141,10 @@ export default class SearchRoom extends Vue {
 
   private onLoad(): void {
     this.requestRoom(() => {
-      this.loading = false;
+      // body
     }, true);
   }
+
   private onRefresh(): void {
     this.requestRoom(() => {
       this.refreshing = false;
@@ -135,9 +152,8 @@ export default class SearchRoom extends Vue {
   }
 
   private mounted(): void {
-    this.loading = true;
     this.requestRoom(() => {
-      this.loading = false;
+      // body
     });
   }
 }
@@ -169,6 +185,24 @@ export default class SearchRoom extends Vue {
     height: 100%;
     overflow-y: scroll;
     -webkit-overflow-scrolling : touch;
+    .van-pull-refresh__track {
+      height: 100%;
+    }
+  }
+}
+.list_nothing_wrap {
+  width: 100%;
+  height: 100%;
+  font-size: 15px;
+  color: #888888;
+  background: url('../../../assets/WechatIMG2.png') center 80px no-repeat;
+  background-size: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > span {
+    margin-top: 90px;
   }
 }
 </style>
