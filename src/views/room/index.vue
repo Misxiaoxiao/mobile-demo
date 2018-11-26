@@ -20,7 +20,8 @@
       </div>
     </div>
 
-    <room-detail-footer />
+    <common-bar />
+    <!-- <room-detail-footer /> -->
 
   </div>
 </template>
@@ -35,6 +36,7 @@ import RoomDescription from './room_description.vue';
 import RoomDetailFooter from './room_detail_footer.vue';
 import RoomDetailComment from './room_detail_comment.vue';
 import Loading from '@/components/common/loading.vue';
+import CommonBar from '@/components/common/bar.vue';
 
 @Component({
   components: {
@@ -45,6 +47,7 @@ import Loading from '@/components/common/loading.vue';
     RoomDetailFooter,
     RoomDetailComment,
     Loading,
+    CommonBar,
   },
 })
 export default class DetailIndex extends Vue {

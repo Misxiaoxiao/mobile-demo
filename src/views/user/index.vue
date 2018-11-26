@@ -1,8 +1,5 @@
 <template>
   <div class="user_wrap">
-    <!-- <common-header>
-      <div slot="header_right" class="user_header_right">···</div>
-    </common-header> -->
     <div class="user_detail_wrap" v-if="!requesting">
       <div class="user_detail_info">
         <person-img
@@ -31,7 +28,7 @@
         </div>
       </div>
     </div>
-    <user-footer />
+    <common-bar />
   </div>
 </template>
 
@@ -39,15 +36,16 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import CommonHeader from '@/components/common/header.vue';
-import UserFooter from './user_footer.vue';
+// import UserFooter from './user_footer.vue';
 import PersonImg from '@/components/common/person_img.vue';
 import UserTab from './user_tab.vue';
 import RoomList from '@/components/list/room.vue';
+import CommonBar from '@/components/common/bar.vue';
 
 @Component({
   components: {
     CommonHeader,
-    UserFooter,
+    CommonBar,
     PersonImg,
     UserTab,
     RoomList,
