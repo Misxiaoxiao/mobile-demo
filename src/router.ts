@@ -18,19 +18,22 @@ export default new Router({
     {
       path: '/search',
       component: () => import('./views/search/index.vue'),
-      meta: {
-        title: 'zuber白领租房平台',
-      },
       children: [
         {
           path: 'room',
           name: 'room',
           component: () => import('./views/search/children/search_room.vue'),
+          meta: {
+            title: 'zuber - 个人房源',
+          },
         },
         {
           path: 'demand',
           name: 'demand',
           component: () => import('./views/search/children/search_demand.vue'),
+          meta: {
+            title: 'zuber - 个人求租',
+          },
         },
       ],
     },
