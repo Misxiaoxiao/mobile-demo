@@ -1,6 +1,6 @@
 <template>
   <div class="search_city" @click.stop="changePopup(true)">
-    <i class="iconfont location_icon">&#xe680;</i>{{currentCity}}
+    <i class="iconfont location_icon">&#xe680;</i>{{city}}
     <van-popup v-model="showPopup" position="right">
       <div class="popup_wrap_header">
         <i
@@ -18,7 +18,7 @@
         />
 
         <hot-city
-        :currentCity="currentCity"
+        :currentCity="city"
         :change="changeCity"
         />
 
@@ -53,6 +53,7 @@ export default class SearchCity extends Vue {
 
   private showPopup: boolean = false;
 
+  @Prop({default: ''}) private city!: string;
   @Prop({default: ''}) private changeCurrentCity!: any;
 
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;

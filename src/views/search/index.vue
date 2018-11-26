@@ -3,6 +3,7 @@
     <div class="search_header_wrap">
 
       <search-city
+      :city="city"
       :changeCurrentCity="changeCurrentCity"
       />
 
@@ -59,19 +60,23 @@
       />
 
     </div>
+
+    <common-bar />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
 import SearchCity from './search_city.vue';
 import SearchTab from './search_tab.vue';
 import SearchRoomInput from './search_room_input.vue';
 import SearchDemandInput from './search_demand_input.vue';
-import { State, Action } from 'vuex-class';
+import CommonBar from '@/components/common/bar.vue';
 
 @Component({
   components: {
+    CommonBar,
     SearchCity,
     SearchTab,
     SearchRoomInput,
@@ -83,6 +88,8 @@ export default class SearchIndex extends Vue {
   private roomSearchByVideo: boolean = false;
   private roomSearchByType: boolean = false;
   private roomSearchByOther: boolean = false;
+
+  private city: string = '';
 
   private roomCondition: any = {
     region: {
@@ -132,7 +139,7 @@ export default class SearchIndex extends Vue {
   @State((state: any) => state.SearchModule.demand_sequence) private demandSequence!: string;
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
 
-  @Action('setCurrentCity') private setCurrentCity!: any;
+  // @Action('setCurrentCity') private setCurrentCity!: any;
   @Action('setLocateCityAndAddress') private setLocateCityAndAddress!: any;
   @Action('getBedList') private getBedList: any;
   @Action('getDemandList') private getDemandList: any;
@@ -140,7 +147,7 @@ export default class SearchIndex extends Vue {
   @Action('getGeoLocation') private getGeoLocation!: any;
   @Action('locateCurrentCity') private locateCurrentCity!: any;
 
-  @Watch('currentCity') private changeCity(): void {
+  @Watch('city') private changeCity(): void {
     if (this.$route.name === 'room') {
       this.requestRoomCallback();
     } else if (this.$route.name === 'demand') {
@@ -148,7 +155,7 @@ export default class SearchIndex extends Vue {
     }
     this.getCityTraffic({
       data: {
-        city: this.currentCity,
+        city: this.city,
       },
     });
   }
@@ -205,9 +212,10 @@ export default class SearchIndex extends Vue {
   // 改变当前城市
   private changeCurrentCity(city: string): void {
     // 改变城市
-    this.setCurrentCity({
-      data: {city},
-    });
+    this.city = city;
+    // this.setCurrentCity({
+    //   data: {city},
+    // });
     // 清空其他搜索条件
     const roomCondition: any = {
       region: '',
@@ -298,7 +306,7 @@ export default class SearchIndex extends Vue {
     more = more ? more : false;
     const sequence: string = more ? this.rentSequence : '';
     const data = {
-      city: this.currentCity,
+      city: this.city,
       cost1: this.roomCondition.other.money.min,
       cost2: this.roomCondition.other.money.max,
       has_short_rent: this.roomCondition.other.shortRent ? 1 : 0,
@@ -323,7 +331,7 @@ export default class SearchIndex extends Vue {
     more = more ? more : false;
     const sequence: string = more ? this.demandSequence : '';
     const data = {
-      city: this.currentCity,
+      city: this.city,
       sequence,
       region: this.demandCondition.region,
       gender: this.demandCondition.gender,
@@ -339,8 +347,9 @@ export default class SearchIndex extends Vue {
   }
 
   private mounted(): void {
-    this.getGeoLocation();
+    // this.getGeoLocation();
     this.locateCurrentCity();
+    this.city = this.currentCity;
     this.getCityTraffic({
       data: {
         city: this.currentCity,
