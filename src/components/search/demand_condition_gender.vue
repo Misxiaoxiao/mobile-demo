@@ -1,10 +1,9 @@
 <template>
   <div
   :class="bool || gender !== '' ? 'condition-btn active' : 'condition-btn'"
+  @click.stop="toggleClick"
   >
-    <p
-    @click.stop="toggleClick"
-    >
+    <p>
       {{gender === '' ? '性别' : (gender === 'm' ? '限男生' : '限女生')}}
       <i :class="'snajiao_icon' + (bool || gender !== '' ? ' snajiao_icon_active' : '')"></i>
     </p>
@@ -46,4 +45,28 @@ export default class DemandConditionSex extends Vue {
 </script>
 
 <style lang="less">
+.condition-wrap {
+  > .row {
+    box-sizing: border-box;
+    // padding: 15px;
+    height: 50px;
+    background-color: #fff;
+    border-top: 1px solid #EEEEEE;
+    font-size: 14px;
+    color: #484848;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    i {
+      font-size: 12px;
+      font-style: normal;
+      color: #CCCCCC;
+    }
+  }
+  .active {
+    color: #66D4C3;
+  }
+}
 </style>
