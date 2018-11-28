@@ -90,16 +90,16 @@ export default class InitApp extends Vue {
   private deal(): void {
     // this.share();
     // this.getAppInfo();
-    if (this.$route.query.state || this.$route.query.source) {
-      this.login();
-    } else if (!this.ifLogged) {
-      if (this.ifWeixin) {
-        window.location.href = 'http://www.zuber.im/weixin?' + (this.ifWeixin ? 'm=1&' : '') + 'goto='
-                               + encodeURIComponent(window.location.href.replace('http:', 'https:'));
-      }
-    } else {
-      this.init();
-    }
+    // if (this.$route.query.state || this.$route.query.source) {
+    //   this.login();
+    // } else if (!this.ifLogged) {
+    //   if (this.ifWeixin) {
+    //     window.location.href = 'http://www.zuber.im/weixin?' + (this.ifWeixin ? 'm=1&' : '') + 'goto='
+    //                            + encodeURIComponent(window.location.href.replace('http:', 'https:'));
+    //   }
+    // } else {
+    //   this.init();
+    // }
     this.redirect();
   }
 }

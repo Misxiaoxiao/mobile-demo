@@ -19,7 +19,12 @@ export default class LinkApp extends Vue {
   private jump(): void {
     const that = this;
     if (this.ifWeixin) {
-      window.location.href = window.location.origin + '/jump?jump_url=' + encodeURIComponent(this.$route.path);
+      this.$router.push({
+        name: 'download',
+        query: {
+          jumpUrl: this.jumpUrl,
+        },
+      });
     } else {
       window.location.href = 'zuber:/' + this.$route.path;
       setTimeout(() => {

@@ -11,8 +11,8 @@ export default new Router({
       path: '/',
       name: 'home',
       component: () => import('./views/index/index.vue'),
-      meta: {
-        title: 'zuber白领租房平台',
+      redirect: {
+        name: 'room',
       },
     },
     {
@@ -38,11 +38,19 @@ export default new Router({
       ],
     },
     {
-      path: '/bed/:id',
+      path: '/room/:id',
       name: 'bedDetail',
       component: () => import('./views/room/index.vue'),
       meta: {
-        title: '房源详情',
+        title: 'zuber - 房源详情',
+      },
+    },
+    {
+      path: '/room/image',
+      name: 'image',
+      component: () => import('./views/room/index.vue'),
+      meta: {
+        title: 'zuber - 房源详情',
       },
     },
     {
@@ -50,7 +58,7 @@ export default new Router({
       name: 'user',
       component: () => import('./views/user/index.vue'),
       meta: {
-        title: '用户详情',
+        title: 'zuber - 用户详情',
       },
     },
     {
@@ -58,7 +66,7 @@ export default new Router({
       name: 'company',
       component: () => import('./views/company/index.vue'),
       meta: {
-        title: '公寓详情',
+        title: 'zuber - 公寓详情',
       },
     },
     {
@@ -77,6 +85,19 @@ export default new Router({
         title: '订阅房源',
       },
     },
+    {
+      path: '/map',
+      name: 'map',
+      component: () => import('@/components/map/index.vue'),
+      meta: {
+        title: 'zuber - 房源位置',
+      },
+    },
+    // {
+    //   path: '/jump',
+    //   name: 'jump',
+    //   component: () => import('./views/jump/index.vue'),
+    // },
     // {
     //   path: '/contract',
     //   name: 'contract',

@@ -4,7 +4,7 @@
     <van-popup v-model="showPopup" position="right" class="input_popup_wrap">
       <div class="search_input_header_wrap">
         <div class="search_input_header">
-          <div class="search_input_header_back" @click.stop="changePopup(false)" >×</div>
+          <div class="search_input_header_back iconfont" @click.stop="changePopup(false)" >&#xe603;</div>
           <div class="search_input_header_title">位置区域</div>
           <div class="search_input_header_limit" @click.stop="cancleLimit">不限</div>
         </div>
@@ -162,7 +162,7 @@ export default class SearchRoomInput extends Vue {
     .search_input_header_back {
       width: 32px;
       height: 20px;
-      font-size: 35px;
+      font-size: 18px;
       line-height: 20px;
       color: #5B5B5B;
       cursor: pointer;

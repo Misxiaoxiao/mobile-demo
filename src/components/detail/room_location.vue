@@ -4,8 +4,8 @@
       <span class="room_locate_left">
         <i class="iconfont">&#xe680;</i>{{detailInfo.localization}}
       </span>
-      <span class="room_locate_right">
-        <i class="iconfont">&#xe601;</i>
+      <span class="room_locate_right" @click.stop="gotoMap">
+        地图<i class="iconfont">&#xe601;</i>
       </span>
     </h4>
     <p>
@@ -23,6 +23,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 @Component
 export default class RoomLocation extends Vue {
   @Prop({default: {}}) private detailInfo!: any;
+  @Prop({default: {}}) private gotoMap!: any;
 }
 </script>
 
@@ -41,9 +42,11 @@ export default class RoomLocation extends Vue {
     }
     > span.room_locate_right {
       float: right;
-      color: #CCCCCC;
+      font-size: 12px;
+      color: #666;
       > i {
-        font-size: 14px;
+        font-size: 12px;
+        color: #CCCCCC;
       }
     }
   }

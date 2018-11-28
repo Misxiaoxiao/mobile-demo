@@ -2,7 +2,6 @@
   <div class="room_description_wrap" v-if="roomDescription !== ''">
     <h4>房源描述</h4>
     <div class="room_description_person" @click.stop="view">
-
       <person-img
       v-if="roomDescription.person !== ''"
       :info="roomDescription.person"
@@ -13,6 +12,8 @@
       v-if="roomDescription.company !== ''"
       :info="roomDescription.company"
       />
+
+      <div class="contract_btn" @click.stop="clickContract">联系Ta</div>
 
     </div>
     <div class="room_des_text_wrap">
@@ -85,6 +86,13 @@ export default class RoomDescription extends Vue {
       });
     }
   }
+
+  // 联系Ta
+  private clickContract(): void {
+    this.$dialog.alert({
+      message: '请下载APP，使用私信聊天功能',
+    });
+  }
 }
 </script>
 
@@ -107,6 +115,19 @@ export default class RoomDescription extends Vue {
     align-items: center;
     background-color: rgba(217,217,217,0.06);
     border-radius: 5px;
+    position: relative;
+    .contract_btn {
+      position: absolute;
+      right: 5px;
+      width: 72px;
+      line-height: 20px;
+      background-color: #66D4c3;
+      border: 1px solid #66D4C3;
+      color: #fff;
+      font-size: 12px;
+      text-align: center;
+      border-radius: 3px;
+    }
   }
   .room_des_text_wrap {
     padding: 10px 0 15px;

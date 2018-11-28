@@ -19,6 +19,7 @@
         </div>
       </div>
     </div>
+    <div class="room_type" v-if="room.may_expire">可能已出租</div>
   </div>
 </template>
 
@@ -93,6 +94,15 @@ export default class RoomList extends Vue {
 <style lang="less">
 .room_list_item_wrap {
   width: 100%;
+  > .room_type {
+    float: right;
+    font-size: 12px;
+    color: #cc9900;
+    padding: 0 7px;
+    line-height: 20px;
+    border-radius: 10px;
+    background-color: #FFF2BE;
+  }
 }
 .room_list_item {
   overflow: hidden;

@@ -4,30 +4,20 @@
       点击右上角在浏览器中打开
     </span>
     <div class="mask" v-if="platform !== 'ios' && ifWeixin"></div>
+
+    <download-app v-if="!ifWeixin" />
+
     <div class="download-content">
       <div class="app-logo">
-        <img src="../../assets/logo-primary.png" alt="" height="70">
+        <img src="../../assets/logo-primary.png" alt="" height="90">
       </div>
-      <h4>zuber白领租房平台</h4>
-      <p class="">真房源，省心租</p>
+      <h4>个人真实房源</h4>
+      <p class="">有视频&nbsp;&nbsp;&nbsp;&nbsp;无中介</p>
       <br>
-      <div>
-        <a href="" class="download-btn" target="_blank">
-          <img src="../../assets/apple_icon.png" alt="" class="download-icon" height="28">
-          &nbsp;
-          下载最新iPhone版
-        </a>
-        <a href="" class="download-btn" target="_blank" v-if="platform === 'ios'">
-          <img src="../../assets/android_icon.png" alt="" class="bownload-icon" height="28">
-          &nbsp;
-          下载最新Android版
-        </a>
-        <a href="" class="download-btn" target="_blank" v-else>
-          <img src="../../assets/android_icon.png" alt="" class="download-icon" height="28">
-          &nbsp;
-          下载最新Android版
-        </a>
-      </div>
+      <br>
+      <a :href="ifWeixin ? downloadUrl : device.download_url" class="download-btn">
+        下载App
+      </a>
       <p class="download-p">
         同时支持个人/商家
       </p>
@@ -37,19 +27,34 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
 import Platform from '@/utils/platform';
 import { APP_URL } from '@/model/index';
+import DownloadApp from './app.vue';
 
-@Component
+@Component({
+  components: {
+    DownloadApp,
+  },
+})
 export default class DownLoadIndex extends Vue {
   private ifWeixin: boolean = false;
   private platform: string = '';
   private downloadUrl: string = APP_URL;
 
+  @State((state: any) => state.CommonModule.device) private device!: string;
+
+  @Action('recordTerminalInfo') private recordTerminalInfo!: any;
+
   private created(): void {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
     this.platform = platform.checkPlatform();
+    window.location.href = 'zuber:/' + this.$route.path;
+  }
+
+  private mounted(): void {
+    this.recordTerminalInfo();
   }
 }
 </script>
@@ -57,18 +62,16 @@ export default class DownLoadIndex extends Vue {
 <style lang="less">
 .download-btn {
   box-sizing: border-box;
-  background-color: #66D4C3;
-  color: #fff !important;
-  border-radius: 25px;
+  // background-color: #66D4C3;
+  color: #666 !important;
+  border-radius: 3px;
   display: block;
   margin: 15px auto;
-  width: 70%;
+  width: 35%;
   text-align: center;
-  padding: 12px;
-  border: 1px solid #66d4c3;
-  > img {
-    vertical-align: middle;
-  }
+  padding: 6px 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
 }
 .download-icon {
   position: relative;
@@ -85,7 +88,7 @@ export default class DownLoadIndex extends Vue {
   z-index: 1030;
 }
 .download-app {
-  padding-top: 15px;
+  padding-top: 120px;
   .weixin-hint {
     padding: 10px;
     background: #66D4C3;
@@ -108,12 +111,13 @@ export default class DownLoadIndex extends Vue {
     }
   }
   .download-content {
-    margin-top: 100px;
+    margin: 30px 0;
     > h4 {
       text-align: center;
       font-size: 18px;
       margin-top: 10px;
       margin-bottom: 10px;
+      font-weight: 400;
     }
     > p {
       text-align: center;
@@ -121,7 +125,7 @@ export default class DownLoadIndex extends Vue {
     }
     .app-logo {
       margin-bottom: 15px;
-      height: 70px;
+      height: 90px;
       text-align: center;
     }
     .download-p {

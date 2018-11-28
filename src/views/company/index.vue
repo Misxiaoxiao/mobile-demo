@@ -9,7 +9,8 @@
         :info="companyDetail.company"
         >
           <div slot="companyDetail" class="text-s company_des">
-            {{companyDetail.company.desc}}
+            {{detailContent}}
+            <span @click="clickMore">{{more ? '收起' : '查看更多'}}</span>
           </div>
         </company-img>
       </div>
@@ -32,6 +33,7 @@
 
       </div>
     </div>
+    <common-bar />
   </div>
 </template>
 
@@ -43,6 +45,7 @@ import CompanyImg from '@/components/common/company_img.vue';
 import CompanyStaffs from './company_staffs.vue';
 import CompanyTab from './company_tab.vue';
 import RoomList from '@/components/list/room.vue';
+import CommonBar from '@/components/common/bar.vue';
 
 @Component({
   components: {
@@ -51,15 +54,27 @@ import RoomList from '@/components/list/room.vue';
     CompanyStaffs,
     CompanyTab,
     RoomList,
+    CommonBar,
   },
 })
 export default class CompanyIndex extends Vue {
   private loading: boolean = false;
   private currentIndex: number = 0; // 0 为再租房源 1 为评价与投诉
+  private more: boolean = false;
 
   @State((state: any) => state.UserModule.company_detail) private companyDetail!: any;
   @State((state: any) => state.UserModule.requesting) private requesting!: any;
   @Action('viewCompanyDetail') private viewCompanyDetail!: any;
+
+  get detailContent(): string {
+    const str = this.companyDetail.company.desc;
+    console.log(str)
+    if (this.more) {
+      return str
+    } else {
+      return str.substring(-1, 35) + '...';
+    }
+  }
 
   private getDetail(): void {
     this.loading = true;
@@ -71,6 +86,10 @@ export default class CompanyIndex extends Vue {
         this.loading = false;
       },
     });
+  }
+  
+  private clickMore(): void {
+    this.more = !this.more;
   }
 
   private created(): void {
@@ -96,8 +115,17 @@ export default class CompanyIndex extends Vue {
       box-sizing: border-box;
       background-color: #fff;
       overflow: hidden;
+      > .company_img_wrap {
+        width: 100%;
+        > div {
+          width: auto;
+        }
+      }
       .company_des {
-        margin: 10px 0;
+        margin: 10px 0 10px 75px;
+        > span {
+          color:#66D4C3;
+        }
       }
       .company_img {
         width: 60px;

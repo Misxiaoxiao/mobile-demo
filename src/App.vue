@@ -2,7 +2,7 @@
   <div id="app">
     <title>{{$route.meta.title}}</title>
     <router-view/>
-    <init-app v-if="$route.name" />
+    <!-- <init-app v-if="$route.name" /> -->
   </div>
 </template>
 

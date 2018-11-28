@@ -2,12 +2,13 @@
   <div class="room_detail_wrap">
 
     <!-- <room-detail-header /> -->
+    <loading v-if="loading" />
 
-    <div class="room_detail_content">
+    <div class="room_detail_content" v-else>
 
-      <loading v-if="loading" />
+      <room-type />
 
-      <div v-else>
+      <div>
         
         <room-detail-info />
 
@@ -35,6 +36,7 @@ import RoomOtherInfo from './room_other_info.vue';
 import RoomDescription from './room_description.vue';
 import RoomDetailFooter from './room_detail_footer.vue';
 import RoomDetailComment from './room_detail_comment.vue';
+import RoomType from './room_type.vue';
 import Loading from '@/components/common/loading.vue';
 import CommonBar from '@/components/common/bar.vue';
 
@@ -46,6 +48,7 @@ import CommonBar from '@/components/common/bar.vue';
     RoomDescription,
     RoomDetailFooter,
     RoomDetailComment,
+    RoomType,
     Loading,
     CommonBar,
   },

@@ -6,14 +6,14 @@
       <i class="gender_icon iconfont f" v-else>&#xe644;</i>
     </div>
     <div class="person_img_des">
-      <p>
-        {{info.username}}
+      <div>
+        <p class="text-ellipsis">{{info.username}}</p>
         <span class="active" v-if="info.identity_validate_status === 1">
           <i class="iconfont">&#xe658;</i>
           实名
         </span>
         <span v-else>未实名</span>
-      </p>
+      </div>
       {{info.client_attr.profession}}  {{info.client_attr.xingzuo ? ' | ' + info.client_attr.xingzuo : ''}}
       <slot name="userDetail"></slot>
     </div>
@@ -41,6 +41,7 @@ export default class PersonImg extends Vue {
   color: #FF7D7D;
 }
 .person_wrap {
+  width: 70%;
   overflow: hidden;
   .person_img_wrap {
     float: left;
@@ -69,11 +70,15 @@ export default class PersonImg extends Vue {
     margin-left: 15px;
     color: #484848;
     line-height: 18px;
-    > p {
+    width: 70%;
+    > div {
       font-size: 14px;
       margin-bottom: 5px;
       display: flex;
       align-items: center;
+      > p {
+        max-width: 60%;
+      }
       > span {
         // float: right;
         display: inline-block;

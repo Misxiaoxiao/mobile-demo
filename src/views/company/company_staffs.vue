@@ -16,12 +16,12 @@
         class="staffs_item"
         >
           <div class="staffs_img" :style="'background: url(' + n.avatar.src + ') no-repeat center; background-size: 100%;'">
-            <img :src="n.avatar.src" alt="">
+            <!-- <img :src="n.avatar.src" alt=""> -->
           </div>
           <div class="staffs_name text-o1 text-ellipsis">
             {{n.username}}
           </div>
-          <div class="staffs_btn button-b1-active">
+          <div class="staffs_btn button-b1-active" @click.stop="clickBtn">
             私信联系
           </div>
         </div>
@@ -45,6 +45,12 @@ export default class CompanyPerson extends Vue {
   get slotArr(): any[] {
     return this.companyDetail.staffs.map((n: any, i: any) => {
       return i;
+    });
+  }
+
+  private clickBtn(): void {
+    this.$dialog.alert({
+      message: '请下载APP，使用私信聊天功能',
     });
   }
 }

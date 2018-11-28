@@ -1,15 +1,15 @@
 <template>
   <div class="company_img_wrap">
-    <div>
+    <div class="div_one">
       <div class="company_wrap_left">
         <div class="company_img photo"
         :style="'background-image: url(' + info.logo.src + ');'">
         </div>
-        <div class="company_username">{{info.name}}</div>
+        <div class="company_username text-ellipsis">{{info.name}}</div>
       </div>
-      <div class="company_wrap_right">
+      <!-- <div class="company_wrap_right">
         查看全部房源 <i class="iconfont">&#xe601;</i>
-      </div>
+      </div> -->
     </div>
     <slot name="companyDetail"></slot>
   </div>
@@ -26,9 +26,9 @@ export default class ConpanyImg extends Vue {
 
 <style lang="less">
 .company_img_wrap {
-  width: 100%; 
+  width: 70%; 
 }
-.company_img_wrap > div {
+.company_img_wrap > .div_one {
   width: 100%;
   height: 100%;
   box-sizing: border-box;

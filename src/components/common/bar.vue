@@ -8,9 +8,12 @@
     </van-col>
 
     <van-col :span="10" class="open-app-btn">
-      <router-link :to="{name: 'download', query: {jump_url: jumpUrl}}" class="open-app">
+
+      <link-app :link-class="'open-app'" :link-content="'下载应用'" />
+
+      <!-- <router-link :to="{name: 'download', query: {jump_url: jumpUrl}}" class="open-app">
         下载应用
-      </router-link>
+      </router-link> -->
 
       <link-app :link-class="'open-app open-app-outline'" :link-content="'立即打开'" />
     </van-col>

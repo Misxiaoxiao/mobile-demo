@@ -21,7 +21,7 @@
 
     <room-title :detailInfo="detailInfo" />
 
-    <room-location :detailInfo="detailInfo" />
+    <room-location :detailInfo="detailInfo" :gotoMap="gotoMap" />
 
   </div>
 </template>
@@ -126,6 +126,16 @@ export default class RoomDetailInfo extends Vue {
       }
     }
     return '';
+  }
+
+  private gotoMap(): void {
+    this.$router.push({
+      name: 'map',
+      query: {
+        latitude: this.bedDetail.room ? this.bedDetail.room.latitude : -1,
+        longitude: this.bedDetail.room ? this.bedDetail.room.longitude : -1,
+      },
+    });
   }
 }
 </script>

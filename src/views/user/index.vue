@@ -10,7 +10,7 @@
           </div>
         </person-img>
         <div class="user_info_des" v-if="!isDemand">
-          求租中：预算5000元·11月10日入住
+          求租中：预算{{userDetail.demand.money}}元·{{userDetail.demand.dateDetail}}
         </div>
       </div>
 
@@ -109,6 +109,13 @@ export default class UserIndex extends Vue {
       padding: 15px 15px 0;
       box-sizing: border-box;
       background-color: #fff;
+      > .person_wrap {
+        width: 100%;
+        > .person_img_des > div {
+          margin-top: 10px;
+
+        }
+      }
       .user_detail_slot {
         font-size: 14px;
         color: #999;
@@ -123,8 +130,9 @@ export default class UserIndex extends Vue {
         }
       }
       .user_info_des {
-        line-height: 40px;
+        // line-height: 20px;
         margin-left: 76px;
+        padding: 10px 0;
         border-top: 1px solid #EBEBEB;
         font-size: 14px;
         color: #666;
@@ -136,15 +144,12 @@ export default class UserIndex extends Vue {
       overflow: hidden;
       background-color: #fff;
       > .search_tab {
-        // justify-content: center;
         .tab_item {
-          // width: 50%;
           line-height: 45px;
           font-size: 15px;
           text-align: center;
         }
         > .tab_line {
-          // top: 35px;
           display: none;
         }
       }

@@ -11,11 +11,14 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { ImagePreview } from 'vant';
 
 @Component
 export default class ImageDetail extends Vue {
+  private instance: any = null;
+  private viewing: boolean = false;
+
   @Prop({default: ''}) private photoSrc!: string;
   @Prop({default: {}}) private photos!: any;
 
@@ -29,16 +32,27 @@ export default class ImageDetail extends Vue {
   }
 
   private showImagePreview(position: any, timer: any) {
+    const that = this;
+    this.viewing = true;
+    this.$router.push({
+      name: 'image',
+    });
     if (this.photos.length > 0) {
       const that = this;
-      const instance = ImagePreview({
+      this.instance = ImagePreview({
         images: that.Images,
         startPosition: typeof position === 'number' ? position : 0,
+        onClose() {
+          that.viewing = false;
+          if (that.$route.name !== 'bedDetail') {
+            history.back();
+          }
+        },
       });
 
       if (timer) {
         setTimeout(() => {
-          instance.close();
+          this.instance.close();
         }, timer);
       }
     } else {
@@ -46,6 +60,15 @@ export default class ImageDetail extends Vue {
         message: '暂无照片，请上传图片',
       });
     }
+  }
+  private mounted(): void {
+    window.addEventListener('popstate', () => {
+      if (this.viewing) {
+        this.instance.close();
+        this.viewing = false;
+      }
+      return;
+    });
   }
 }
 </script>
