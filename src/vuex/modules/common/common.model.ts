@@ -17,8 +17,8 @@ export interface CityListModel {
 const navigation = window.navigator
 
 export class DeviceModel {
-    device_manufacturer: string = navigation.vendor
-    device_platform: string = navigation.platform	
-    device_model: string = navigation.userAgent
-    device_version: string = navigation.appVersion
+    device_manufacturer?: string = navigation.vendor
+    device_platform?: string = navigation.platform	
+    device_model?: string = navigation.userAgent
+    device_version?: string = navigation.appVersion
 }

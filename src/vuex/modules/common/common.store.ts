@@ -6,11 +6,12 @@ import {
     RECORD_TERMINAL_INFO_SUCCESS
 } from './common.types'
 
-import {CityListModel} from './common.model'
+import {CityListModel, DeviceModel} from './common.model'
 
 export class CommonState {
     cities: CityListModel = {}
     city_traffic: any = {}
+    device: DeviceModel = {}
 }
 
 const mutations = {
@@ -26,9 +27,9 @@ const mutations = {
     [GET_COMMON_CITIES_FAIL] (state: CommonState) {
         state.cities = {}
     },
-    [RECORD_TERMINAL_INFO_SUCCESS] () {
-        return true
-    }
+    [RECORD_TERMINAL_INFO_SUCCESS] (state: CommonState, action: any) {
+        state.device = action.result;
+    },
 }
 
 export default {
