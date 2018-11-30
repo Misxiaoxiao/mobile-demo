@@ -9,11 +9,15 @@
 
     <van-col :span="10" class="open-app-btn">
 
-      <link-app :link-class="'open-app'" :link-content="'下载应用'" />
+      <!-- <link-app :link-class="'open-app'" :link-content="'下载应用'" /> -->
 
       <!-- <router-link :to="{name: 'download', query: {jump_url: jumpUrl}}" class="open-app">
         下载应用
       </router-link> -->
+
+      <span class="open-app" @click.stop="clickDownload">
+        下载应用
+      </span>
 
       <link-app :link-class="'open-app open-app-outline'" :link-content="'立即打开'" />
     </van-col>
@@ -23,7 +27,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
 import LinkApp from '@/components/operation/link_app.vue';
+import Platform from '@/utils/platform';
 
 @Component({
   components: {
@@ -31,7 +37,39 @@ import LinkApp from '@/components/operation/link_app.vue';
   },
 })
 export default class CommonBar extends Vue {
+  private ifWeixin: boolean = false;
   private jumpUrl = '';
+  private platform: string = '';
+
+  @State((state: any) => state.CommonModule.app) private app!: any;
+
+  @Action('getApp') private getApp!: any;
+
+  private clickDownload(): void {
+    window.location.href = 'zuber:/' + this.$route.path;
+    setTimeout(() => {
+      if (this.ifWeixin && this.platform === 'ios') {
+        this.getApp({
+          success: () => {
+            window.location.href = this.app.ios.download_url;
+          },
+        });
+      } else {
+        this.$router.push({
+          name: 'download',
+          query: {
+            jumpUrl: this.jumpUrl,
+          },
+        });
+      }
+    }, 1000);
+  }
+
+  private created(): void {
+    const platform = new Platform();
+    this.ifWeixin = platform.checkWeixin();
+    this.platform = platform.checkPlatform();
+  }
 }
 </script>
 

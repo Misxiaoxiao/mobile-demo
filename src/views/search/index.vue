@@ -10,20 +10,24 @@
       <search-tab />
 
       <search-room-input
+      :city="city"
       :showPopup="roomSearchByInput"
       :changePopup="changeRoomSearchInputPopup"
       :showInputSearchList="showInputSearchList"
       :changeShowSearchList="changeShowSearchList"
+      :changeRoomLocation="changeRoomLocation"
       :roomCondition="roomCondition"
       :changeRoomRegion="changeRoomRegion"
       :request="requestRoomCallback"
       />
 
       <search-demand-input
+      :city="city"
       :showPopup="demandSearchByInput"
       :changePopup="changeDemandSearchInputPopup"
       :showInputSearchList="showInputSearchList"
       :changeShowSearchList="changeShowSearchList"
+      :changeDemandLocation="changeDemandLocation"
       :demandCondition="demandCondition"
       :changeDemandRegion="changeDemandRegion"
       :request="requestDemandCallback"
@@ -144,7 +148,6 @@ export default class SearchIndex extends Vue {
   @Action('getBedList') private getBedList: any;
   @Action('getDemandList') private getDemandList: any;
   @Action('getCityTraffic') private getCityTraffic!: any;
-  @Action('getGeoLocation') private getGeoLocation!: any;
   @Action('locateCurrentCity') private locateCurrentCity!: any;
 
   @Watch('city') private changeCity(): void {
@@ -311,7 +314,7 @@ export default class SearchIndex extends Vue {
       cost2: this.roomCondition.other.money.max,
       has_short_rent: this.roomCondition.other.shortRent ? 1 : 0,
       has_video: this.roomCondition.hasVideo ? 1 : 0,
-      region: this.roomCondition.region.region,
+      region: this.roomCondition.region.region === '附近' ? '' : this.roomCondition.region.region,
       subway_line: this.roomCondition.region.subwayLine,
       sex: this.roomCondition.other.gender,
       bed_count: this.roomCondition.type.bedCount,
@@ -333,7 +336,7 @@ export default class SearchIndex extends Vue {
     const data = {
       city: this.city,
       sequence,
-      region: this.demandCondition.region,
+      region: this.demandCondition.region === '附近' ? '' : this.demandCondition.region,
       gender: this.demandCondition.gender,
       cost1: this.demandCondition.money.min,
       cost2: this.demandCondition.money.max,

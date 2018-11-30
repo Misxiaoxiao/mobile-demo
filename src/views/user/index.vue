@@ -68,7 +68,7 @@ export default class UserIndex extends Vue {
   }
 
   get isDemand(): boolean {
-    return (this.userDetail.demand).toString() === '{}';
+    return this.userDetail.demand.money === undefined;
   }
 
   private getDetail(): void {
@@ -106,7 +106,7 @@ export default class UserIndex extends Vue {
     background-color: #F3F4F5;
     margin-bottom: 60px;
     .user_detail_info {
-      padding: 15px 15px 0;
+      padding: 15px;
       box-sizing: border-box;
       background-color: #fff;
       > .person_wrap {
@@ -132,7 +132,7 @@ export default class UserIndex extends Vue {
       .user_info_des {
         // line-height: 20px;
         margin-left: 76px;
-        padding: 10px 0;
+        padding: 10px 0 0;
         border-top: 1px solid #EBEBEB;
         font-size: 14px;
         color: #666;

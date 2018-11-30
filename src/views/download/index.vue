@@ -1,7 +1,7 @@
 <template>
   <div class="download-app">
     <span class="weixin-hint" v-if="ifWeixin && platform !== 'ios'">
-      点击右上角在浏览器中打开
+      点击右上角，选择“在浏览器打开”
     </span>
     <div class="mask" v-if="platform !== 'ios' && ifWeixin"></div>
 
@@ -15,7 +15,7 @@
       <p class="">有视频&nbsp;&nbsp;&nbsp;&nbsp;无中介</p>
       <br>
       <br>
-      <a :href="ifWeixin ? downloadUrl : device.download_url" class="download-btn">
+      <a :href="ifWeixin ? downloadUrl : url" class="download-btn">
         下载App
       </a>
       <p class="download-p">
@@ -41,10 +41,11 @@ export default class DownLoadIndex extends Vue {
   private ifWeixin: boolean = false;
   private platform: string = '';
   private downloadUrl: string = APP_URL;
+  private url: string = '';
 
-  @State((state: any) => state.CommonModule.device) private device!: string;
+  @State((state: any) => state.CommonModule.app) private app!: any;
 
-  @Action('recordTerminalInfo') private recordTerminalInfo!: any;
+  @Action('getApp') private getApp!: any;
 
   private created(): void {
     const platform = new Platform();
@@ -54,7 +55,15 @@ export default class DownLoadIndex extends Vue {
   }
 
   private mounted(): void {
-    this.recordTerminalInfo();
+    this.getApp({
+      success: () => {
+        if (this.platform === 'ios') {
+          this.url = this.app.ios.download_url;
+        } else {
+          this.url = this.app.android.download_url;
+        }
+      },
+    });
   }
 }
 </script>

@@ -27,6 +27,7 @@ import Popup from '@/components/common/popup.vue';
 })
 export default class SearchTab extends Vue {
   private changeItme(name: string) {
+    // alert(name);
     this.$router.push({name});
   }
 }

@@ -38,6 +38,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
 import InputSearchList from '@/components/list/input_search_list.vue';
 
 @Component({

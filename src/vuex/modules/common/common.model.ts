@@ -22,3 +22,18 @@ export class DeviceModel {
     device_model?: string = navigation.userAgent
     device_version?: string = navigation.appVersion
 }
+
+interface AppInfoModel {
+    version: string;
+    int_version: number;
+    if_force: boolean;
+    prompt: boolean;
+    download_url: string;
+    description: string;
+    [propName: string]: any;
+}
+
+export interface AppModel {
+    android: AppInfoModel;
+    ios: AppInfoModel;
+}

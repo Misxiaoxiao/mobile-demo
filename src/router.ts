@@ -58,7 +58,7 @@ export default new Router({
       name: 'user',
       component: () => import('./views/user/index.vue'),
       meta: {
-        title: 'zuber - 用户详情',
+        title: 'zuber - 个人用户详情',
       },
     },
     {
@@ -66,7 +66,7 @@ export default new Router({
       name: 'company',
       component: () => import('./views/company/index.vue'),
       meta: {
-        title: 'zuber - 公寓详情',
+        title: 'zuber - 商家用户详情',
       },
     },
     {
@@ -179,7 +179,7 @@ export default new Router({
       name: 'download',
       component: () => import('./views/download/index.vue'),
       meta: {
-        title: 'zuber白领租房平台',
+        title: 'zuber - 下载App',
       },
     },
   ],

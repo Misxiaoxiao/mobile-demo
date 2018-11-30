@@ -3,15 +3,17 @@ import {
     GET_COMMON_CITIES_FAIL,
     GET_TRAFFIC_INFO_SUCCESS,
     GET_TRAFFIC_INFO_INFO,
-    RECORD_TERMINAL_INFO_SUCCESS
+    RECORD_TERMINAL_INFO_SUCCESS,
+    GET_APP_INFO
 } from './common.types'
 
-import {CityListModel, DeviceModel} from './common.model'
+import {CityListModel, DeviceModel, AppModel} from './common.model'
 
 export class CommonState {
     cities: CityListModel = {}
     city_traffic: any = {}
     device: DeviceModel = {}
+    app: AppModel | {} = {};
 }
 
 const mutations = {
@@ -30,6 +32,9 @@ const mutations = {
     [RECORD_TERMINAL_INFO_SUCCESS] (state: CommonState, action: any) {
         state.device = action.result;
     },
+    [GET_APP_INFO] (state: CommonState, action: any) {
+        state.app = action.result;
+    }
 }
 
 export default {

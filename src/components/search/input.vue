@@ -13,6 +13,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 export default class RoomInput extends Vue {
   private timer: any = null;
   private val: string = '';
+  @Prop({default: ''}) private city!: string;
   @Prop({default: {}}) private show!: any;
   @Prop({default: {}}) private changeVal!: any;
   @Watch('val') private change(newVal: string): void {
@@ -26,7 +27,7 @@ export default class RoomInput extends Vue {
       this.changeVal({
         data: {
           keyword: this.val,
-          city: '上海',
+          city: this.city,
         },
       });
     }, 200);

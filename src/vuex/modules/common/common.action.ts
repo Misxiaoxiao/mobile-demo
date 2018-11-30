@@ -19,8 +19,14 @@ const recordTerminalInfo = ActionBuilder({
     actionSuccess: types.RECORD_TERMINAL_INFO_SUCCESS
 })
 
+const getApp = ActionBuilder({
+    method: api.getApp,
+    actionSuccess: types.GET_APP_INFO
+})
+
 export default {
     actions: {
+        getApp,
         getCityList,
         getCityTraffic,
         recordTerminalInfo

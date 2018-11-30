@@ -73,6 +73,13 @@ export default class DetailIndex extends Vue {
       success: () => {
         this.loading = false;
       },
+      fail: () => {
+        if (window.history.length <= 1) {
+          this.$router.push({path: '/'});
+        } else {
+          this.$router.back();
+        }
+      },
     });
   }
 

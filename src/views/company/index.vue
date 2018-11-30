@@ -10,7 +10,7 @@
         >
           <div slot="companyDetail" class="text-s company_des">
             {{detailContent}}
-            <span @click="clickMore">{{more ? '收起' : '查看更多'}}</span>
+            <div @click="clickMore">{{more ? '收起' : '查看更多'}}</div>
           </div>
         </company-img>
       </div>
@@ -68,9 +68,8 @@ export default class CompanyIndex extends Vue {
 
   get detailContent(): string {
     const str = this.companyDetail.company.desc;
-    console.log(str)
     if (this.more) {
-      return str
+      return str;
     } else {
       return str.substring(-1, 35) + '...';
     }
@@ -87,7 +86,7 @@ export default class CompanyIndex extends Vue {
       },
     });
   }
-  
+
   private clickMore(): void {
     this.more = !this.more;
   }
@@ -103,6 +102,7 @@ export default class CompanyIndex extends Vue {
   display: flex;
   height: 100%;
   flex-direction: column;
+  margin-bottom: 60px;
   .company_detail_wrap {
     flex: 1;
     width: 100%;
@@ -123,8 +123,9 @@ export default class CompanyIndex extends Vue {
       }
       .company_des {
         margin: 10px 0 10px 75px;
-        > span {
+        > div {
           color:#66D4C3;
+          text-align: right;
         }
       }
       .company_img {

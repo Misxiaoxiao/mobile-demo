@@ -18,6 +18,7 @@
     <van-popup v-model="showPopup" class="address_list_wrap" position="right">
       
       <address-search
+      :city="city"
       :search="search"
       :changePopup="changePopup"
       :addresses="addresses"
@@ -42,6 +43,7 @@ export default class AddressSelect extends Vue {
   private val: string = '';
   private ckval: boolean = false;
 
+  @Prop({default: ''}) private city!: string;
   @Prop({default: ''}) private address!: any;
   @Prop({default: {}}) private search!: any[];
   @Prop({default: []}) private addresses!: any[];

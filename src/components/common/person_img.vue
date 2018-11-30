@@ -41,7 +41,7 @@ export default class PersonImg extends Vue {
   color: #FF7D7D;
 }
 .person_wrap {
-  width: 70%;
+  width: 100%;
   overflow: hidden;
   .person_img_wrap {
     float: left;

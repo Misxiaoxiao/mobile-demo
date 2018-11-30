@@ -14,5 +14,8 @@ export default {
     },
     recordTerminal: () => {
         return CommonResource().get('/terminal', {params: new DeviceModel()})
+    },
+    getApp: () => {
+        return CommonResource().get('/app')
     }
 }

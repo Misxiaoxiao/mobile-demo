@@ -116,6 +116,9 @@ export default class RoomDescription extends Vue {
     background-color: rgba(217,217,217,0.06);
     border-radius: 5px;
     position: relative;
+    > .person_wrap {
+      width: 70%;
+    }
     .contract_btn {
       position: absolute;
       right: 5px;

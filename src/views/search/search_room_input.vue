@@ -5,11 +5,12 @@
       <div class="search_input_header_wrap">
         <div class="search_input_header">
           <div class="search_input_header_back iconfont" @click.stop="changePopup(false)" >&#xe603;</div>
-          <div class="search_input_header_title">位置区域</div>
+          <div class="search_input_header_title">选择位置</div>
           <div class="search_input_header_limit" @click.stop="cancleLimit">不限</div>
         </div>
 
         <room-input
+        :city="city"
         :show="changeShowSearchList"
         :changeVal="searchAddressByKeyword"
         />
@@ -29,8 +30,11 @@
           <div class="currentPlace">
             <p>
               <i class="location_icon"></i>
-              <span v-if="locateAddress.addressComponent">
-                {{locateAddress.addressComponent.street}}{{locateAddress.addressComponent.streetNumber}}
+              <span v-if="label !== ''" @click.stop="changeNear">
+                {{label}}
+              </span>
+              <span v-else @click.stop="getGeoLocation">
+                 开启附近定位
               </span>
             </p>
             <i class="slocation_icon"></i>
@@ -66,6 +70,8 @@ import RoomInput from '@/components/search/input.vue';
 import SearchFindList from '@/components/search/find_list.vue';
 import InputSearchList from '@/components/list/input_search_list.vue';
 
+const str = '你当前不在所选城市，无法选择附近';
+
 @Component({
   components: {
     Popup,
@@ -75,21 +81,57 @@ import InputSearchList from '@/components/list/input_search_list.vue';
   },
 })
 export default class SearchRoomInput extends Vue {
+  private label: string = '';
+
+  @Prop({default: ''}) private city!: string;
   @Prop({default: ''}) private showPopup!: boolean;
   @Prop({default: {}}) private changePopup!: any;
   @Prop({default: false}) private showInputSearchList!: boolean;
   @Prop({default: {}}) private changeShowSearchList!: any;
   @Prop({default: {}}) private roomCondition!: any;
   @Prop({default: {}}) private changeRoomRegion!: any;
+  @Prop({default: {}}) private changeRoomLocation!: any;
   @Prop({default: {}}) private request!: any;
 
-  @State((state: any) => state.LocateModule.locate_address) private locateAddress!: string;
+  @State((state: any) => state.LocateModule.locate_address) private locateAddress!: any;
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
   @State((state: any) => state.LocateModule.addresses) private addresses!: string;
   @State((state: any) => state.LocateModule.querying) private querying!: string;
   @State((state: any) => state.CommonModule.city_traffic) private cityTraffic!: any;
 
   @Action('searchAddressByKeyword') private searchAddressByKeyword!: any;
+  @Action('getGeoLocation') private getGeoLocation!: any;
+
+  @Watch('showPopup') private changeShowPopup(): void {
+    if (this.showPopup && sessionStorage.getItem('locate') !== 'on') {
+      this.getGeoLocation();
+      sessionStorage.setItem('locate', 'on');
+    }
+  }
+
+  @Watch('locateAddress') private changeAddress(): void {
+    if (this.locateAddress.addressComponent) {
+      if (this.locateAddress.addressComponent.province !== (this.city + '市')) {
+        this.label = str;
+      } else {
+        this.label = `${this.locateAddress.addressComponent.street}${this.locateAddress.addressComponent.streetNumber}`;
+      }
+    } else {
+      this.$dialog.alert({
+        message: '定位失败，请重新开启定位',
+      });
+    }
+  }
+
+  @Watch('city') private changeCity(): void {
+    if (this.locateAddress.addressComponent) {
+      if (this.locateAddress.addressComponent.province !== (this.city + '市')) {
+        this.label = str;
+      } else {
+        this.label = `${this.locateAddress.addressComponent.street}${this.locateAddress.addressComponent.streetNumber}`;
+      }
+    }
+  }
 
   get regions(): any[] {
     if (this.cityTraffic.region) {
@@ -111,9 +153,26 @@ export default class SearchRoomInput extends Vue {
       region: '',
       subwayLine: '',
     });
+    this.changeRoomLocation({
+      lat: -1,
+      lng: -1,
+    });
     this.changePopup(false);
     this.request();
   }
+
+  private changeNear(): void {
+    if (this.label !== str) {
+      this.changeRoomRegion({region: '附近', subwayLine: ''});
+      this.changeRoomLocation({
+        lat: this.locateAddress.position.lat,
+        lng: this.locateAddress.position.lng,
+      });
+      this.changePopup(false);
+      this.request();
+    }
+  }
+
   private regionCallback(region: string): void {
     this.changeRoomRegion({region, subwayLine: ''});
     this.changePopup(false);
