@@ -42,7 +42,7 @@ export default class RoomList extends Vue {
       let types: any = '';
       let roomTitle: string = '';
       if (room.biz) { // 如果为b端房源
-        types = room.biz_attr.beds[0].number;
+        types = room.biz_attr.type === 2 ? room.biz_attr.beds[0].number : '';
         roomTitle = room.biz_attr.type === 1 ? room.biz_attr.beds[0].title : room.title;
       } else { // 如果为c端房源
         roomTitle = `${this.setType(room.client_attr.beds[0].type)}·${room.client_attr.beds[0].title}`;
@@ -77,7 +77,22 @@ export default class RoomList extends Vue {
   }
 
   private view(item: any): void {
-    const { href } = this.$router.resolve({
+    // const { href } = this.$router.resolve({
+    //   name: 'bedDetail',
+    //   params: {
+    //     id: item.roomId,
+    //   },
+    //   query: {
+    //     biz: item.biz,
+    //   },
+    // });
+    // window.open(href, '_blank');
+
+    // 储存滚动条高度
+    const scroll: any = document.querySelector('.van-pull-refresh');
+    sessionStorage.setItem('scrollTop', scroll.scrollTop);
+
+    this.$router.push({
       name: 'bedDetail',
       params: {
         id: item.roomId,
@@ -86,7 +101,6 @@ export default class RoomList extends Vue {
         biz: item.biz,
       },
     });
-    window.open(href, '_blank');
   }
 }
 </script>

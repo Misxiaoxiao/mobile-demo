@@ -16,26 +16,20 @@ export default new Router({
       },
     },
     {
-      path: '/search',
+      path: '/search/rent',
+      name: 'room',
       component: () => import('./views/search/index.vue'),
-      children: [
-        {
-          path: 'rent',
-          name: 'room',
-          component: () => import('./views/search/children/search_room.vue'),
-          meta: {
-            title: 'zuber - 个人房源',
-          },
-        },
-        {
-          path: 'demand',
-          name: 'demand',
-          component: () => import('./views/search/children/search_demand.vue'),
-          meta: {
-            title: 'zuber - 个人求租',
-          },
-        },
-      ],
+      meta: {
+        title: 'zuber - 个人房源',
+      },
+    },
+    {
+      path: '/search/demand',
+      name: 'demand',
+      component: () => import('./views/search/index.vue'),
+      meta: {
+        title: 'zuber - 个人求租',
+      },
     },
     {
       path: '/bed/:id',

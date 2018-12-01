@@ -60,7 +60,9 @@ export default class DetailIndex extends Vue {
 
   // 切换到其他房源重新加载数据
   @Watch('$route') private changeRoute(): void {
-    this.getDetail();
+    if (this.$route.name === 'bedDetail') {
+      this.getDetail();
+    }
   }
 
   private getDetail(): void {

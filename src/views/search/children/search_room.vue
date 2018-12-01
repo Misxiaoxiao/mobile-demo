@@ -36,7 +36,7 @@
       </div>
 
       <div class="list_wrap">
-        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+        <van-pull-refresh ref="scroll" v-model="refreshing" @refresh="onRefresh">
 
           <div class="list_nothing_wrap" v-if="rentList.length === 0 && !searching">
             <span>搜索不到相关信息</span>
@@ -86,6 +86,7 @@ import RoomList from '@/components/list/room.vue';
   },
 })
 export default class SearchRoom extends Vue {
+  private scroll: any = null;
   private refreshing: boolean = false;
 
   @Prop({default: false}) private roomSearchByInput!: boolean;
@@ -114,6 +115,17 @@ export default class SearchRoom extends Vue {
   @State((state: any) => state.SearchModule.searching) private searching!: boolean;
 
   @Action('getBedList') private getBedList: any;
+
+  @Watch('$route') private changeRoute(): void {
+    if (this.$route.name === 'room') {
+      const top = sessionStorage.getItem('scrollTop') || 0;
+      if (this.scroll) {
+        setTimeout(() => {
+          this.scroll.scrollTop = top;
+        }, 50);
+      }
+    }
+  }
 
   get finished(): boolean {
     return !this.hasNextRentPage || this.searching;
@@ -152,6 +164,7 @@ export default class SearchRoom extends Vue {
   }
 
   private mounted(): void {
+    this.scroll = document.querySelector('.van-pull-refresh');
     this.requestRoom(() => {
       // body
     });

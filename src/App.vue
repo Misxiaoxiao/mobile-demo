@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <title>{{$route.meta.title}}</title>
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
     <!-- <init-app v-if="$route.name" /> -->
   </div>
 </template>

@@ -53,7 +53,7 @@ export default class RoomDetailInfo extends Vue {
   @State((state: any) => state.ResidenceModule.requesting) private requesting!: boolean;
 
   get detailInfo(): any {
-    if (!this.requesting) {
+    if (!this.requesting && this.$route.name === 'bedDetail') {
       if ((this.$route.query.biz).toString() === 'true' ? true : false) {
         return {
           biz: true,
