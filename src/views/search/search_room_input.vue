@@ -1,5 +1,5 @@
 <template>
-  <div class="search_input" @click.stop="changePopup(true)" v-show="$route.name === 'room'">
+  <div class="search_input" @click.stop="changePopup(true)" v-if="$route.name === 'room'">
     <i class="search_icon"></i>搜索
     <van-popup v-model="showPopup" position="right" class="input_popup_wrap">
       <div class="search_input_header_wrap">
@@ -10,6 +10,7 @@
         </div>
 
         <room-input
+        ref="roomInput"
         :city="city"
         :show="changeShowSearchList"
         :changeVal="searchAddressByKeyword"
@@ -22,7 +23,7 @@
         :isShow="showInputSearchList"
         :list="addresses"
         :querying="querying"
-        :change="regionCallback"
+        :change="locateCallback"
         :requestCallback="request"
         />
 
@@ -149,6 +150,9 @@ export default class SearchRoomInput extends Vue {
   }
 
   private cancleLimit(): void {
+    const refInput: any = this.$refs.roomInput;
+    refInput.val = '';
+    refInput.show(false);
     this.changeRoomRegion({
       region: '',
       subwayLine: '',
@@ -175,11 +179,30 @@ export default class SearchRoomInput extends Vue {
 
   private regionCallback(region: string): void {
     this.changeRoomRegion({region, subwayLine: ''});
+    this.changeRoomLocation({
+      lat: -1,
+      lng: -1,
+    });
     this.changePopup(false);
     this.request();
   }
+
+  private locateCallback(obj: any): void {
+    this.changeRoomRegion({region: obj.region, subwayLine: ''});
+    this.changeRoomLocation({
+      lat: obj.latitude,
+      lng: obj.longitude,
+    });
+    this.changePopup(false);
+    this.request();
+  }
+
   private lineCallback(subwayLine: string): void {
     this.changeRoomRegion({subwayLine, region: ''});
+    this.changeRoomLocation({
+      lat: -1,
+      lng: -1,
+    });
     this.changePopup(false);
     this.request();
   }

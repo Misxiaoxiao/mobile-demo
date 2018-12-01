@@ -5,8 +5,8 @@
     v-for="(item, i) in list"
     :key="i"
     @click.stop="handleClick({
-      longitude: item.location ? item.location.lat : -1,
-      latitude: item.location ? item.location.lng : -1,
+      longitude: item.location ? item.location.lng : -1,
+      latitude: item.location ? item.location.lat : -1,
       region: item.name,
     })">
       <p>{{item.name}}</p>
@@ -31,8 +31,7 @@ export default class InputSearchList extends Vue {
   @Prop({default: {}}) private requestCallback!: any;
 
   private handleClick(obj: any): void {
-    this.change(obj.region);
-    this.requestCallback();
+    this.change(obj);
   }
 }
 </script>

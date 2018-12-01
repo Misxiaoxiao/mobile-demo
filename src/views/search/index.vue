@@ -141,6 +141,7 @@ export default class SearchIndex extends Vue {
 
   @State((state: any) => state.SearchModule.rent_sequence) private rentSequence!: string;
   @State((state: any) => state.SearchModule.demand_sequence) private demandSequence!: string;
+  @State((state: any) => state.SearchModule.searching) private searching!: string;
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
 
   // @Action('setCurrentCity') private setCurrentCity!: any;
@@ -151,9 +152,9 @@ export default class SearchIndex extends Vue {
   @Action('locateCurrentCity') private locateCurrentCity!: any;
 
   @Watch('city') private changeCity(): void {
-    if (this.$route.name === 'room') {
+    if (this.$route.name === 'room' && !this.searching) {
       this.requestRoomCallback();
-    } else if (this.$route.name === 'demand') {
+    } else if (this.$route.name === 'demand' && !this.searching) {
       this.requestDemandCallback();
     }
     this.getCityTraffic({
@@ -314,7 +315,8 @@ export default class SearchIndex extends Vue {
       cost2: this.roomCondition.other.money.max,
       has_short_rent: this.roomCondition.other.shortRent ? 1 : 0,
       has_video: this.roomCondition.hasVideo ? 1 : 0,
-      region: this.roomCondition.region.region === '附近' ? '' : this.roomCondition.region.region,
+      region: this.roomCondition.location.lng !== -1 &&
+              this.roomCondition.location.lat !== -1 ? '' : this.roomCondition.region.region,
       subway_line: this.roomCondition.region.subwayLine,
       sex: this.roomCondition.other.gender,
       bed_count: this.roomCondition.type.bedCount,
@@ -349,7 +351,7 @@ export default class SearchIndex extends Vue {
     });
   }
 
-  private mounted(): void {
+  private created(): void {
     // this.getGeoLocation();
     this.locateCurrentCity();
     this.city = this.currentCity;

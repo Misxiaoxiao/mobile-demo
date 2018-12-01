@@ -1,5 +1,5 @@
 import Token from './token'
-import md5 from '../utils/md5'
+import md5 from 'blueimp-md5'
 
 const SCENE: string = '2567a5ec9705eb7ac2c984033e06189d'
 

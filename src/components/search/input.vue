@@ -32,6 +32,21 @@ export default class RoomInput extends Vue {
       });
     }, 200);
   }
+
+  @Watch('city') private changeCity(): void {
+    this.val = '';
+    this.show(false);
+  }
+
+  private created(): void {
+    this.show(false);
+    this.changeVal({
+      data: {
+        keyword: this.val,
+        city: this.city,
+      },
+    });
+  }
 }
 </script>
 

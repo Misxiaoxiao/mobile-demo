@@ -26,7 +26,23 @@ export default class LinkApp extends Vue {
         },
       });
     } else {
-      window.location.href = 'zuber:/' + this.$route.path;
+      switch (this.$route.name) {
+        case 'room':
+          window.location.href = 'zuber://www.zuber.im';
+          break;
+        case 'demand':
+          window.location.href = 'zuber://www.zuber.im';
+          break;
+        case 'bedDetail':
+          if (this.$route.query.biz) {
+            window.location.href = 'zuber://apartment' + this.$route.params.id;
+          } else {
+            window.location.href = 'zuber:/' + this.$route.path;
+          }
+        default :
+          window.location.href = 'zuber:/' + this.$route.path;
+          break;
+      }
       setTimeout(() => {
         window.location.href = that.jumpUrl;
       }, 2000);

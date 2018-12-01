@@ -57,7 +57,7 @@ export default class RoomList extends Vue {
         roomId: room.biz ? room.biz_attr.beds[0].id : room.client_attr.beds[0].id,
         fullTitle: room.full_title,
         roomTitle,
-        photo: room.biz ? room.biz_attr.beds[0].photo.src : room.client_attr.beds[0].photo.src,
+        photo: room.biz ? room.biz_attr.beds[0].photo.small : room.client_attr.beds[0].photo.small,
         types,
         money: room.biz ? room.biz_attr.beds[0].money : room.client_attr.beds[0].money,
         refreshTime: room.biz ? room.biz_attr.beds[0].refresh_time : room.client_attr.beds[0].refresh_time,

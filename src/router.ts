@@ -20,7 +20,7 @@ export default new Router({
       component: () => import('./views/search/index.vue'),
       children: [
         {
-          path: 'room',
+          path: 'rent',
           name: 'room',
           component: () => import('./views/search/children/search_room.vue'),
           meta: {
@@ -38,7 +38,7 @@ export default new Router({
       ],
     },
     {
-      path: '/room/:id',
+      path: '/bed/:id',
       name: 'bedDetail',
       component: () => import('./views/room/index.vue'),
       meta: {

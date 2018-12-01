@@ -10,7 +10,7 @@
       <div
       :class="'row' + (label === '有视频' ? ' active' : '')"
       @click.stop="handleClick(true)">
-        有视频<br><i>(先看视频在看房)</i>
+        有视频<br><i>(先看视频再看房)</i>
       </div>
       <div class="row" @click.stop="handleClick(false)">不限</div>
     </div>

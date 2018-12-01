@@ -46,9 +46,8 @@ export default class CommonBar extends Vue {
   @Action('getApp') private getApp!: any;
 
   private clickDownload(): void {
-    window.location.href = 'zuber:/' + this.$route.path;
     setTimeout(() => {
-      if (this.ifWeixin && this.platform === 'ios') {
+      if (this.platform === 'ios') {
         this.getApp({
           success: () => {
             window.location.href = this.app.ios.download_url;

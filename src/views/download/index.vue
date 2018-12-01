@@ -1,9 +1,9 @@
 <template>
   <div class="download-app">
-    <span class="weixin-hint" v-if="ifWeixin && platform !== 'ios'">
+    <span class="weixin-hint" v-if="ifWeixin">
       点击右上角，选择“在浏览器打开”
     </span>
-    <div class="mask" v-if="platform !== 'ios' && ifWeixin"></div>
+    <div class="mask" v-if="ifWeixin"></div>
 
     <download-app v-if="!ifWeixin" />
 
@@ -51,7 +51,7 @@ export default class DownLoadIndex extends Vue {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
     this.platform = platform.checkPlatform();
-    window.location.href = 'zuber:/' + this.$route.path;
+    // window.location.href = 'zuber:/' + this.$route.path;
   }
 
   private mounted(): void {
@@ -97,7 +97,7 @@ export default class DownLoadIndex extends Vue {
   z-index: 1030;
 }
 .download-app {
-  padding-top: 120px;
+  padding-top: 20%;
   .weixin-hint {
     padding: 10px;
     background: #66D4C3;

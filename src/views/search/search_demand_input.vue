@@ -1,5 +1,5 @@
 <template>
-  <div class="search_input" @click.stop="changePopup(true)" v-show="$route.name === 'demand'">
+  <div class="search_input" @click.stop="changePopup(true)" v-if="$route.name === 'demand'">
     <i class="search_icon"></i>搜索
     <van-popup v-model="showPopup" position="right" class="input_popup_wrap">
       <div class="search_input_header_wrap">
@@ -10,6 +10,7 @@
         </div>
 
         <demand-input
+        ref="demandInput"
         :city="city"
         :show="changeShowSearchList"
         :changeVal="searchAddressByKeyword"
@@ -21,7 +22,7 @@
         <input-search-list
         :isShow="showInputSearchList"
         :list="addresses"
-        :change="callback"
+        :change="locateCallback"
         :querying="querying"
         :requestCallback="request"
         />
@@ -150,14 +151,32 @@ export default class SearchDemandInput extends Vue {
   }
 
   private cancleLimit(): void {
+    const refInput: any = this.$refs.demandInput;
+    refInput.val = '';
+    refInput.show(false);
     this.changeDemandLocation({
       lat: -1,
       lng: -1,
     });
     this.callback('');
   }
+
   private callback(region: string): void {
     this.changeDemandRegion(region);
+    this.changeDemandLocation({
+      lat: -1,
+      lng: -1,
+    });
+    this.changePopup(false);
+    this.request();
+  }
+
+  private locateCallback(obj: any): void {
+    this.changeDemandRegion(obj.region);
+    this.changeDemandLocation({
+      lat: obj.latitude,
+      lng: obj.longitude,
+    });
     this.changePopup(false);
     this.request();
   }
