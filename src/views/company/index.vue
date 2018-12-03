@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import CommonHeader from '@/components/common/header.vue';
 import CompanyImg from '@/components/common/company_img.vue';
@@ -66,6 +66,12 @@ export default class CompanyIndex extends Vue {
   @State((state: any) => state.UserModule.requesting) private requesting!: any;
   @Action('viewCompanyDetail') private viewCompanyDetail!: any;
 
+  @Watch('$route') private changeRoute(): void {
+    if (this.$route.name === 'company') {
+      this.getDetail();
+    }
+  }
+
   get detailContent(): string {
     const str = this.companyDetail.company.desc;
     if (this.more) {
@@ -91,7 +97,7 @@ export default class CompanyIndex extends Vue {
     this.more = !this.more;
   }
 
-  private created(): void {
+  private mounted(): void {
     this.getDetail();
   }
 }

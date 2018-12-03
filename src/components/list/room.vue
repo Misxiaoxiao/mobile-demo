@@ -89,8 +89,10 @@ export default class RoomList extends Vue {
     // window.open(href, '_blank');
 
     // 储存滚动条高度
-    const scroll: any = document.querySelector('.van-pull-refresh');
-    sessionStorage.setItem('scrollTop', scroll.scrollTop);
+    if (this.$route.name === 'room') { // 有且是在首页的情况下
+      const scroll: any = document.querySelector('.van-pull-refresh');
+      sessionStorage.setItem('scrollTop', scroll.scrollTop);
+    }
 
     this.$router.push({
       name: 'bedDetail',

@@ -3,14 +3,15 @@
     <div class="user_detail_wrap" v-if="!requesting">
       <div class="user_detail_info">
         <person-img
-        :info="this.userDetail.user"
+        v-if="userDetail.user"
+        :info="userDetail.user"
         >
           <div slot="userDetail" class="user_detail_slot" v-if="user !== ''">
             {{user}}
           </div>
         </person-img>
         <div class="user_info_des" v-if="!isDemand">
-          求租中：预算{{userDetail.demand.money}}元·{{userDetail.demand.dateDetail}}
+          求租中：预算{{userDetail.demand ? userDetail.demand.money : ''}}元·{{userDetail.demand ? userDetail.demand.dateDetail : ''}}
         </div>
       </div>
 
@@ -33,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import CommonHeader from '@/components/common/header.vue';
 // import UserFooter from './user_footer.vue';
@@ -59,16 +60,22 @@ export default class UserIndex extends Vue {
   @State((state: any) => state.UserModule.requesting) private requesting!: any;
   @Action('viewUserDetail') private viewUserDetail!: any;
 
+  @Watch('$route') private changeRoute(): void {
+    if (this.$route.name === 'user') {
+      this.getDetail();
+    }
+  }
+
   get user(): string {
-    const bornCity = this.userDetail.user.client_attr.born_city
+    const bornCity = this.userDetail.user
                      ? '来自于' + this.userDetail.user.client_attr.born_city : '';
-    const college = this.userDetail.user.client_attr.college
+    const college = this.userDetail.user
                     ? '，毕业于' + this.userDetail.user.client_attr.college : '';
     return bornCity + college;
   }
 
   get isDemand(): boolean {
-    return this.userDetail.demand.money === undefined;
+    return this.userDetail.demand ? (this.userDetail.demand.money === undefined) : false;
   }
 
   private getDetail(): void {
@@ -83,7 +90,7 @@ export default class UserIndex extends Vue {
     });
   }
 
-  private created(): void {
+  private mounted(): void {
     this.getDetail();
   }
 }

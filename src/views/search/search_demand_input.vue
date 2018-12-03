@@ -31,11 +31,11 @@
           <div class="currentPlace">
             <p>
               <i class="location_icon"></i>
-              <span v-if="locateAddress.addressComponent" @click.stop="changeNear">
-                {{locateAddress.addressComponent.street}}{{locateAddress.addressComponent.streetNumber}}
+              <span v-if="label !== ''" @click.stop="changeNear">
+                {{label}}
               </span>
               <span v-else @click.stop="getGeoLocation">
-                开启附近定位
+                 开启附近定位
               </span>
             </p>
             <i class="slocation_icon"></i>

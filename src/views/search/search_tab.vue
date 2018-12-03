@@ -27,7 +27,10 @@ import Popup from '@/components/common/popup.vue';
 })
 export default class SearchTab extends Vue {
   private changeItme(name: string) {
-    // alert(name);
+    if (name === 'demand') {
+      const scroll: any = document.querySelector('.van-pull-refresh');
+      sessionStorage.setItem('scrollTop', scroll.scrollTop);
+    }
     this.$router.push({name});
   }
 }

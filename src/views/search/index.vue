@@ -174,9 +174,8 @@ export default class SearchIndex extends Vue {
   @Action('locateCurrentCity') private locateCurrentCity!: any;
 
   @Watch('city') private changeCity(): void {
-    if (this.$route.name === 'room' && !this.searching) {
+    if (!this.searching) {
       this.requestRoomCallback();
-    } else if (this.$route.name === 'demand' && !this.searching) {
       this.requestDemandCallback();
     }
     this.getCityTraffic({
@@ -184,6 +183,7 @@ export default class SearchIndex extends Vue {
         city: this.city,
       },
     });
+    sessionStorage.setItem('scrollTop', '0');
   }
 
   private changeRoomSearchInputPopup(bool: boolean): void {
