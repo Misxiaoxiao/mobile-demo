@@ -8,6 +8,7 @@ import AccountModule from '@/vuex/modules/account';
 import ResidenceModule from '@/vuex/modules/residence';
 import UserModule from '@/vuex/modules/user';
 import ShareModule from '@/vuex/modules/share';
+import ContractModule from '@/vuex/modules/contract';
 
 Vue.use(Vuex);
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
     ResidenceModule,
     UserModule,
     ShareModule,
+    ContractModule,
   },
 });

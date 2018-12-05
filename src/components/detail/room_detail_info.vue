@@ -1,5 +1,5 @@
 <template>
-  <div class="room_detail_info">
+  <div class="room_detail_info" v-if="detailInfo">
 
     <swiper
     :slotArr="slotArr"
@@ -7,13 +7,13 @@
       <div slot="video_wrap" class="swiper_item_wrap">
         <video-detail
         :hasVideo="detailInfo.hasVideo"
-        :video="detailInfo.video || {}"
+        :video="detailInfo.video"
         :refreshTime="detailInfo.refreshTime"
         />
       </div>
       <div slot="image_wrap" class="swiper_item_wrap">
         <image-detail
-        :photos="detailInfo.photos || {}"
+        :photos="detailInfo.photos"
         :photoSrc="detailInfo.photo"
         />
       </div>

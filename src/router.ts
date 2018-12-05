@@ -71,14 +71,14 @@ export default new Router({
         title: '房源类型说明',
       },
     },
-    {
-      path: '/subscription',
-      name: 'subscription',
-      component: () => import('./views/subscription/index.vue'),
-      meta: {
-        title: '订阅房源',
-      },
-    },
+    // {
+    //   path: '/subscription',
+    //   name: 'subscription',
+    //   component: () => import('./views/subscription/index.vue'),
+    //   meta: {
+    //     title: '订阅房源',
+    //   },
+    // },
     {
       path: '/map',
       name: 'map',
@@ -87,87 +87,14 @@ export default new Router({
         title: 'zuber - 房源位置',
       },
     },
-    // {
-    //   path: '/jump',
-    //   name: 'jump',
-    //   component: () => import('./views/jump/index.vue'),
-    // },
-    // {
-    //   path: '/contract',
-    //   name: 'contract',
-    //   component: () => import('./views/contract/index.vue'),
-    //   meta: {
-    //     title: '租赁合同',
-    //   },
-    //   children: [
-    //     {
-    //       path: 'list',
-    //       name: 'contractList',
-    //       component: () => import('./views/contract/children/list/index.vue'),
-    //       meta: {
-    //         title: '我的协议/合同',
-    //       },
-    //     },
-    //     {
-    //       path: 'create',
-    //       name: 'contractCreate',
-    //       component: () => import('./views/contract/children/create/index.vue'),
-    //       children: [
-    //         {
-    //           path: 'deposit',
-    //           name: 'contractCreateDeposit',
-    //           component: () => import('./views/contract/children/create/children/deposit.vue'),
-    //           meta: {
-    //             title: '定金协议',
-    //           },
-    //         },
-    //         {
-    //           path: 'lease',
-    //           name: 'contractCreateLease',
-    //           component: () => import('./views/contract/children/create/children/lease.vue'),
-    //           meta: {
-    //             title: '租赁合同',
-    //           },
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       path: 'template',
-    //       name: 'contractTemplate',
-    //       component: () => import('./views/contract/children/template/index.vue'),
-    //       children: [
-    //         {
-    //           path: 'deposit',
-    //           name: 'contractTemplateDeposit',
-    //           component: () => import('./views/contract/children/template/children/deposit.vue'),
-    //           meta: {
-    //             title: '定金协议',
-    //           },
-    //         },
-    //         {
-    //           path: 'lease',
-    //           name: 'contractTemplateLease',
-    //           component: () => import('./views/contract/children/template/children/lease.vue'),
-    //           meta: {
-    //             title: '租赁合同',
-    //           },
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       path: 'content',
-    //       name: 'contractContent',
-    //     },
-    //     {
-    //       path: 'description',
-    //       name: 'contractDescription',
-    //       component: () => import('./views/contract/children/description/index.vue'),
-    //       meta: {
-    //         title: 'zuber定金协议/租赁合同',
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      path: '/contract/:order',
+      name: 'contract',
+      component: () => import('./views/contract/index.vue'),
+      meta: {
+        title: '定金协议',
+      },
+    },
     {
       path: '/download',
       name: 'download',
