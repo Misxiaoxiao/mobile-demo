@@ -1,5 +1,5 @@
 <template>
-  <div class="common-bar">
+  <div class="common-bar" :style="top ? 'top: 0px' : 'bottom: 0px'">
     <van-col :span="4" class="photo zuber-logo"></van-col>
     <van-col :span="10" class="download-text text-ellipsis">
       <span class="text primary small" style="font-size: 10px">
@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import LinkApp from '@/components/operation/link_app.vue';
 import Platform from '@/utils/platform';
@@ -40,6 +40,8 @@ export default class CommonBar extends Vue {
   private ifWeixin: boolean = false;
   private jumpUrl = '';
   private platform: string = '';
+
+  @Prop({default: false}) private top!: boolean;
 
   @State((state: any) => state.CommonModule.app) private app!: any;
 
@@ -75,7 +77,6 @@ export default class CommonBar extends Vue {
 <style lang="less">
 .common-bar {
   position: fixed;
-  bottom: 0;
   background-color: #fff;
   font-size: 12px;
   color: #333;
@@ -86,6 +87,7 @@ export default class CommonBar extends Vue {
   overflow: hidden;
   height: 60px;
   border-top: 1px solid #EFEFEF;
+  border-bottom: 1px solid #EFEFEF;
   display: flex;
   justify-content: space-between;
   align-items: center;

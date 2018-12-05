@@ -4,7 +4,7 @@
     <keep-alive>
       <router-view/>
     </keep-alive>
-    <!-- <init-app v-if="$route.name" /> -->
+    <init-app v-if="$route.name" />
   </div>
 </template>
 

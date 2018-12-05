@@ -38,7 +38,7 @@ export default class ComponentTab extends Vue {
     color: #66D4C3;
     font-weight: 500px;
   }
-  .tab_line {
+  // .tab_line {
     // position: absolute;
     // // top: 35px;
     // width: 21px;
@@ -47,6 +47,6 @@ export default class ComponentTab extends Vue {
     // border-radius: 1px;
     // transform: translate(20px);
     // transition: all .3s;
-  }
+  // }
 }
 </style>

@@ -34,11 +34,11 @@ export default class ImageDetail extends Vue {
   private showImagePreview(position: any, timer: any) {
     const that = this;
     this.viewing = true;
-    this.$router.push({
-      name: 'image',
-    });
     if (this.photos.length > 0) {
       const that = this;
+      this.$router.push({
+        name: 'image',
+      });
       this.instance = ImagePreview({
         images: that.Images,
         startPosition: typeof position === 'number' ? position : 0,
@@ -64,7 +64,7 @@ export default class ImageDetail extends Vue {
   private mounted(): void {
     window.addEventListener('popstate', () => {
       if (this.viewing) {
-        this.instance.close();
+        this.instance && this.instance.close(); // tslint:disable-line
         this.viewing = false;
       }
       return;

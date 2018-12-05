@@ -1,92 +1,99 @@
 <template>
-  <div class="room_detail_wrap">
-
-    <!-- <room-detail-header /> -->
-    <loading v-if="loading" />
-
-    <div class="room_detail_content" v-else>
-
-      <room-type />
-
+  <div class="room_detail_wrap" v-if="bedDetail.can_claim && !requesting">
+    <common-bar :top="bedDetail.can_claim" />
+    <div class="room_detail_content" :style="bedDetail.can_claim ? 'margin-top: 60px' : ''">
       <div>
-        
         <room-detail-info />
-
         <room-other-info />
-
-        <room-description />
-
-        <!-- <room-detail-comment /> -->
-
+        <room-description :showPerson="bedDetail.can_claim" />
       </div>
     </div>
-
-    <common-bar />
-    <!-- <room-detail-footer /> -->
-
+    <link-claim />
   </div>
+
+  <div class="room_detail_wrap" v-else-if="!requesting">
+    <div class="room_detail_content" :style="bedDetail.can_claim ? 'margin-top: 60px' : ''">
+      <room-type />
+      <div>
+        <room-detail-info />
+        <room-other-info />
+        <room-description />
+      </div>
+    </div>
+    <common-bar />
+  </div>
+
+  <loading v-else />
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Action } from 'vuex-class';
-import RoomDetailHeader from './room_detail_header.vue';
-import RoomDetailInfo from './room_detail_info.vue';
-import RoomOtherInfo from './room_other_info.vue';
-import RoomDescription from './room_description.vue';
-import RoomDetailFooter from './room_detail_footer.vue';
-import RoomDetailComment from './room_detail_comment.vue';
-import RoomType from './room_type.vue';
+import { State, Action } from 'vuex-class';
+import Platform from '@/utils/platform';
+import RoomDetailInfo from '@/components/detail/room_detail_info.vue';
+import RoomOtherInfo from '@/components/detail/room_other_info.vue';
+import RoomDescription from '@/components/detail/room_description.vue';
+import RoomType from '@/components/detail/room_type.vue';
 import Loading from '@/components/common/loading.vue';
 import CommonBar from '@/components/common/bar.vue';
+import LinkClaim from '@/components/operation/link_claim.vue';
 
 @Component({
   components: {
-    RoomDetailHeader,
     RoomDetailInfo,
     RoomOtherInfo,
     RoomDescription,
-    RoomDetailFooter,
-    RoomDetailComment,
     RoomType,
     Loading,
     CommonBar,
+    LinkClaim,
   },
 })
 export default class DetailIndex extends Vue {
   private loading: boolean = false;
+  private ifWeixin: boolean = false;
 
   @Action('viewBedDetail') private viewBedDetail!: any;
+
+  @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: any;
+  @State((state: any) => state.ResidenceModule.requesting) private requesting!: any;
 
   // 切换到其他房源重新加载数据
   @Watch('$route') private changeRoute(): void {
     if (this.$route.name === 'bedDetail') {
-      this.getDetail();
+      this.getBedDetail();
     }
   }
-
-  private getDetail(): void {
-    this.loading = true;
-    this.viewBedDetail({
-      data: {
-        id: this.$route.params.id,
-        biz: (this.$route.query.biz).toString() === 'true' ? true : false,
-      },
-      success: () => {
-        this.loading = false;
-      },
-      fail: () => {
-        if (window.history.length <= 1) {
-          this.$router.push({path: '/'});
-        } else {
-          this.$router.back();
-        }
-      },
+  // 获取房源详情
+  private async getBedDetail() {
+    return new Promise((resolve, reject) => {
+      this.loading = true;
+      this.viewBedDetail({
+        data: {
+          id: this.$route.params.id,
+          // id: 'MDQ1NDky',
+          biz: this.$route.query.biz ? (this.$route.query.biz.toString() === 'true' ? true : false) : false,
+        },
+        success: () => {
+          this.loading = false;
+          if (resolve) {
+            resolve();
+          }
+        },
+        fail: () => {
+          if (window.history.length <= 1) {
+            this.$router.push({path: '/'});
+          } else {
+            this.$router.back();
+          }
+          reject();
+        },
+      });
     });
   }
 
   private created(): void {
-    this.getDetail();
+    this.getBedDetail();
   }
 }
 </script>

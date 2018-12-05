@@ -29,13 +29,16 @@ export default class InitApp extends Vue {
     this.deal();
   }
   // 分享
-  // private share(): void {
-  //   if (this.$route.name !== 'room') {
-  //     this.configShareInfo({
-  //       info: this.shareInfo,
-  //     });
-  //   }
-  // }
+  private share(): void {
+    // this.configShareInfo({
+    //   info: this.shareInfo,
+    // });
+    // if (this.$route.name !== 'room') {
+    //   this.configShareInfo({
+    //     info: this.shareInfo,
+    //   });
+    // }
+  }
   // 重定向
   private redirect(replace?: any): void {
     if (!this.$route.name || this.$route.name === 'home') {
@@ -80,9 +83,9 @@ export default class InitApp extends Vue {
   }
   private init(): void {
     if (this.ifLogged) {
-      this.sendDeviceInfo({
-        info: this.deviceInfo,
-      });
+      // this.sendDeviceInfo({
+      //   info: this.deviceInfo,
+      // });
       this.getUserInfo();
       // this.reward();
     }
@@ -90,17 +93,17 @@ export default class InitApp extends Vue {
   private deal(): void {
     // this.share();
     // this.getAppInfo();
-    // if (this.$route.query.state || this.$route.query.source) {
-    //   this.login();
-    // } else if (!this.ifLogged) {
-    //   if (this.ifWeixin) {
-    //     window.location.href = 'http://www.zuber.im/weixin?' + (this.ifWeixin ? 'm=1&' : '') + 'goto='
-    //                            + encodeURIComponent(window.location.href.replace('http:', 'https:'));
-    //   }
-    // } else {
-    //   this.init();
-    // }
-    this.redirect();
+    if (this.$route.query.state || this.$route.query.source) {
+      this.login();
+    } else if (!this.ifLogged) {
+      if (this.ifWeixin) {
+        window.location.href = 'http://www.zuber.im/weixin?' + (this.ifWeixin ? 'm=1&' : '') + 'goto='
+                               + encodeURIComponent(window.location.href.replace('http:', 'http:'));
+      }
+    } else {
+      this.init();
+    }
+    // this.redirect();
   }
 }
 </script>

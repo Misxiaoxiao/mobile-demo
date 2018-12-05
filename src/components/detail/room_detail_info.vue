@@ -1,5 +1,5 @@
 <template>
-  <div class="room_detail_info" v-if="detailInfo !== ''">
+  <div class="room_detail_info">
 
     <swiper
     :slotArr="slotArr"
@@ -7,13 +7,13 @@
       <div slot="video_wrap" class="swiper_item_wrap">
         <video-detail
         :hasVideo="detailInfo.hasVideo"
-        :video="detailInfo.video"
+        :video="detailInfo.video || {}"
         :refreshTime="detailInfo.refreshTime"
         />
       </div>
       <div slot="image_wrap" class="swiper_item_wrap">
         <image-detail
-        :photos="detailInfo.photos"
+        :photos="detailInfo.photos || {}"
         :photoSrc="detailInfo.photo"
         />
       </div>
@@ -54,7 +54,8 @@ export default class RoomDetailInfo extends Vue {
 
   get detailInfo(): any {
     if (!this.requesting && this.$route.name === 'bedDetail') {
-      if ((this.$route.query.biz).toString() === 'true' ? true : false) {
+      const biz = this.$route.query.biz ? (this.$route.query.biz).toString() : '';
+      if (biz === 'true' ? true : false) {
         return {
           biz: true,
           photo: this.bedDetail.bed.photo.src, // 图片

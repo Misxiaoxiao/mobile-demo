@@ -1,4 +1,4 @@
-import { ViewResource, BizResource, FollowResource } from '../../api/config'
+import { ViewResource, BizResource, FollowResource, ClaimResource } from '../../api/config'
 
 interface IdParams {
     id: string;
@@ -25,4 +25,7 @@ export default {
     unfollowDemand: (info: IdParams) => {
         return FollowResource().delete('/demand', {params: {demand_id: info.id}})
     },
+    claimRoom: (info: IdParams) => {
+        return ClaimResource().post('/claim', {room_id: info.id})
+    }
 }

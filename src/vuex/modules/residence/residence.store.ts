@@ -10,7 +10,8 @@ import {
     FAVORING_BED_DETAIL_FAIL,
     UNFAVORING_BED_DETAIL,
     UNFAVORING_BED_DETAIL_SUCCESS,
-    UNFAVORING_BED_DETAIL_FAIL
+    UNFAVORING_BED_DETAIL_FAIL,
+    CLAIM_ROOM
 } from './residence.types'
 
 import { DetailModel } from './residence.model'
@@ -77,6 +78,9 @@ const mutations = {
     },
     [UNFAVORING_BED_DETAIL_FAIL] (state: ResidenceState) {
         state.favoring = false
+    },
+    [CLAIM_ROOM] (state: ResidenceState, action: any) {
+        return action;
     }
 }
 

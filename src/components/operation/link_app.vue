@@ -27,7 +27,7 @@ export default class LinkApp extends Vue {
         this.url = 'zuber://www.zuber.im';
         break;
       case 'bedDetail':
-        if (this.$route.query.biz.toString() === 'true') {
+        if (this.$route.query.biz && this.$route.query.biz.toString() === 'true') {
           this.url = 'zuber:/' + this.$route.path + '?biz=true';
         } else {
           this.url = 'zuber:/' + this.$route.path;

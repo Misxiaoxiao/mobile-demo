@@ -44,6 +44,11 @@ const unfavorDemand = ActionBuilder({
     actionFail: types.UNFAVORING_BED_DETAIL_FAIL
 })
 
+const claimRoom = ActionBuilder({
+    method: api.claimRoom,
+    actionSuccess: types.CLAIM_ROOM
+})
+
 export default {
     actions: {
         viewBedDetail,
@@ -51,6 +56,7 @@ export default {
         favorBed,
         unfavorBed,
         favorDemand,
-        unfavorDemand
+        unfavorDemand,
+        claimRoom
     }
 }

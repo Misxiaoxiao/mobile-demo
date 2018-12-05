@@ -7,6 +7,7 @@ import CommonModule from '@/vuex/modules/common';
 import AccountModule from '@/vuex/modules/account';
 import ResidenceModule from '@/vuex/modules/residence';
 import UserModule from '@/vuex/modules/user';
+import ShareModule from '@/vuex/modules/share';
 
 Vue.use(Vuex);
 
@@ -19,5 +20,6 @@ export default new Vuex.Store({
     AccountModule,
     ResidenceModule,
     UserModule,
+    ShareModule,
   },
 });

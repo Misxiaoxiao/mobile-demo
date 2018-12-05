@@ -4,8 +4,8 @@ import ApiResource from './resource'
 const storage = window.localStorage
 
 const API_VERSION = 'client';
-// const API_ROOT = 'https://services.api.zuker.im/client'
-const API_ROOT = 'http://preview.apiservices.zuber.im/client'
+const API_ROOT = 'https://services.api.zuker.im/client'
+// const API_ROOT = 'http://preview.apiservices.zuber.im/client'
 
 export const token = new Token('zuber-', {
     getItem: (key: string): string | null => storage.getItem(key),
@@ -26,3 +26,4 @@ export const FollowResource = () => api.resource('/follows' + token.getToken('ap
 export const FileResource = () => api.resource('/files' + token.getToken('api'))
 export const ContractResource = () => api.resource('/contracts' + token.getToken('api'))
 export const EvaluateResource = () => api.resource('/evaluates' + token.getToken('api'))
+export const ClaimResource = () => api.resource('/rooms' + token.getToken('api'))

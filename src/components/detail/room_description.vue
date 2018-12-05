@@ -1,7 +1,7 @@
 <template>
   <div class="room_description_wrap" v-if="roomDescription !== ''">
     <h4>房源描述</h4>
-    <div class="room_description_person" @click.stop="view">
+    <div class="room_description_person" @click.stop="view" v-if="!showPerson" >
       <person-img
       v-if="roomDescription.person !== ''"
       :info="roomDescription.person"
@@ -41,7 +41,7 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 import { DetailModel } from '@/vuex/modules/residence/residence.model';
 import PersonImg from '@/components/common/person_img.vue';
@@ -54,6 +54,8 @@ import CompanyImg from '@/components/common/company_img.vue';
   },
 })
 export default class RoomDescription extends Vue {
+  @Prop({default: false}) private showPerson!: boolean;
+
   @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: DetailModel;
 
   get roomDescription(): any {

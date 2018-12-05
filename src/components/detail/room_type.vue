@@ -36,7 +36,6 @@ export default class RoomType extends Vue {
   private mounted(): void {
     this.changeType();
   }
-
 }
 </script>
 
