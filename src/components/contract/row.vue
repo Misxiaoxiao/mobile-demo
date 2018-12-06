@@ -30,7 +30,7 @@ export default class ContractRow extends Vue {
   line-height: 18px;
   background-color: #fff;
   > .left {
-    width: 21%;
+    width: 21.3%;
   }
   > .center {
     flex: 1;

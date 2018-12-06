@@ -1,6 +1,7 @@
 <template>
-  <div class="contract_mine_wrap">
-    <status :status="'等待对方签订'" />
+  <div class="contract_finish_wrap">
+    <status :status="'已签订'" />
+
     <div class="agreement_content">
       <row :label="'租赁地址：'">
         <p slot="rowContent">{{detail.city}}市{{detail.road}}{{detail.street}}·{{detail.bed_title}}</p>
@@ -12,6 +13,7 @@
         <span slot="rowContent">{{detail.user ? detail.user.identity.identity_username : '/'}}</span>
       </row>
     </div>
+
     <row :label="'定金：'" :rightText="'元'" :class="'border_top border_bottom margin_top'">
       <span slot="rowContent">{{detail.rent_price}}</span>
     </row>
@@ -42,27 +44,53 @@
 
     </div>
 
-    <preview />
+    <div class="id_time_wrap margin_top">
+      <p>编号： {{detail.id}}</p>
+      <p>签订时间： /</p>
+      <p>创建时间： {{detail.create_time}}</p>
+    </div>
+
+    <p>使用zuber手机客户端，可下载完整协议/合同</p>
+
+    <common-bar />
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import Preview from '@/components/contract/preview.vue';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import CommonBar from '@/components/common/bar.vue';
 import Status from '@/components/contract/status.vue';
 import Row from '@/components/contract/row.vue';
 
 @Component({
   components: {
-    Preview,
+    CommonBar,
     Status,
     Row,
   },
 })
-export default class ContractMine extends Vue {
+export default class ContractFinish extends Vue {
   @Prop({default: ''}) private detail!: any;
 }
 </script>
 
 <style lang="less" scoped>
+.contract_finish_wrap {
+  padding-bottom: 60px;
+  > p {
+    margin: 30px 0 15px;
+    color: #75B566;
+    font-size: 12px;
+    text-align: center;
+  }
+}
+.id_time_wrap {
+  padding: 15px;
+  background-color: #fff;
+  > p {
+    color: rgb(204, 204, 204);
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
 </style>

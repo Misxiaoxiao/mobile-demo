@@ -1,6 +1,9 @@
 <template>
-  <div class="contract_mine_wrap">
-    <status :status="'等待对方签订'" />
+  <div class="contract_invalid_wrap">
+    <bar />
+
+    <status :status="'已失效'" />
+
     <div class="agreement_content">
       <row :label="'租赁地址：'">
         <p slot="rowContent">{{detail.city}}市{{detail.road}}{{detail.street}}·{{detail.bed_title}}</p>
@@ -12,6 +15,7 @@
         <span slot="rowContent">{{detail.user ? detail.user.identity.identity_username : '/'}}</span>
       </row>
     </div>
+
     <row :label="'定金：'" :rightText="'元'" :class="'border_top border_bottom margin_top'">
       <span slot="rowContent">{{detail.rent_price}}</span>
     </row>
@@ -42,27 +46,47 @@
 
     </div>
 
-    <preview />
+    <div class="id_time_wrap margin_top">
+      <p>编号： {{detail.id}}</p>
+      <p>签订时间： /</p>
+      <p>创建时间： {{detail.create_time}}</p>
+    </div>
+
+    <common-bar />
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import Preview from '@/components/contract/preview.vue';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import CommonBar from '@/components/common/bar.vue';
 import Status from '@/components/contract/status.vue';
+import Bar from '@/components/contract/bar.vue';
 import Row from '@/components/contract/row.vue';
 
 @Component({
   components: {
-    Preview,
+    CommonBar,
     Status,
     Row,
+    Bar,
   },
 })
-export default class ContractMine extends Vue {
+export default class ContractInvalid extends Vue {
   @Prop({default: ''}) private detail!: any;
 }
 </script>
 
 <style lang="less" scoped>
+.contract_invalid_wrap {
+  padding-bottom: 60px;
+}
+.id_time_wrap {
+  padding: 15px;
+  background-color: #fff;
+  > p {
+    color: rgb(204, 204, 204);
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
 </style>
