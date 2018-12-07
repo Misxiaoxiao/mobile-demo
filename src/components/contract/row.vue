@@ -35,6 +35,11 @@ export default class ContractRow extends Vue {
   > .center {
     flex: 1;
     font-weight:500;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 }
 </style>

@@ -14,5 +14,8 @@ export default {
     },
     bind: (info: PhoneParams) => {
         return UserResource().post('/bind', {phone: info.phone, captcha: info.captcha, force: 1})
-    }
+    },
+    getValidate: () => {
+        return UserResource().get('/validate');
+    },
 }

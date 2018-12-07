@@ -22,10 +22,18 @@ const bindUserPhone = ActionBuilder({
     actionFail: types.BINDING_USER_PHONE_FAIL
 })
 
+const getUserValidate = ActionBuilder({
+    method: api.getValidate,
+    actionStart: types.GET_USER_VALIDATE,
+    actionSuccess: types.GET_USER_VALIDATE_SUCCESS,
+    actionFail: types.GET_USER_VALIDATE_FALI,
+})
+
 export default {
     actions: {
         getUserInfo,
         sendCaptchaMessage,
-        bindUserPhone
+        bindUserPhone,
+        getUserValidate
     }
 }

@@ -9,6 +9,7 @@ import ResidenceModule from '@/vuex/modules/residence';
 import UserModule from '@/vuex/modules/user';
 import ShareModule from '@/vuex/modules/share';
 import ContractModule from '@/vuex/modules/contract';
+import UploadModule from '@/vuex/modules/upload';
 
 Vue.use(Vuex);
 
@@ -23,5 +24,6 @@ export default new Vuex.Store({
     UserModule,
     ShareModule,
     ContractModule,
+    UploadModule,
   },
 });

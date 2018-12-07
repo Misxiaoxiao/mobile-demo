@@ -42,7 +42,8 @@
 
     </div>
 
-    <preview />
+    <preview :category="detail.category" :status="0" />
+
   </div>
 </template>
 

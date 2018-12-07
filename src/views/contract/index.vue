@@ -57,25 +57,25 @@ export default class ContractIndex extends Vue {
   @Action('getContractDetail') private getContractDetail: any;
 
   get status(): any { // 0 未签订 1 已签订 2 已拒签 3 已失效
-    // switch (this.contractDetail.negotiation_status) {
-    //   case 0:
-    //     return 0;
-    //   case 1:
-    //     return 1;
-    //   case 3:
-    //     return 1;
-    //   case 4:
-    //     return 1;
-    //   case 5:
-    //     return 1;
-    //   case 2:
-    //     return 2;
-    //   case 7:
-    //     return 3;
-    //   default:
-    //     return '';
-    // }
-    return 1;
+    switch (this.contractDetail.negotiation_status) {
+      case 0:
+        return 0;
+      case 1:
+        return 1;
+      case 3:
+        return 1;
+      case 4:
+        return 1;
+      case 5:
+        return 1;
+      case 2:
+        return 2;
+      case 7:
+        return 3;
+      default:
+        return '';
+    }
+    // return 0;
   }
 
   private created(): void {

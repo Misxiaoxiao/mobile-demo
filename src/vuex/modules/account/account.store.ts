@@ -6,7 +6,10 @@ import {
     GET_PHONE_CAPTCHA_FAIL,
     BINDING_USER_PHONE,
     BINDING_USER_PHONE_SUCCESS,
-    BINDING_USER_PHONE_FAIL
+    BINDING_USER_PHONE_FAIL,
+    GET_USER_VALIDATE,
+    GET_USER_VALIDATE_SUCCESS,
+    GET_USER_VALIDATE_FALI
 } from './account.types'
 
 import { UserProfile } from './account.model'
@@ -19,6 +22,7 @@ export class AccountState {
     sending: boolean = false
     countdown: number = 60
     submitting: boolean = false
+    validate: any = {}
 }
 
 const mutations = {
@@ -57,6 +61,17 @@ const mutations = {
         state.submitting = false
     },
     [BINDING_USER_PHONE_FAIL] (state: AccountState) {
+        state.submitting = false
+    },
+    [GET_USER_VALIDATE] (state: AccountState) {
+        state.submitting = true
+    },
+    [GET_USER_VALIDATE_SUCCESS] (state: AccountState, action: any) {
+        state.validate = action.result
+        state.submitting = false
+    },
+    [GET_USER_VALIDATE_FALI] (state: AccountState) {
+        state.validate = ''
         state.submitting = false
     }
 }

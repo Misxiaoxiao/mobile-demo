@@ -59,6 +59,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import CommonBar from '@/components/common/bar.vue';
+import Preview from '@/components/contract/preview.vue';
 import Status from '@/components/contract/status.vue';
 import Bar from '@/components/contract/bar.vue';
 import Row from '@/components/contract/row.vue';
@@ -66,6 +67,7 @@ import Row from '@/components/contract/row.vue';
 @Component({
   components: {
     CommonBar,
+    Preview,
     Status,
     Row,
     Bar,

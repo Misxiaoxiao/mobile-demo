@@ -44,6 +44,8 @@
 
     </div>
 
+    <preview :category="detail.category" :status="1" />
+
     <div class="id_time_wrap margin_top">
       <p>编号： {{detail.id}}</p>
       <p>签订时间： /</p>
@@ -59,12 +61,14 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import CommonBar from '@/components/common/bar.vue';
+import Preview from '@/components/contract/preview.vue';
 import Status from '@/components/contract/status.vue';
 import Row from '@/components/contract/row.vue';
 
 @Component({
   components: {
     CommonBar,
+    Preview,
     Status,
     Row,
   },
