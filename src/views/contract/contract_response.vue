@@ -1,5 +1,5 @@
 <template>
-  <div class="contract_response_wrap" v-if="detail">
+  <div class="contract_response_wrap" v-if="detail.id !== ''">
 
     <bar />
 
@@ -70,36 +70,33 @@
     </div>
 
     <div class="title">
-      我的信息（承租方）
+      我的信息（{{detail.owner_apply ? '承租方' : '出租方'}}）
     </div>
 
     <div class="rent_content">
 
-      <row :label="'姓名：'">
+      <row :label="'姓名：'" :ifErr="usernameErr">
         <div slot="rowContent">
           <input class="input" type="text" v-model="username" />
-          <span class="errMsg">{{usernameErr}}</span>
         </div>
       </row>
 
-      <row :label="'身份证号：'">
+      <row :label="'身份证号：'" :ifErr="identityCodeErr">
         <div slot="rowContent">
           <input class="input" type="text" v-model="identityCode" />
-          <span class="errMsg">{{identityCodeErr}}</span>
         </div>
       </row>
 
-      <row :label="'身份证：(人像面)'">
+      <row :label="'身份证：(人像面)'" :ifErr="identityImgSrcErr">
         <div slot="rowContent">
           <upload-img :imageSrc="identityImgSrc" :change="changeIdentityImgSrcErr" />
-          <span class="errMsg"><i class="iconfont">&#xe6c3;</i> {{identityImgSrcErr}}</span>
+          <span class="errMsg"><i class="iconfont">&#xe6c3;</i> 虚假证件将承担法律责任</span>
         </div>
       </row>
 
-      <row :label="'手机号：'">
+      <row :label="'手机号：'" :ifErr="phoneErr">
         <div slot="rowContent">
           <input class="input" type="text" v-model="phone" />
-          <span class="errMsg">{{phoneErr}}</span>
         </div>
       </row>
     </div>
@@ -122,12 +119,12 @@
         <input type="checkbox" v-model="checked">我已阅读并接受<a :href="detail.contract_statement">《免责声明》</a>
       </div>
 
-      <span>建议在签订前支付定金，确认签订即代表定金已支付</span>
+      <span>{{detail.owner_apply ? '建议在签订前支付定金，确认签订即代表定金已支付' : '建议在签订前收取定金，确认签订即代表定金已收取'}}</span>
     </div>
 
     <div class="contract_btn">
       <van-col :span="9">
-        <van-button class="enter-btn operation-btn ignore">忽略</van-button>
+        <van-button class="enter-btn operation-btn ignore" @click="ignore">忽略</van-button>
       </van-col>
       <van-col :span="14">
         <van-button class="enter-btn operation-btn confirm" @click.stop="dealContract">确认签订</van-button>
@@ -160,12 +157,13 @@ export default class ContractMine extends Vue {
   private identityImgSrc: string = ''; // 证件图片
   private phone: string = ''; // 手机号
   private checked: boolean = false; // 复选框选中状态
-  private usernameErr: string = ''; // 姓名错误
-  private identityCodeErr: string = ''; // 身份证号错误
-  private identityImgSrcErr: string = '虚假证件将承担法律责任'; // 身份证图片错误
-  private phoneErr: string = ''; // 电话错误
+  private usernameErr: boolean = false; // 姓名错误
+  private identityCodeErr: boolean = false; // 身份证号错误
+  private identityImgSrcErr: boolean = false; // 身份证图片错误
+  private phoneErr: boolean = false; // 电话错误
 
   @Prop({default: ''}) private detail!: any;
+  @Prop({default: ''}) private ignore!: any;
 
   @State((state: any) => state.AccountModule.validate) private validate!: any;
   @State((state: any) => state.AccountModule.account) private account!: any;
@@ -192,32 +190,42 @@ export default class ContractMine extends Vue {
   }
 
   private dealContract(): void {
+    this.usernameErr = false;
+    this.identityCodeErr = false;
+    this.identityImgSrcErr = false;
+    this.phoneErr = false;
     if (this.username === '') {
-      this.usernameErr = '姓名不能为空';
-    } else if (this.identityCode === '') {
-      this.identityCodeErr = '身份证号不能为空';
-    } else if (this.phone === '') {
-      this.identityCodeErr = '电话号不能为空';
-    } else {
-      this.signContract({
-        data: {
-          id: this.detail.id,
-          phone: this.phone,
-          identity_username: this.username,
-          identity_number: this.phone,
-          identity_validate: this.identityImgSrc,
-        },
-        success: () => {
-          this.$dialog.confirm({
-            title: '提醒',
-            message: '确认签订后即时生效。协议/合同具备法律效力，请跟对方沟通明确，并认真核对信息。'
-          }).then(() => {
-            // on confirm
+      this.usernameErr = true;
+    }
+    if (this.identityCode === '') {
+      this.identityCodeErr = true;
+    }
+    if (this.phone === '' && !(/^1[34578]\d{9}$/.test(this.phone))) {
+      this.identityCodeErr = true;
+    }
+    if (this.identityImgSrc === '') {
+      this.identityImgSrcErr = true;
+    }
+    if (!this.usernameErr && !this.identityCodeErr && !this.identityImgSrcErr && !this.phoneErr) {
+      this.$dialog.confirm({
+        title: '提醒',
+        message: '确认签订后即时生效。协议/合同具备法律效力，请跟对方沟通明确，并认真核对信息。',
+      }).then(() => {
+        // on confirm
+        this.signContract({
+          data: {
+            id: this.detail.id,
+            phone: this.phone,
+            identity_username: this.username,
+            identity_number: this.phone,
+            identity_validate: this.identityImgSrc,
+          },
+          success: () => {
             window.location.reload();
-          }).catch(() => {
-            // on cancel
-          });
-        },
+          },
+        });
+      }).catch(() => {
+        // on cancel
       });
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="contract_finish_wrap">
-    <status :status="'已签订'" />
+    <status :status="'已签订 ' + detail.response.time" />
 
     <div class="agreement_content">
       <row :label="'租赁地址：'">
@@ -48,7 +48,7 @@
 
     <div class="id_time_wrap margin_top">
       <p>编号： {{detail.id}}</p>
-      <p>签订时间： /</p>
+      <p>签订时间： {{detail.response.time}}</p>
       <p>创建时间： {{detail.create_time}}</p>
     </div>
 

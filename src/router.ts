@@ -92,7 +92,7 @@ export default new Router({
       name: 'contract',
       component: () => import('./views/contract/index.vue'),
       meta: {
-        title: '定金协议',
+        title: 'zuber定金协议/租赁合同',
       },
     },
     {

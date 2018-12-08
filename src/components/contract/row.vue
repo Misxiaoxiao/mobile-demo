@@ -1,6 +1,6 @@
 <template>
   <div :class="className + ' contract_row'">
-    <div class="left" v-if="label !== ''">{{label}}</div>
+    <div :class="(ifErr ? 'err' : '') + ' left'" v-if="label !== ''">{{label}}</div>
     <div class="center">
       <slot name="rowContent"></slot>
     </div>
@@ -16,6 +16,7 @@ export default class ContractRow extends Vue {
   @Prop({default: ''}) private className!: string;
   @Prop({default: ''}) private label!: string;
   @Prop({default: ''}) private rightText!: string;
+  @Prop({default: false}) private ifErr!: boolean;
 }
 </script>
 
@@ -31,6 +32,10 @@ export default class ContractRow extends Vue {
   background-color: #fff;
   > .left {
     width: 21.3%;
+  }
+  > .err {
+    color: #FF7D7D;
+    font-weight: 400;
   }
   > .center {
     flex: 1;

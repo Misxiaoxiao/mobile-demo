@@ -2,11 +2,19 @@
   <loading v-if="requesting" />
 
   <div v-else>
-    <div class="contract_wrap" v-if="true">
-    
+    <div class="contract_wrap" v-if="ifWeixin">
+      <div class="ignore" v-if="ignore">
+        <div class="msg_img"></div>
+        <span class="msg_text">已忽略，请直接关闭网页或返回</span>
+        <common-bar />
+      </div>
+
+      <contract-mine v-else-if="status === 0 && contractDetail.is_self" :detail="contractDetail" />
+
       <contract-response
-      v-if="contractDetail.can_response && status === 0"
-      :detail="contractDetail" />
+      v-else-if="contractDetail.can_response && status === 0"
+      :detail="contractDetail"
+      :ignore="changeIgnore" />
 
       <contract-finish v-else-if="status === 1" :detail="contractDetail" />
 
@@ -14,13 +22,16 @@
 
       <contract-invalid v-else-if="status === 3" :detail="contractDetail" />
 
-      <contract-mine v-else :detail="contractDetail" />
+      <div class="nothing" v-else>
+        <div class="msg_img"></div>
+        <span class="msg_text">无法查看，请直接关闭网页或返回</span>
+      </div>
 
     </div>
 
     <div class="contract_wrap" v-else>
-      你不是我认识的微信，你看不到我呢。
-      请在微信中打开此链接
+      <div class="msg_img"></div>
+      <span class="msg_text">请在微信客户端打开链接</span>
     </div>
   </div>
 </template>
@@ -30,6 +41,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import Platform from '@/utils/platform';
 import Loading from '@/components/common/loading.vue';
+import CommonBar from '@/components/common/bar.vue';
 import ContractResponse from './contract_response.vue';
 import ContractFinish from './contract_finish.vue';
 import ContractMine from './contract_mine.vue';
@@ -44,10 +56,12 @@ import ContractInvalid from './contract_invalid.vue';
     ContractFinish,
     ContractRefuse,
     ContractInvalid,
+    CommonBar,
   },
 })
 export default class ContractIndex extends Vue {
   private ifWeixin: boolean = false;
+  private ignore: boolean = true;
   private category: number = 0; // 1 合同 2 协议
   private static: number = 0; //
 
@@ -56,7 +70,7 @@ export default class ContractIndex extends Vue {
 
   @Action('getContractDetail') private getContractDetail: any;
 
-  get status(): any { // 0 未签订 1 已签订 2 已拒签 3 已失效
+  get status(): any { // 0 未签订 1 已签订 2 已拒签 3 已失效 4 已撤销
     switch (this.contractDetail.negotiation_status) {
       case 0:
         return 0;
@@ -73,7 +87,7 @@ export default class ContractIndex extends Vue {
       case 7:
         return 3;
       default:
-        return '';
+        return -1;
     }
     // return 0;
   }
@@ -82,8 +96,8 @@ export default class ContractIndex extends Vue {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
 
-    // if (this.ifWeixin) {
-    if (true) {
+    if (this.ifWeixin) {
+    // if (true) {
       this.getContractDetail({
         data: {
           order_no: this.$route.params.order,
@@ -93,6 +107,10 @@ export default class ContractIndex extends Vue {
         },
       });
     }
+  }
+
+  private changeIgnore(): void {
+    this.ignore = true;
   }
 }
 </script>
@@ -208,8 +226,36 @@ export default class ContractIndex extends Vue {
     justify-content: space-between;
     border-top: 1px solid #efefef;
     background-color: #fff;
+    z-index: 99;
     button {
       border-radius: 5px;
+    }
+  }
+  .msg_img {
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    left: 0;
+    margin: auto;
+    background: url('../../assets/fenzu@2x.png') no-repeat center;
+    background-size: 100%;
+  }
+  .msg_text {
+    position: absolute;
+    top: 37%;
+    right: 0;
+    left: 0;
+    margin: auto;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+  }
+  > .nothing {
+    > .msg_img {
+      background: url('../../assets/fenzu1@2x.png') no-repeat center;
+      background-size: 100%;
     }
   }
 }
