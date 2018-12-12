@@ -47,7 +47,7 @@
     </div>
 
     <div class="id_time_wrap margin_top">
-      <p>编号： {{detail.id}}</p>
+      <p>编号： {{detail.order_no}}</p>
       <p>签订时间： /</p>
       <p>创建时间： {{detail.create_time}}</p>
     </div>

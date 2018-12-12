@@ -27,6 +27,7 @@ export default class InitApp extends Vue {
   }
   private mounted(): void {
     this.deal();
+    // alert(localStorage.getItem('zuber-uid'))
   }
   // 分享
   private share(): void {
@@ -97,7 +98,7 @@ export default class InitApp extends Vue {
       this.login();
     } else if (!this.ifLogged) {
       if (this.ifWeixin) {
-        window.location.href = 'http://www.zuber.im/weixin?' + (this.ifWeixin ? 'm=1&' : '') + 'goto='
+        window.location.href = 'https://www.zuber.im/weixin?' + (this.ifWeixin ? 'm=1&' : '') + 'goto='
                                + encodeURIComponent(window.location.href.replace('http:', 'http:'));
       }
     } else {

@@ -28,7 +28,7 @@ export default class RoomType extends Vue {
     }
     // 已失效
     if (this.bedDetail.room && this.bedDetail.room.may_expire) {
-      this.type = '该房源许久未更新，可能已出租';
+      this.type = '该房源许久未刷新，可能已出租';
       return;
     }
   }

@@ -1,19 +1,23 @@
 <template>
-  <div class="contract_mine_wrap">
-    <status :status="'等待对方签订'" />
+  <div class="contract_invalid_wrap">
+    <bar />
+
+    <status :status="(detail.myself ? '我' : '对方') + '已撤销 ' + detail.revoke.time" />
+
     <div class="agreement_content">
       <row :label="'租赁地址：'">
         <p slot="rowContent">{{detail.city}}市{{detail.road}}{{detail.street}}·{{detail.bed_title}}</p>
       </row>
       <row :label="'出租方：'">
-        <span slot="rowContent">{{detail.owner_user ? (detail.owner_user.identity.identity_username === '' ? '/' : detail.owner_user.identity.identity_username) : '/'}}</span>
+        <span slot="rowContent">{{detail.owner_user ? detail.owner_user.identity.identity_username : '/'}}</span>
       </row>
       <row :label="'承租方：'">
-        <span slot="rowContent">{{detail.user ? (detail.user.identity.identity_username === '' ? '/' : detail.user.identity.identity_username) : '/'}}</span>
+        <span slot="rowContent">{{detail.user ? detail.user.identity.identity_username : '/'}}</span>
       </row>
     </div>
+
     <row v-if="detail.earnest_money" :label="'定金：'" :rightText="'元'" :class="'border_top border_bottom margin_top'">
-      <span slot="rowContent">{{detail.earnest_money}}</span>
+      <span slot="rowContent">{{detail.rent_price}}</span>
     </row>
     <div class="title">
       约定内容
@@ -44,26 +48,49 @@
 
     <preview :category="detail.category" :status="0" />
 
+    <div class="id_time_wrap margin_top">
+      <p>编号： {{detail.order_no}}</p>
+      <p>撤销时间： {{detail.revoke.time}}</p>
+      <p>创建时间： {{detail.create_time}}</p>
+    </div>
+
+    <common-bar />
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import CommonBar from '@/components/common/bar.vue';
 import Preview from '@/components/contract/preview.vue';
 import Status from '@/components/contract/status.vue';
+import Bar from '@/components/contract/bar.vue';
 import Row from '@/components/contract/row.vue';
 
 @Component({
   components: {
+    CommonBar,
     Preview,
     Status,
     Row,
+    Bar,
   },
 })
-export default class ContractMine extends Vue {
+export default class ContractInvalid extends Vue {
   @Prop({default: ''}) private detail!: any;
 }
 </script>
 
 <style lang="less" scoped>
+.contract_invalid_wrap {
+  padding-bottom: 60px;
+}
+.id_time_wrap {
+  padding: 15px;
+  background-color: #fff;
+  > p {
+    color: rgb(204, 204, 204);
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
 </style>

@@ -3,7 +3,7 @@
 
     <bar />
 
-    <status :status="status" />
+    <status :status="'等待自己签订'" />
 
     <div class="title">
       对方信息（{{detail.owner_apply ? '出租方' : '承租方'}}）
@@ -13,8 +13,8 @@
       <div class="img" :style="'background: url('+ detail.owner_user.identity.identity_validate.src +') no-repeat center; background-size: 100%;'">
       </div>
       <p>
-        {{detail.owner_user.username}}
-        <span>{{detail.owner_user.identity.identity_username}}</span>
+        {{detail.owner_user.identity.identity_username}}
+        <span>{{detail.owner_user.identity.identity_number}}</span>
       </p>
       <p>
         {{detail.owner_user.phone}}
@@ -25,8 +25,8 @@
       <div class="img" :style="'background: url('+ detail.object_user.identity.identity_validate.src +') no-repeat center; background-size: 100%;'">
       </div>
       <p>
-        {{detail.object_user.username}}
-        <span>{{detail.object_user.identity.identity_username}}</span>
+        {{detail.object_user.identity.identity_username}}
+        <span>{{detail.object_user.identity.identity_number}}</span>
       </p>
       <p>
         {{detail.object_user.phone}}
@@ -37,8 +37,8 @@
       <p slot="rowContent">{{detail.city}}市{{detail.road}}{{detail.street}}·{{detail.bed_title}}</p>
     </row>
 
-    <row :label="'定金：'" :rightText="'元'" :class="'border_top border_bottom margin_top'">
-      <span slot="rowContent">{{detail.rent_price}}</span>
+    <row v-if="detail.earnest_money" :label="'定金：'" :rightText="'元'" :class="'border_top border_bottom margin_top'">
+      <span slot="rowContent">{{detail.earnest_money}}</span>
     </row>
 
     <div class="title">
@@ -52,7 +52,7 @@
       </row>
 
       <row :label="'租金：'">
-        <span slot="rowContent">{{detail.rent_deposit}}元/月</span>
+        <span slot="rowContent">{{detail.rent_price}}元/月</span>
       </row>
 
       <row :label="'付款方式：'">
@@ -64,7 +64,7 @@
       </row>
 
       <row :label="'补充约定：'">
-        <span slot="rowContent">{{detail.remark}}</span>
+        <span slot="rowContent">{{detail.remark === '' ? '/' : detail.remark}}</span>
       </row>
 
     </div>
@@ -76,26 +76,26 @@
     <div class="rent_content">
 
       <row :label="'姓名：'" :ifErr="usernameErr">
-        <div slot="rowContent">
+        <div slot="rowContent" ref="user">
           <input class="input" type="text" v-model="username" />
         </div>
       </row>
 
       <row :label="'身份证号：'" :ifErr="identityCodeErr">
-        <div slot="rowContent">
+        <div slot="rowContent" ref="identityCode">
           <input class="input" type="text" v-model="identityCode" />
         </div>
       </row>
 
       <row :label="'身份证：(人像面)'" :ifErr="identityImgSrcErr">
-        <div slot="rowContent">
+        <div slot="rowContent" ref="identityImg">
           <upload-img :imageSrc="identityImgSrc" :change="changeIdentityImgSrcErr" />
           <span class="errMsg"><i class="iconfont">&#xe6c3;</i> 虚假证件将承担法律责任</span>
         </div>
       </row>
 
       <row :label="'手机号：'" :ifErr="phoneErr">
-        <div slot="rowContent">
+        <div slot="rowContent" ref="phone">
           <input class="input" type="text" v-model="phone" />
         </div>
       </row>
@@ -127,7 +127,7 @@
         <van-button class="enter-btn operation-btn ignore" @click="ignore">忽略</van-button>
       </van-col>
       <van-col :span="14">
-        <van-button class="enter-btn operation-btn confirm" @click.stop="dealContract">确认签订</van-button>
+        <van-button class="enter-btn operation-btn confirm" @click.stop="dealContract" :disabled="!checked">确认签订</van-button>
       </van-col>
     </div>
   </div>
@@ -156,7 +156,7 @@ export default class ContractMine extends Vue {
   private identityCode: string = ''; // 身份证
   private identityImgSrc: string = ''; // 证件图片
   private phone: string = ''; // 手机号
-  private checked: boolean = false; // 复选框选中状态
+  private checked: boolean = true; // 复选框选中状态
   private usernameErr: boolean = false; // 姓名错误
   private identityCodeErr: boolean = false; // 身份证号错误
   private identityImgSrcErr: boolean = false; // 身份证图片错误
@@ -169,10 +169,6 @@ export default class ContractMine extends Vue {
   @State((state: any) => state.AccountModule.account) private account!: any;
   @Action('getUserValidate') private getUserValidate!: any;
   @Action('signContract') private signContract!: any;
-
-  get status(): string {
-    return this.detail.is_self ? '等待对方签订' : '等待自己签订';
-  }
 
   private created(): void {
     this.getUserValidate({
@@ -189,22 +185,51 @@ export default class ContractMine extends Vue {
     this.identityImgSrc = src;
   }
 
+  private scrollTo(x: any) {
+    const Window: any = window;
+    const doc: any = document;
+    doc.documentElement.scrollTop = x - 15;
+    Window.pageYOffset = x - 15;
+    doc.body.scrollTop = x - 15;
+  }
+
   private dealContract(): void {
     this.usernameErr = false;
     this.identityCodeErr = false;
     this.identityImgSrcErr = false;
     this.phoneErr = false;
+    let top: number = 0;
     if (this.username === '') {
       this.usernameErr = true;
+      if (top === 0) {
+        const ele: any = this.$refs.user;
+        top = ele.offsetTop;
+      }
+      this.scrollTo(top);
     }
     if (this.identityCode === '') {
       this.identityCodeErr = true;
+      if (top === 0) {
+        const ele: any = this.$refs.identityCode;
+        top = ele.offsetTop;
+      }
+      this.scrollTo(top);
     }
     if (this.phone === '' && !(/^1[34578]\d{9}$/.test(this.phone))) {
       this.identityCodeErr = true;
+      if (top === 0) {
+        const ele: any = this.$refs.identityImg;
+        top = ele.offsetTop;
+      }
+      this.scrollTo(top);
     }
     if (this.identityImgSrc === '') {
       this.identityImgSrcErr = true;
+      if (top === 0) {
+        const ele: any = this.$refs.phone;
+        top = ele.offsetTop;
+      }
+      this.scrollTo(top);
     }
     if (!this.usernameErr && !this.identityCodeErr && !this.identityImgSrcErr && !this.phoneErr) {
       this.$dialog.confirm({

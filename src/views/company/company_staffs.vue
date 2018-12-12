@@ -43,9 +43,13 @@ import Swiper from '@/components/common/swiper.vue';
 export default class CompanyPerson extends Vue {
   @State((state: any) => state.UserModule.company_detail) private companyDetail!: any;
   get slotArr(): any[] {
-    return this.companyDetail.staffs.map((n: any, i: any) => {
-      return i;
-    });
+    if (this.companyDetail.staffs) {
+      return this.companyDetail.staffs.map((n: any, i: any) => {
+        return i;
+      });
+    } else  {
+      return [];
+    }
   }
 
   private clickBtn(): void {

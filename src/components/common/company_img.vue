@@ -1,6 +1,6 @@
 <template>
   <div class="company_img_wrap">
-    <div class="div_one">
+    <div class="div_one" v-if="info !== ''">
       <div class="company_wrap_left">
         <div class="company_img photo"
         :style="'background-image: url(' + info.logo.src + ');'">
@@ -20,7 +20,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class ConpanyImg extends Vue {
-  @Prop({default: {}}) private info!: any;
+  @Prop({default: ''}) private info!: any;
 }
 </script>
 

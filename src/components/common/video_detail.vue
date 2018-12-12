@@ -12,7 +12,7 @@
   class="video_detail_wrap photo no_video"
   @click.stop="clickVideo"
   v-else>
-    <span>{{refreshTime}}</span>
+    <span>{{refreshTime}}刷新</span>
   </div>
 </template>
 

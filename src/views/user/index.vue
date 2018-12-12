@@ -67,9 +67,9 @@ export default class UserIndex extends Vue {
   }
 
   get user(): string {
-    const bornCity = this.userDetail.user
+    const bornCity = this.userDetail.user.client_attr.born_city !== ''
                      ? '来自于' + this.userDetail.user.client_attr.born_city : '';
-    const college = this.userDetail.user
+    const college = this.userDetail.user.client_attr.college !== ''
                     ? '，毕业于' + this.userDetail.user.client_attr.college : '';
     return bornCity + college;
   }

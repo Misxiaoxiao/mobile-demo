@@ -15,7 +15,7 @@ interface ContractParams {
 
 export default {
     getContract: (info: IdParams) => {
-        return ContractResource().get('/weixin', {params: {order_no: info.order_no}})
+        return ContractResource().get('/weixin', {params: {id: info.id}})
     },
     dealContract: (info: ContractParams) => {
         return ContractResource().post('/weixin', info)

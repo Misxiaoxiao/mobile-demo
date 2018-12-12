@@ -8,7 +8,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '*',
       name: 'home',
       component: () => import('./views/index/index.vue'),
       redirect: {
@@ -88,7 +88,23 @@ export default new Router({
       },
     },
     {
-      path: '/contract/:order',
+      path: '/contract/:id',
+      name: 'contract',
+      component: () => import('./views/contract/index.vue'),
+      meta: {
+        title: 'zuber定金协议/租赁合同',
+      },
+    },
+    {
+      path: '/earnest/:id',
+      name: 'contract',
+      component: () => import('./views/contract/index.vue'),
+      meta: {
+        title: 'zuber定金协议/租赁合同',
+      },
+    },
+    {
+      path: '/agreement/:id',
       name: 'contract',
       component: () => import('./views/contract/index.vue'),
       meta: {

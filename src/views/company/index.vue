@@ -10,7 +10,7 @@
         >
           <div slot="companyDetail" class="text-s company_des">
             {{detailContent}}
-            <div @click="clickMore">{{more ? '收起' : '查看更多'}}</div>
+            <div @click="clickMore" v-if="detailContent === '...'">{{more ? '收起' : '查看更多'}}</div>
           </div>
         </company-img>
       </div>
@@ -73,7 +73,7 @@ export default class CompanyIndex extends Vue {
   }
 
   get detailContent(): string {
-    const str = this.companyDetail.company.desc;
+    const str = this.companyDetail.company ? this.companyDetail.company.desc : '';
     if (this.more) {
       return str;
     } else {

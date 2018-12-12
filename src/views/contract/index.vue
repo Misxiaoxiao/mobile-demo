@@ -9,7 +9,7 @@
         <common-bar />
       </div>
 
-      <contract-mine v-else-if="status === 0 && contractDetail.is_self" :detail="contractDetail" />
+      <contract-mine v-else-if="status === 0 && contractDetail.myself" :detail="contractDetail" />
 
       <contract-response
       v-else-if="contractDetail.can_response && status === 0"
@@ -21,6 +21,8 @@
       <contract-refuse v-else-if="status === 2" />
 
       <contract-invalid v-else-if="status === 3" :detail="contractDetail" />
+
+      <contract-cancel v-else-if="status === 4" :detail="contractDetail" />
 
       <div class="nothing" v-else>
         <div class="msg_img"></div>
@@ -47,6 +49,7 @@ import ContractFinish from './contract_finish.vue';
 import ContractMine from './contract_mine.vue';
 import ContractRefuse from './contract_refuse.vue';
 import ContractInvalid from './contract_invalid.vue';
+import ContractCancel from './contract_cancel.vue';
 
 @Component({
   components: {
@@ -56,12 +59,13 @@ import ContractInvalid from './contract_invalid.vue';
     ContractFinish,
     ContractRefuse,
     ContractInvalid,
+    ContractCancel,
     CommonBar,
   },
 })
 export default class ContractIndex extends Vue {
   private ifWeixin: boolean = false;
-  private ignore: boolean = true;
+  private ignore: boolean = false;
   private category: number = 0; // 1 合同 2 协议
   private static: number = 0; //
 
@@ -86,6 +90,8 @@ export default class ContractIndex extends Vue {
         return 2;
       case 7:
         return 3;
+      case 8:
+        return 4;
       default:
         return -1;
     }
@@ -96,11 +102,11 @@ export default class ContractIndex extends Vue {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
 
-    if (this.ifWeixin) {
-    // if (true) {
+    // if (this.ifWeixin) {
+    if (true) {
       this.getContractDetail({
         data: {
-          order_no: this.$route.params.order,
+          id: this.$route.params.id,
         },
         success: () => {
           document.title = this.contractDetail.category === 1 ? '租赁合同' : '定金协议';
@@ -227,6 +233,9 @@ export default class ContractIndex extends Vue {
     border-top: 1px solid #efefef;
     background-color: #fff;
     z-index: 99;
+    .operation-btn {
+      padding: 0;
+    }
     button {
       border-radius: 5px;
     }
@@ -253,6 +262,7 @@ export default class ContractIndex extends Vue {
     color: #333;
   }
   > .nothing {
+    height: 100%;
     > .msg_img {
       background: url('../../assets/fenzu1@2x.png') no-repeat center;
       background-size: 100%;

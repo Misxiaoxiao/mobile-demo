@@ -1,4 +1,5 @@
 <template>
+  <!-- <div class="room_detail_wrap" v-if="true && !requesting"> -->
   <div class="room_detail_wrap" v-if="bedDetail.can_claim && !requesting">
     <common-bar :top="bedDetail.can_claim" />
     <div class="room_detail_content" :style="bedDetail.can_claim ? 'margin-top: 60px' : ''">

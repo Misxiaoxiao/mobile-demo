@@ -14,8 +14,8 @@
       </row>
     </div>
 
-    <row :label="'定金：'" :rightText="'元'" :class="'border_top border_bottom margin_top'">
-      <span slot="rowContent">{{detail.rent_price}}</span>
+    <row v-if="detail.earnest_money" :label="'定金：'" :rightText="'元'" :class="'border_top border_bottom margin_top'">
+      <span slot="rowContent">{{detail.earnest_money}}</span>
     </row>
     <div class="title">
       约定内容
@@ -27,7 +27,7 @@
       </row>
 
       <row :label="'租金：'">
-        <span slot="rowContent">{{detail.rent_deposit}}元/月</span>
+        <span slot="rowContent">{{detail.rent_price}}元/月</span>
       </row>
 
       <row :label="'付款方式：'">
@@ -47,7 +47,7 @@
     <preview :category="detail.category" :status="1" />
 
     <div class="id_time_wrap margin_top">
-      <p>编号： {{detail.id}}</p>
+      <p>编号： {{detail.order_no}}</p>
       <p>签订时间： {{detail.response.time}}</p>
       <p>创建时间： {{detail.create_time}}</p>
     </div>

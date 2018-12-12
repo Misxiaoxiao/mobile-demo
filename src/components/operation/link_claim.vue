@@ -5,27 +5,39 @@
     </a>
     <van-popup
       v-model="show"
-      position="bottom"
     >
-      <div class="captch_wrap" v-show="!bindPhoneSuccess">
-        <p>如有租客跟您联系，我们将用手机短信通知您。</p>
+      <div class="captch_wrap" v-if="!bindPhoneSuccess">
+        <div class="close" @click.stop="changeShow">×</div>
+        <p>如有租客跟您联系，我们将用手机短信通知您</p>
         <van-row>
-          <input type="text" v-model="phone">
-          <van-button class="captch-btn" size="small" :disabled="disabled" @click.stop="captchaMessage">{{btnText}}</van-button>
+          <van-field
+            v-model="phone"
+            clearable
+            placeholder="请输入手机号"
+          />
         </van-row>
         <van-row>
-          <input type="text" v-model="code">
-          <span v-if="errMsg !== ''">{{errMsg}}</span>
+          <van-field
+            v-model="code"
+            center
+            placeholder="请输入验证码"
+          >
+            <van-button slot="button" size="small" type="primary"
+            :disabled="disabled"
+            @click.stop="captchaMessage"
+            >{{btnText}}</van-button>
+          </van-field>
         </van-row>
-        <van-row>
-          <van-button class="enter-btn operation-btn confirm" size="small" @click.stop="bindPhoneBtn">确定</van-button>
-        </van-row>
+        <span class="errMsg">{{errMsg}}</span>
+        <van-button class="enter-btn operation-btn confirm" size="small" @click.stop="bindPhoneBtn">确定</van-button>
       </div>
-      <!-- <div class="captch_wrap_finish" v-show="bindPhoneSuccess">
-        <p>恭喜，您已成功认领此房源！</p>
-        <p>您可以使用App管理房源、与租客沟通。</p>
-        <van-button class="enter-btn operation-btn confirm" @click.stop="changeShow">点击查看</van-button>
-      </div> -->
+      <div class="captch_wrap" v-else>
+        <div class="close" @click.stop="changeShow">×</div>
+        <div class="ok"></div>
+        <h5>恭喜，您已成功认领此房源！</h5>
+        <span>您可以使用App管理房源、与客户沟通</span>
+        <van-button class="enter-btn operation-btn confirm" size="small" @click.stop="bindPhoneBtn">点击查看</van-button>
+      </div>
     </van-popup>
   </div>
 </template>
@@ -43,7 +55,7 @@ export default class LinkClaim extends Vue {
   private show: boolean = false; // 是否展示弹出框
   private errMsg: string = ''; // 错误信息
   private btnText: string = '获取验证码'; // 按钮文字
-  // private bindPhoneSuccess: boolean = false; // 是否绑定手机成功
+  private bindPhoneSuccess: boolean = false; // 是否绑定手机成功
 
   @State((state: any) => state.AccountModule.account) private account!: any;
   @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: any;
@@ -61,7 +73,7 @@ export default class LinkClaim extends Vue {
     if (this.account.user.phone === '') { // 如果用户没有绑定手机号
     // if (true) { // 如果用户没有绑定手机号
       this.show = true;
-      // this.bindPhoneSuccess = false;
+      this.bindPhoneSuccess = false;
     } else {
       this.handleClaimRoom();
     }
@@ -115,11 +127,8 @@ export default class LinkClaim extends Vue {
           id: this.bedDetail.room.id,
         },
         success: () => {
-          this.$dialog.alert({
-            message: '恭喜，您已成功认领此房源！您可以使用App管理房源、与租客沟通。',
-          }).then(() => {
-            window.location.reload();
-          });
+          this.show = true;
+          this.bindPhoneSuccess = false;
           if (resolve) {
             resolve();
           }
@@ -192,6 +201,9 @@ export default class LinkClaim extends Vue {
   background-color: #fff;
   border-top: 1px solid #EBEBEB;
   z-index: 99;
+  .van-popup {
+    border-radius: 5px;
+  }
 }
 .captch_wrap_finish {
   padding: 15px 30px;
@@ -210,41 +222,71 @@ export default class LinkClaim extends Vue {
   }
 }
 .captch_wrap {
-  padding: 15px 30px;
-  > .van-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 45px;
-    &:last-child {
-      justify-content: center;
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+  position: relative;
+  padding: 40px 0;
+  box-sizing: border-box;
+  .close {
+    font-size: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #D9D9D9;
+  }
+  > p {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .van-row {
+    border-bottom: 1px solid #efefef;
+    width: 80%;
+    margin-top: 10px;
+    .van-cell {
+      padding: 10px 0;
+    }
+    .van-button {
+      background-color: #fff;
+      border: 1px solid #fff;
+      color: #66D4C3;
+      font-size: 14px;
+      &--disabled {
+        color: #999;
+      }
     }
   }
-  p {
-    width: 100%;
-    text-align: left;
-    font-size: 14px;
-    margin: 8px 0;
-  }
-  input {
-    // margin-top: 15px;
-    border: 1px solid #ebebeb;
-    width: 62%;
-    margin-right: 15px;
-    height: 28px;
-    padding: 0 5px;
-  }
-  button {
-    font-size: 14px;
-    width: 90px;
-  }
-  .captch-btn {
-    color: #0066FF;
-    border: 1px solid #0066FF;
-  }
-  span {
+  > .errMsg {
+    color: #FB686B;
     font-size: 12px;
-    color: #FF0000;
+    margin-top: 20px;
+    height: 14px;
+  }
+  .enter-btn {
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  .ok {
+    width: 50px;
+    height: 50px;
+    background: url('../../assets/ok@2x.png') no-repeat center;
+    background-size: cover;
+  }
+  > h5 {
+    margin-top: 30px;
+    color: #333;
+    font-size: 14px;
+  }
+  > span {
+    color: #666;
+    font-size: 14px;
+    margin: 10px 0 20px;
   }
 }
 </style>
