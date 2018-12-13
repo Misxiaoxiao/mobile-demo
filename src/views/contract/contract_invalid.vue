@@ -9,15 +9,15 @@
         <p slot="rowContent">{{detail.city}}市{{detail.road}}{{detail.street}}·{{detail.bed_title}}</p>
       </row>
       <row :label="'出租方：'">
-        <span slot="rowContent">{{detail.owner_user ? detail.owner_user.identity.identity_username : '/'}}</span>
+        <span slot="rowContent">{{detail.owner_user ? (detail.owner_user.identity.identity_username === '' ? '/' : detail.owner_user.identity.identity_username) : '/'}}</span>
       </row>
       <row :label="'承租方：'">
-        <span slot="rowContent">{{detail.user ? detail.user.identity.identity_username : '/'}}</span>
+        <span slot="rowContent">{{detail.user ? (detail.user.identity.identity_username === '' ? '/' : detail.user.identity.identity_username) : '/'}}</span>
       </row>
     </div>
 
-    <row :label="'定金：'" :rightText="'元'" :class="'border_top border_bottom margin_top'">
-      <span slot="rowContent">{{detail.rent_price}}</span>
+    <row v-if="detail.earnest_money" :label="'定金：'" :rightText="'元'" :class="'border_top border_bottom margin_top'">
+      <span slot="rowContent">{{detail.earnest_money}}</span>
     </row>
     <div class="title">
       约定内容
@@ -29,7 +29,7 @@
       </row>
 
       <row :label="'租金：'">
-        <span slot="rowContent">{{detail.rent_deposit}}元/月</span>
+        <span slot="rowContent">{{detail.rent_price}}元/月</span>
       </row>
 
       <row :label="'付款方式：'">

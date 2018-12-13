@@ -3,7 +3,7 @@
 
   <div v-else>
     <div class="contract_wrap" v-if="ifWeixin">
-      <div class="ignore" v-if="ignore">
+      <div class="ignore" v-if="ignore || status === 2">
         <div class="msg_img"></div>
         <span class="msg_text">已忽略，请直接关闭网页或返回</span>
         <common-bar />
@@ -18,7 +18,7 @@
 
       <contract-finish v-else-if="status === 1" :detail="contractDetail" />
 
-      <contract-refuse v-else-if="status === 2" />
+      <!-- <contract-refuse v-else-if="status === 2" /> -->
 
       <contract-invalid v-else-if="status === 3" :detail="contractDetail" />
 

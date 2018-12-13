@@ -4,17 +4,20 @@ import Token from '@/interface/authorization/token'
 
 export default class ApiResource extends Signature {
     baseUrl: string;
+    token: Token;
     constructor (baseUrl: string, version: string, token: Token, deployKey?: string) {
         super(token, version, deployKey);
+        this.token = token
         this.baseUrl = baseUrl;
     }
     handle (res: any) {
+        const _token = this.token;
         if (res.status === 200) {
             switch (res.data.code) {
                 case 0:
                     return res.data.result ? res : Promise.reject(res.data.msg)
                 case 401:
-                    super.token.clean();
+                    _token.clean();
                     // window.location.reload();
                     return Promise.reject(res.data.msg);
                 default:

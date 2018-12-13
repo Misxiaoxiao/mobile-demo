@@ -55,6 +55,7 @@ export default class DetailIndex extends Vue {
   private ifWeixin: boolean = false;
 
   @Action('viewBedDetail') private viewBedDetail!: any;
+  @Action('configShareInfo') private configShareInfo: any;
 
   @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: any;
   @State((state: any) => state.ResidenceModule.requesting) private requesting!: any;
@@ -92,9 +93,23 @@ export default class DetailIndex extends Vue {
       });
     });
   }
+  // 房间分享
+  // private share(): void {
+  //   const info: any = {
+  //     title: "123",
+  //     link: 'https://mobile.zuber.im',
+  //     desc: "wawwwwwww",
+  //     imgUrl: "1312"
+  //   }
+  //   this.configShareInfo({
+  //     info
+  //   });
+  // }
+
 
   private created(): void {
     this.getBedDetail();
+    // this.share();
   }
 }
 </script>

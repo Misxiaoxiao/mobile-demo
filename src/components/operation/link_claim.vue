@@ -8,12 +8,13 @@
     >
       <div class="captch_wrap" v-if="!bindPhoneSuccess">
         <div class="close" @click.stop="changeShow">×</div>
-        <p>如有租客跟您联系，我们将用手机短信通知您</p>
+        <p>如有租客跟您联系，您将收到短信通知</p>
         <van-row>
           <van-field
             v-model="phone"
             clearable
             placeholder="请输入手机号"
+            @blur="onBlur"
           />
         </van-row>
         <van-row>
@@ -21,6 +22,7 @@
             v-model="code"
             center
             placeholder="请输入验证码"
+            @blur="onBlur"
           >
             <van-button slot="button" size="small" type="primary"
             :disabled="disabled"
@@ -36,7 +38,7 @@
         <div class="ok"></div>
         <h5>恭喜，您已成功认领此房源！</h5>
         <span>您可以使用App管理房源、与客户沟通</span>
-        <van-button class="enter-btn operation-btn confirm" size="small" @click.stop="bindPhoneBtn">点击查看</van-button>
+        <van-button class="enter-btn operation-btn confirm" size="small" @click.stop="reload">点击查看</van-button>
       </div>
     </van-popup>
   </div>
@@ -91,9 +93,6 @@ export default class LinkClaim extends Vue {
         .then(() => {
           this.handleClaimRoom();
         });
-        // .then(() => {
-        //   // that.bindPhoneSuccess = true;
-        // });
     }
   }
   // 绑定手机
@@ -106,7 +105,6 @@ export default class LinkClaim extends Vue {
           force: 0,
         },
         success: () => {
-          // this.bindPhoneSuccess = true;
           if (resolve) {
             resolve();
           }
@@ -128,7 +126,7 @@ export default class LinkClaim extends Vue {
         },
         success: () => {
           this.show = true;
-          this.bindPhoneSuccess = false;
+          this.bindPhoneSuccess = true;
           if (resolve) {
             resolve();
           }
@@ -139,26 +137,28 @@ export default class LinkClaim extends Vue {
   // 发送验证码
   private captchaMessage(): void {
     if (this.testPhone()) {
+      clearInterval(this.timer);
       this.disabled = true;
+      let totalSecond: number = 60;
+      this.btnText = `重新发送(${totalSecond})s`;
+      this.timer = setInterval(() => {
+        totalSecond--;
+        if (totalSecond <= 0) {
+          this.disabled = false;
+          this.btnText = '获取验证码';
+          clearInterval(this.timer);
+        } else {
+          this.btnText = `重新发送(${totalSecond})s`;
+        }
+      }, 1000);
       this.sendCaptchaMessage({
         data: {
           phone: this.phone,
         },
-        success: () => {
-          let totalSecond: number = 60;
-          this.timer = setInterval(() => {
-            totalSecond--;
-            if (totalSecond <= 0) {
-              this.disabled = false;
-              this.btnText = '获取验证码';
-              clearInterval(this.timer);
-            } else {
-              this.btnText = `${totalSecond}s`;
-            }
-          }, 1000);
-        },
         fail: () => {
           this.disabled = false;
+          clearInterval(this.timer);
+          this.btnText = '获取验证码';
         },
       });
     }
@@ -173,6 +173,10 @@ export default class LinkClaim extends Vue {
       return true;
     }
   }
+  // 刷新页面
+  private reload(): void {
+    window.location.reload();
+  }
 
   private changeShow(): void {
     this.show = !this.show;
@@ -184,7 +188,12 @@ export default class LinkClaim extends Vue {
     this.disabled = false;
     this.errMsg = '';
     this.btnText = '获取验证码';
+    this.bindPhoneSuccess = false;
     clearTimeout(this.timer);
+  }
+  // 失去焦点  重新绘制
+  private onBlur(e: any): void {
+    document.body && (document.body.scrollTop = document.body.scrollTop);
   }
 }
 </script>
@@ -203,6 +212,9 @@ export default class LinkClaim extends Vue {
   z-index: 99;
   .van-popup {
     border-radius: 5px;
+    // position: absolute;
+    // overflow: visible;
+    // top: -70vh;
   }
 }
 .captch_wrap_finish {
@@ -231,6 +243,7 @@ export default class LinkClaim extends Vue {
   position: relative;
   padding: 40px 0;
   box-sizing: border-box;
+  border-radius: 5px;
   .close {
     font-size: 20px;
     position: absolute;
@@ -271,6 +284,7 @@ export default class LinkClaim extends Vue {
     height: 40px;
     border-radius: 5px;
     margin-top: 10px;
+    padding: 0;
   }
   .ok {
     width: 50px;

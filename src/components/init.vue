@@ -18,7 +18,7 @@ export default class InitApp extends Vue {
   @Action('getUserInfo') private getUserInfo: any;
   @Action('sendDeviceInfo') private sendDeviceInfo: any;
   @Action('getShareBonus') private getShareBonus: any;
-  // @Action('configShareInfo') private configShareInfo: any;
+  @Action('configShareInfo') private configShareInfo: any;
   // @Action('getAppInfo') private getAppInfo: any;
   private created(): void {
     const platform = new Platform();
@@ -31,14 +31,11 @@ export default class InitApp extends Vue {
   }
   // 分享
   private share(): void {
-    // this.configShareInfo({
-    //   info: this.shareInfo,
-    // });
-    // if (this.$route.name !== 'room') {
-    //   this.configShareInfo({
-    //     info: this.shareInfo,
-    //   });
-    // }
+    if (this.$route.name !== 'room') {
+      this.configShareInfo({
+        info: this.shareInfo,
+      });
+    }
   }
   // 重定向
   private redirect(replace?: any): void {

@@ -5,7 +5,6 @@ import { ActionContext } from 'vuex';
 const Window: any = window;
 
 const configShareInfo = ({commit}: ActionContext<any, any>, info: any) => {
-    console.log(info)
     api.getWeixinAuth(window.location.href).then(res => {
         let wxAuth = res.data.result
         const wx = Window.wx

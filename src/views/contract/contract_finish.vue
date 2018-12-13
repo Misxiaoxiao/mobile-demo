@@ -7,10 +7,10 @@
         <p slot="rowContent">{{detail.city}}市{{detail.road}}{{detail.street}}·{{detail.bed_title}}</p>
       </row>
       <row :label="'出租方：'">
-        <span slot="rowContent">{{detail.owner_user ? detail.owner_user.identity.identity_username : '/'}}</span>
+        <span slot="rowContent">{{detail.owner_user ? (detail.owner_user.identity.identity_username === '' ? '/' : detail.owner_user.identity.identity_username) : '/'}}</span>
       </row>
       <row :label="'承租方：'">
-        <span slot="rowContent">{{detail.user ? detail.user.identity.identity_username : '/'}}</span>
+        <span slot="rowContent">{{detail.user ? (detail.user.identity.identity_username === '' ? '/' : detail.user.identity.identity_username) : '/'}}</span>
       </row>
     </div>
 
