@@ -30,6 +30,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
+import { ROOM_CONDITION_TYPE_ITEMS } from '@/model/index';
 import Platform from '@/utils/platform';
 import RoomDetailInfo from '@/components/detail/room_detail_info.vue';
 import RoomOtherInfo from '@/components/detail/room_other_info.vue';
@@ -92,13 +93,21 @@ export default class DetailIndex extends Vue {
       });
     });
   }
+  private setType(type: number): string {
+    for (const n of ROOM_CONDITION_TYPE_ITEMS) {
+      if (n.value === type) {
+        return n.key;
+      }
+    }
+    return '';
+  }
   // 房间分享
   private share(): void {
     const info: any = {
-      title: `${this.bedDetail.room.localization}-${this.bedDetail.bed.title} [zuber租房]`,
+      title: `${this.bedDetail.room.localization}-${this.setType(this.bedDetail.bed.type)}-${this.bedDetail.bed.title} [zuber租房]`,
       link: window.location.href,
-      desc: this.bedDetail.room.summary,
-      imgUrl: this.bedDetail.bed.photo.src,
+      desc: this.bedDetail.bed.content,
+      imgUrl: this.bedDetail.bed.photo.small,
     };
     this.configShareInfo({
       info,
