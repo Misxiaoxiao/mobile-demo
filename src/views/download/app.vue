@@ -15,7 +15,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class DownloadApp extends Vue {
   private jumpUrl: string = '';
   private created(): void {
-    this.jumpUrl = 'zuber:/' + this.$route.query.jumpUrl;
+    this.jumpUrl = 'zuber://www.zuber.im';
   }
 }
 </script>

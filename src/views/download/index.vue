@@ -51,7 +51,6 @@ export default class DownLoadIndex extends Vue {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
     this.platform = platform.checkPlatform();
-    // window.location.href = 'zuber:/' + this.$route.path;
   }
 
   private mounted(): void {

@@ -73,6 +73,7 @@ export default class ContractIndex extends Vue {
   @State((state: any) => state.ContractModule.requesting) private requesting!: boolean;
 
   @Action('getContractDetail') private getContractDetail: any;
+  @Action('configShareInfo') private configShareInfo: any;
 
   get status(): any { // 0 未签订 1 已签订 2 已拒签 3 已失效 4 已撤销
     switch (this.contractDetail.negotiation_status) {
@@ -95,21 +96,37 @@ export default class ContractIndex extends Vue {
       default:
         return -1;
     }
-    // return 0;
   }
 
   private created(): void {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
 
-    // if (this.ifWeixin) {
-    if (true) {
+    if (this.ifWeixin) {
+    // if (true) {
       this.getContractDetail({
         data: {
           id: this.$route.params.id,
         },
         success: () => {
           document.title = this.contractDetail.category === 1 ? '租赁合同' : '定金协议';
+          this.contractDetail.category === 1
+            ? this.configShareInfo({
+              info: {
+                title: '签订租赁合同',
+                link: window.location.href.split('?')[0],
+                desc: '一键签订租赁合同，快捷方便\n专业租赁合同，保障双方权益',
+                imgUrl: 'http://img.17zub.com/contract_invte_weixin.png',
+              },
+            })
+            : this.configShareInfo({
+              info: {
+                title: '[zuber]我创建了定金协议',
+                link: window.location.href.split('?')[0],
+                desc: '一键签订定金协议，快捷方便\n专业定金协议，保障双方权益',
+                imgUrl: 'http://img.17zub.com/contract_invte_weixin.png',
+              },
+            });
         },
       });
     }

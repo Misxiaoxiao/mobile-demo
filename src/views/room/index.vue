@@ -94,22 +94,24 @@ export default class DetailIndex extends Vue {
     });
   }
   // 房间分享
-  // private share(): void {
-  //   const info: any = {
-  //     title: "123",
-  //     link: 'https://mobile.zuber.im',
-  //     desc: "wawwwwwww",
-  //     imgUrl: "1312"
-  //   }
-  //   this.configShareInfo({
-  //     info
-  //   });
-  // }
+  private share(): void {
+    const info: any = {
+      title: `${this.bedDetail.room.localization}-${this.bedDetail.bed.title} [zuber租房]`,
+      link: window.location.href,
+      desc: this.bedDetail.room.summary,
+      imgUrl: this.bedDetail.bed.photo.src,
+    };
+    this.configShareInfo({
+      info,
+    });
+  }
 
 
   private created(): void {
-    this.getBedDetail();
-    // this.share();
+    this.getBedDetail()
+      .then(() => {
+        this.share();
+      });
   }
 }
 </script>

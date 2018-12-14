@@ -6,13 +6,13 @@
   @click.stop="clickVideo"
   >
     <i class="iconfont">&#xe602;</i>
-    <span>{{refreshTime}}</span>
+    <span>{{refreshTime.indexOf('刷新') > 0 ? refreshTime : (refreshTime + '刷新')}}</span>
   </div>
   <div
   class="video_detail_wrap photo no_video"
   @click.stop="clickVideo"
   v-else>
-    <span>{{refreshTime}}刷新</span>
+    <span>{{refreshTime.indexOf('刷新') > 0 ? refreshTime : (refreshTime + '刷新')}}</span>
   </div>
 </template>
 

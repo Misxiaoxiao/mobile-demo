@@ -4,7 +4,8 @@ import ApiResource from './resource'
 const storage = window.localStorage
 
 const API_VERSION = 'client';
-const API_ROOT = 'https://services.api.zuker.im/client'
+// const API_ROOT = 'https://services.api.zuker.im/client' // 测试
+const API_ROOT = 'https://apiservices.zuber.im' // 线上
 // const API_ROOT = 'http://preview.apiservices.zuber.im/client'
 // const API_ROOT = 'https://preview-services.zuber.im/client'
 

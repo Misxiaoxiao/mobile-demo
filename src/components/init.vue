@@ -13,21 +13,22 @@ export default class InitApp extends Vue {
   private ifWeixin: boolean = false;
   private deviceInfo: string = '';
   private shareInfo: any = SHARE_INFO;
+
   @State((state: any) => state.AuthModule.ifLogged) private ifLogged!: boolean;
   @Action('getUserAuth') private getUserAuth: any;
   @Action('getUserInfo') private getUserInfo: any;
   @Action('sendDeviceInfo') private sendDeviceInfo: any;
   @Action('getShareBonus') private getShareBonus: any;
   @Action('configShareInfo') private configShareInfo: any;
-  // @Action('getAppInfo') private getAppInfo: any;
+
   private created(): void {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
     this.deviceInfo = platform.getDevice('mobile');
   }
+
   private mounted(): void {
     this.deal();
-    // alert(localStorage.getItem('zuber-uid'))
   }
   // 分享
   private share(): void {
@@ -72,6 +73,7 @@ export default class InitApp extends Vue {
       },
     });
   }
+
   private reward(): void {
     if (this.ifLogged && this.$route.query.share_uid) {
       this.getShareBonus({
@@ -79,18 +81,15 @@ export default class InitApp extends Vue {
       });
     }
   }
+
   private init(): void {
     if (this.ifLogged) {
-      // this.sendDeviceInfo({
-      //   info: this.deviceInfo,
-      // });
       this.getUserInfo();
-      // this.reward();
     }
   }
+
   private deal(): void {
-    // this.share();
-    // this.getAppInfo();
+    this.share();
     if (this.$route.query.state || this.$route.query.source) {
       this.login();
     } else if (!this.ifLogged) {
@@ -101,7 +100,6 @@ export default class InitApp extends Vue {
     } else {
       this.init();
     }
-    // this.redirect();
   }
 }
 </script>
