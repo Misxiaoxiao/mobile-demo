@@ -36,7 +36,7 @@
         <span slot="rowContent">{{detail.start_time}} ~ {{detail.end_time}}</span>
       </row>
 
-      <row :label="'补充约定：'">
+      <row :label="'补充条款：'">
         <span slot="rowContent">{{detail.remark === '' ? '/' : detail.remark}}</span>
       </row>
 

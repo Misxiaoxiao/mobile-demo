@@ -63,7 +63,7 @@
         <span slot="rowContent">{{detail.start_time}} ~ {{detail.end_time}}</span>
       </row>
 
-      <row :label="'补充约定：'">
+      <row :label="'补充条款：'">
         <span slot="rowContent">{{detail.remark === '' ? '/' : detail.remark}}</span>
       </row>
 
@@ -113,7 +113,7 @@
     </div>
 
     <div class="particular_description" v-else>
-      <p>1.建议在补充约定中明确提前退租的处理方式，比如赔偿违约金后按实际居住时间结算费用。因未约定而产生的纠纷，平台将无法受理。</p>
+      <p>1.建议在补充条款中明确提前退租的处理方式，比如赔偿违约金后按实际居住时间结算费用。因未约定而产生的纠纷，平台将无法受理。</p>
       <p>2.甲乙双方可采取银行、支付宝、微信转账等多种方式支付定金、押金、租金等款项。</p>
     </div>
 
