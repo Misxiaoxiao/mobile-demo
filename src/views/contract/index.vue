@@ -98,7 +98,7 @@ export default class ContractIndex extends Vue {
     }
   }
 
-  private created(): void {
+  private mounted(): void {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
 

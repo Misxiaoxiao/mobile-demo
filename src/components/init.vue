@@ -25,9 +25,6 @@ export default class InitApp extends Vue {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
     this.deviceInfo = platform.getDevice('mobile');
-  }
-
-  private mounted(): void {
     this.deal();
   }
   // 分享
