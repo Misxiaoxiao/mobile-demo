@@ -73,7 +73,6 @@ export default class DetailIndex extends Vue {
       this.viewBedDetail({
         data: {
           id: this.$route.params.id,
-          // id: 'MDQ1NDky',
           biz: this.$route.query.biz ? (this.$route.query.biz.toString() === 'true' ? true : false) : false,
         },
         success: () => {
@@ -105,7 +104,6 @@ export default class DetailIndex extends Vue {
       info,
     });
   }
-
 
   private created(): void {
     this.getBedDetail()
