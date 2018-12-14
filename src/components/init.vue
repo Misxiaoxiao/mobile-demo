@@ -95,7 +95,7 @@ export default class InitApp extends Vue {
     } else if (!this.ifLogged) {
       if (this.ifWeixin) {
         window.location.href = 'https://www.zuber.im/weixin?' + (this.ifWeixin ? 'm=1&' : '') + 'goto='
-                               + encodeURIComponent(window.location.href.replace('http:', 'http:'));
+                               + encodeURIComponent(window.location.href);
       }
     } else {
       this.init();
