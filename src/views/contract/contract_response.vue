@@ -107,8 +107,13 @@
       特别说明
     </div>
 
-    <div class="particular_description">
+    <div class="particular_description" v-if="detail.category === 2">
       <p>1.承租方违约，出租方无需退还定金；出租方违约，出租方需退还定金，并赔偿与定金等额的钱给承租方。</p>
+      <p>2.甲乙双方可采取银行、支付宝、微信转账等多种方式支付定金、押金、租金等款项。</p>
+    </div>
+
+    <div class="particular_description" v-else>
+      <p>1.建议在补充约定中明确提前退租的处理方式，比如赔偿违约金后按实际居住时间结算费用。因未约定而产生的纠纷，平台将无法受理。</p>
       <p>2.甲乙双方可采取银行、支付宝、微信转账等多种方式支付定金、押金、租金等款项。</p>
     </div>
 
@@ -119,7 +124,7 @@
         <input type="checkbox" v-model="checked">我已阅读并接受<a :href="detail.contract_statement">《免责声明》</a>
       </div>
 
-      <span>{{detail.owner_apply ? '建议在签订前支付定金，确认签订即代表定金已支付' : '建议在签订前收取定金，确认签订即代表定金已收取'}}</span>
+      <span v-if="detail.category === 2">{{detail.owner_apply ? '建议在签订前支付定金，确认签订即代表定金已支付' : '建议在签订前收取定金，确认签订即代表定金已收取'}}</span>
     </div>
 
     <div class="contract_btn">

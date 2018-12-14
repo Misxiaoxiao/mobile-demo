@@ -100,6 +100,7 @@ export default class InitApp extends Vue {
     } else {
       this.init();
     }
+    this.redirect();
   }
 }
 </script>
