@@ -36,7 +36,7 @@ export default class SearchTab extends Vue {
 }
 </script>
 
-<style lang="less">
+<style lang="less" >
 .search_tab {
   display: flex;
   position: relative;
@@ -55,6 +55,7 @@ export default class SearchTab extends Vue {
   .tab_line {
     position: absolute;
     top: 27px;
+    left: 0;
     width: 21px;
     height: 2px;
     background-color: #66D4C3;

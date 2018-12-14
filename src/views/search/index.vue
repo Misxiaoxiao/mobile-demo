@@ -374,7 +374,6 @@ export default class SearchIndex extends Vue {
   }
 
   private created(): void {
-    // this.getGeoLocation();
     this.locateCurrentCity();
     this.city = this.currentCity;
     this.getCityTraffic({

@@ -1,7 +1,8 @@
 <template>
-  <div class="room_detail_info" v-if="detailInfo">
+  <div class="room_detail_info" v-if="detailInfo !== ''">
 
-    <swiper
+    <my-slider
+    :itemWidth="290"
     :slotArr="slotArr"
     >
       <div slot="video_wrap" class="swiper_item_wrap">
@@ -17,7 +18,7 @@
         :photoSrc="detailInfo.photo"
         />
       </div>
-    </swiper>
+    </my-slider>
 
     <room-title :detailInfo="detailInfo" />
 
@@ -31,7 +32,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 import { DetailModel } from '@/vuex/modules/residence/residence.model';
 import { ROOM_CONDITION_TYPE_ITEMS } from '@/model/index';
-import Swiper from '@/components/common/swiper.vue';
+import MySlider from '@/components/common/slider.vue';
 import VideoDetail from '@/components/common/video_detail.vue';
 import ImageDetail from '@/components/common/image_detail.vue';
 import RoomTitle from '@/components/detail/room_title.vue';
@@ -39,7 +40,7 @@ import RoomLocation from '@/components/detail/room_location.vue';
 
 @Component({
   components: {
-    Swiper,
+    MySlider,
     RoomTitle,
     RoomLocation,
     VideoDetail,
@@ -149,7 +150,7 @@ export default class RoomDetailInfo extends Vue {
 }
 .swiper_item_wrap {
   box-sizing: border-box;
-  padding: 0 5px;
+  width: 280px;
   height: 190px;
   box-sizing: border-box;
 }

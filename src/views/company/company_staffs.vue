@@ -5,9 +5,9 @@
     </div>
     <div class="company_person_list">
       
-      <swiper
+      <my-slider
+      :itemWidth="90"
       :slotArr="slotArr"
-      :slidesPerView="3.3"
       >
         <div
         v-for="(n, i) in companyDetail.staffs"
@@ -15,9 +15,7 @@
         :key="i"
         class="staffs_item"
         >
-          <div class="staffs_img" :style="'background: url(' + n.avatar.src + ') no-repeat center; background-size: 100%;'">
-            <!-- <img :src="n.avatar.src" alt=""> -->
-          </div>
+          <div class="staffs_img" :style="'background: url(' + n.avatar.src + ') no-repeat center; background-size: 100%;'"></div>
           <div class="staffs_name text-o1 text-ellipsis">
             {{n.username}}
           </div>
@@ -25,7 +23,7 @@
             私信联系
           </div>
         </div>
-      </swiper>
+      </my-slider>
     </div>
   </div>
 </template>
@@ -33,11 +31,11 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { State } from 'vuex-class';
-import Swiper from '@/components/common/swiper.vue';
+import MySlider from '@/components/common/slider.vue';
 
 @Component({
   components: {
-    Swiper,
+    MySlider,
   },
 })
 export default class CompanyPerson extends Vue {
@@ -72,9 +70,11 @@ export default class CompanyPerson extends Vue {
   .company_person_list {
     background-color: #fff;
     margin-bottom: 15px;
+    // margin: 0 15px;
     .staffs_item {
       border: 1px solid #ccc;
-      margin: 5px;
+      // margin: 5px;
+      width: 90px;
       height: 120px;
       display: flex;
       flex-direction: column;
