@@ -20,7 +20,7 @@ export default new Router({
       name: 'room',
       component: () => import('./views/search/index.vue'),
       meta: {
-        title: 'zuber - 个人房源',
+        title: 'zuber白领租房平台',
       },
     },
     {
@@ -28,7 +28,7 @@ export default new Router({
       name: 'demand',
       component: () => import('./views/search/index.vue'),
       meta: {
-        title: 'zuber - 个人求租',
+        title: 'zuber白领求租平台',
       },
     },
     {
@@ -71,14 +71,6 @@ export default new Router({
         title: '房源类型说明',
       },
     },
-    // {
-    //   path: '/subscription',
-    //   name: 'subscription',
-    //   component: () => import('./views/subscription/index.vue'),
-    //   meta: {
-    //     title: '订阅房源',
-    //   },
-    // },
     {
       path: '/map',
       name: 'map',
@@ -119,5 +111,10 @@ export default new Router({
         title: 'zuber - 下载App',
       },
     },
+		{
+			path: '/jump',
+			name: 'jump',
+			component: () => import('./views/jump/index.vue'),
+		}
   ],
 });

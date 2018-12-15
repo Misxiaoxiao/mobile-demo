@@ -109,7 +109,10 @@ export default class LinkClaim extends Vue {
             resolve();
           }
         },
-        fail: () => {
+        fail: (e: any) => {
+          this.$dialog.alert({
+            message: e,
+          });
           if (reject) {
             reject();
           }
@@ -131,8 +134,11 @@ export default class LinkClaim extends Vue {
             resolve();
           }
         },
-        fail: () => {
-        }
+        fail: (e: any) => {
+          this.$dialog.alert({
+            message: e,
+          });
+        },
       });
     });
   }
@@ -157,10 +163,10 @@ export default class LinkClaim extends Vue {
         data: {
           phone: this.phone,
         },
-        fail: () => {
-          this.disabled = false;
-          clearInterval(this.timer);
-          this.btnText = '获取验证码';
+        fail: (e: any) => {
+          this.$dialog.alert({
+            message: e,
+          });
         },
       });
     }
@@ -214,9 +220,6 @@ export default class LinkClaim extends Vue {
   z-index: 99;
   .van-popup {
     border-radius: 5px;
-    // position: absolute;
-    // overflow: visible;
-    // top: -70vh;
   }
 }
 .captch_wrap_finish {

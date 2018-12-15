@@ -253,6 +253,11 @@ export default class ContractMine extends Vue {
           success: () => {
             window.location.reload();
           },
+          fail: (e: any) => {
+            this.$dialog.alert({
+              message: e,
+            });
+          }
         });
       }).catch(() => {
         // on cancel

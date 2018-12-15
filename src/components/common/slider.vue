@@ -32,6 +32,10 @@ export default class MySwiper extends Vue {
 </script>
 
 <style lang="less">
+.my_slider {
+  width: 100%;
+  overflow: hidden;
+}
 .slider_wrap {
   height: 100%;
   display: flex;
