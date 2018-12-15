@@ -61,7 +61,7 @@ export default class InitApp extends Vue {
       success: () => {
         this.init();
         this.redirect(() => {
-          alert('replace')
+          // alert('replace')
           this.$router.replace({
             name: this.$route.name,
             params: this.$route.params,
