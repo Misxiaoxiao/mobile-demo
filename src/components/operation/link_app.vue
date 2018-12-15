@@ -19,36 +19,40 @@ export default class LinkApp extends Vue {
 
   // location.href 和 a 链接存在问题
   private setUrl(): void {
-    switch (this.$route.name) {
-      case 'room':
-        this.url = 'zuber://www.zuber.im';
-        break;
-      case 'demand':
-        this.url = 'zuber://www.zuber.im';
-        break;
-      case 'bedDetail':
-        if (this.$route.query.biz && this.$route.query.biz.toString() === 'true') {
-          this.url = 'zuber:/' + this.$route.path + '?biz=true';
-        } else {
+    if (this.ifWeixin) {
+      this.url = window.location.origin + '/jump?jump_url=' + encodeURIComponent(this.$route.path);
+    } else {
+      switch (this.$route.name) {
+        case 'room':
+          this.url = 'zuber://www.zuber.im';
+          break;
+        case 'demand':
+          this.url = 'zuber://www.zuber.im';
+          break;
+        case 'bedDetail':
+          if (this.$route.query.biz && this.$route.query.biz.toString() === 'true') {
+            this.url = 'zuber:/' + this.$route.path + '?biz=true';
+          } else {
+            this.url = 'zuber:/' + this.$route.path;
+          }
+          break;
+        default :
           this.url = 'zuber:/' + this.$route.path;
-        }
-        break;
-      default :
-        this.url = 'zuber:/' + this.$route.path;
-        break;
+          break;
+      }
     }
   }
 
   private jump(): void {
-    const that = this;
-    if (this.ifWeixin) {
-      window.location.href = window.location.origin + '/jump?jump_url=' + encodeURIComponent(this.$route.path);
-    } else {
-      window.location.href = 'zuber:/' + this.$route.path;
-      setTimeout(() => {
-        window.location.href = that.jumpUrl;
-      }, 2000)
-    }
+    // const that = this;
+    // if (this.ifWeixin) {
+    //   window.location.href = window.location.origin + '/jump?jump_url=' + encodeURIComponent(this.$route.path);
+    // } else {
+    //   window.location.href = 'zuber:/' + this.$route.path;
+    //   setTimeout(() => {
+    //     window.location.href = that.jumpUrl;
+    //   }, 2000)
+    // }
   }
 
   private created(): void {

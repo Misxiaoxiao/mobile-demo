@@ -34,7 +34,7 @@ export default class JumpIndex extends Vue {
             jumpUrl: that.$route.query.jumpUrl,
           },
         });
-      }, 500);
+      }, 4000);
     }
   }
 }

@@ -48,22 +48,20 @@ export default class CommonBar extends Vue {
   @Action('getApp') private getApp!: any;
 
   private clickDownload(): void {
-    setTimeout(() => {
-      if (this.platform === 'ios') {
-        this.getApp({
-          success: () => {
-            window.location.href = this.app.ios.download_url;
-          },
-        });
-      } else {
-        this.$router.push({
-          name: 'download',
-          query: {
-            jumpUrl: this.jumpUrl,
-          },
-        });
-      }
-    }, 1000);
+    if (this.platform === 'ios') {
+      this.getApp({
+        success: () => {
+          window.location.href = this.app.ios.download_url;
+        },
+      });
+    } else {
+      this.$router.push({
+        name: 'download',
+        query: {
+          jumpUrl: this.jumpUrl,
+        },
+      });
+    }
   }
 
   private created(): void {
