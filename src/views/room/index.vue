@@ -82,16 +82,6 @@ export default class DetailIndex extends Vue {
             resolve();
           }
         },
-        fail: (e: any) => {
-          // this.$dialog.alert({
-          //   message: e,
-          // });
-          if (window.history.length <= 1) {
-            this.$router.push({path: '/search/rent'});
-          } else {
-            this.$router.back();
-          }
-        },
       });
     });
   }
