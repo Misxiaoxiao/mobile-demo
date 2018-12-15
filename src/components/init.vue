@@ -45,6 +45,8 @@ export default class InitApp extends Vue {
           shareUid: this.$route.query.shareUid,
         },
       });
+      // window.location.href = 
+      // window.location.href = window.location.href;
     } else {
       if (replace) {
         replace();
@@ -53,11 +55,13 @@ export default class InitApp extends Vue {
   }
   // 登录
   private login(): void {
+    // alert('login');
     this.getUserAuth({
       data: this.$route.query,
       success: () => {
         this.init();
         this.redirect(() => {
+          alert('replace')
           this.$router.replace({
             name: this.$route.name,
             params: this.$route.params,
@@ -87,6 +91,7 @@ export default class InitApp extends Vue {
 
   private deal(): void {
     this.share();
+    // localStorage.clear();
     if (this.$route.query.state || this.$route.query.source) {
       this.login();
     } else if (!this.ifLogged) {
@@ -97,7 +102,7 @@ export default class InitApp extends Vue {
     } else {
       this.init();
     }
-    this.redirect();
+    // this.redirect();
   }
 }
 </script>

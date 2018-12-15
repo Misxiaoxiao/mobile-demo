@@ -1,6 +1,6 @@
 <template>
-  <!-- <div class="room_detail_wrap" v-if="true && !requesting"> -->
-  <div class="room_detail_wrap" v-if="bedDetail.can_claim && !requesting">
+  <div class="room_detail_wrap" v-if="true && !requesting">
+  <!-- <div class="room_detail_wrap" v-if="bedDetail.can_claim && !requesting"> -->
     <common-bar :top="bedDetail.can_claim" />
     <div class="room_detail_content" :style="bedDetail.can_claim ? 'margin-top: 60px' : ''">
       <div>
@@ -82,13 +82,15 @@ export default class DetailIndex extends Vue {
             resolve();
           }
         },
-        fail: () => {
+        fail: (e: any) => {
+          // this.$dialog.alert({
+          //   message: e,
+          // });
           if (window.history.length <= 1) {
-            this.$router.push({path: '/'});
+            this.$router.push({path: '/search/rent'});
           } else {
             this.$router.back();
           }
-          reject();
         },
       });
     });
