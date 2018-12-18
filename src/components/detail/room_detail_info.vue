@@ -59,7 +59,7 @@ export default class RoomDetailInfo extends Vue {
       if (biz === 'true' ? true : false) {
         return {
           biz: true,
-          photo: this.bedDetail.bed.photo.src, // 图片
+          photo: this.bedDetail.bed.photo.large, // 图片
           type: this.bedDetail.room.biz_attr.type,
           photos: this.bedDetail.bed.photos ? this.bedDetail.bed.photos : [],
           hasVideo: this.bedDetail.bed.has_video, // 视频
@@ -93,7 +93,7 @@ export default class RoomDetailInfo extends Vue {
       } else {
         return {
           biz: false,
-          photo: this.bedDetail.bed.photo.src, // 图片
+          photo: this.bedDetail.bed.photo.large, // 图片
           photos: this.bedDetail.bed.photos ? this.bedDetail.bed.photos : [],
           hasVideo: this.bedDetail.bed.has_video, // 视频
           video: this.bedDetail.bed.video ? this.bedDetail.bed.video : '',

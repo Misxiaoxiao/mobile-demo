@@ -25,7 +25,7 @@ export default class ImageDetail extends Vue {
   get Images(): string[] {
     if (this.photos.length > 0) {
       return this.photos.map((n: any, i: any) => {
-        return n.src;
+        return n.large;
       });
     }
     return [];

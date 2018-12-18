@@ -1,6 +1,6 @@
 <template>
   <div class="search_city" @click.stop="changePopup(true)">
-    <i class="iconfont location_icon">&#xe680;</i>{{city}}
+    <i class="iconfont location_icon">&#xe680;</i>{{city.length > 4 ? (city.substring(-1, 3) + '...') : city}}
     <van-popup v-model="showPopup" position="right">
       <div class="popup_wrap_header">
         <i

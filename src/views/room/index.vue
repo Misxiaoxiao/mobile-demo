@@ -12,7 +12,7 @@
     <link-claim />
   </div>
 
-  <div class="room_detail_wrap" v-else-if="!requesting">
+  <div class="room_detail_wrap" v-else-if="!requesting && !bedUnexistance">
     <div class="room_detail_content" :style="bedDetail.can_claim ? 'margin-top: 60px' : ''">
       <room-type />
       <div>
@@ -60,6 +60,8 @@ export default class DetailIndex extends Vue {
 
   @State((state: any) => state.ResidenceModule.bed_detail) private bedDetail!: any;
   @State((state: any) => state.ResidenceModule.requesting) private requesting!: any;
+  @State((state: any) => state.ResidenceModule.bed_unexistance) private bedUnexistance!: any;
+  @State((state: any) => state.AuthModule.ifLogged) private ifLogged!: boolean;
 
   // 切换到其他房源重新加载数据
   @Watch('$route') private changeRoute(): void {
@@ -80,6 +82,21 @@ export default class DetailIndex extends Vue {
           this.loading = false;
           if (resolve) {
             resolve();
+          }
+        },
+        fail: (e: any) => {
+          if ((!this.$route.query.biz && this.ifLogged)) {
+            if (e === '该房源信息已失效') {
+              this.$dialog.alert({
+                message: e,
+              });
+            }
+          } else if (!this.ifWeixin) {
+            if (e === '该房源信息已失效') {
+              this.$dialog.alert({
+                message: e,
+              });
+            }
           }
         },
       });
@@ -107,6 +124,8 @@ export default class DetailIndex extends Vue {
   }
 
   private created(): void {
+    const platform = new Platform();
+    this.ifWeixin = platform.checkWeixin();
     this.getBedDetail()
       .then(() => {
         this.share();
