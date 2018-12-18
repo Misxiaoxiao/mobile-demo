@@ -29,11 +29,9 @@ export default class InitApp extends Vue {
   }
   // 分享
   private share(): void {
-    if (this.$route.name !== 'room') {
-      this.configShareInfo({
-        info: this.shareInfo,
-      });
-    }
+    this.configShareInfo({
+      info: this.shareInfo,
+    });
   }
   // 重定向
   private redirect(replace?: any): void {
