@@ -14,7 +14,7 @@
         </span>
         <span v-else>未实名</span>
       </div>
-      {{info.client_attr.profession}}  {{info.client_attr.xingzuo ? ' | ' + info.client_attr.xingzuo : ''}}
+      {{info.client_attr.profession === '' ? '职业未知' : info.client_attr.profession}}  {{info.client_attr.xingzuo ? ' | ' + info.client_attr.xingzuo : ''}}
       <slot name="userDetail"></slot>
     </div>
     <div class="person_time" v-if="formatTime">

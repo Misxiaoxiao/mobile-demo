@@ -111,10 +111,10 @@ export default new Router({
         title: 'zuber - 下载App',
       },
     },
-		{
-			path: '/jump',
-			name: 'jump',
-			component: () => import('./views/jump/index.vue'),
-		}
+    {
+      path: '/jump',
+      name: 'jump',
+      component: () => import('./views/jump/index.vue'),
+    },
   ],
 });

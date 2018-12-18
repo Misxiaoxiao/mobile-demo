@@ -85,13 +85,19 @@ export default class DetailIndex extends Vue {
           }
         },
         fail: (e: any) => {
-          if ((!this.$route.query.biz && this.ifLogged)) {
+          if ((!this.$route.query.biz && this.ifLogged)) { // 认领房源 已登录
             if (e === '该房源信息已失效') {
               this.$dialog.alert({
                 message: e,
               });
             }
-          } else if (!this.ifWeixin) {
+          } else if (this.ifWeixin && this.ifLogged) { // 微信 已登录
+            if (e === '该房源信息已失效') {
+              this.$dialog.alert({
+                message: e,
+              });
+            }
+          } else if (!this.ifWeixin) { // 非微信
             if (e === '该房源信息已失效') {
               this.$dialog.alert({
                 message: e,

@@ -257,7 +257,7 @@ export default class ContractMine extends Vue {
             this.$dialog.alert({
               message: e,
             });
-          }
+          },
         });
       }).catch(() => {
         // on cancel

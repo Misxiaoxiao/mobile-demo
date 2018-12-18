@@ -25,7 +25,7 @@ export default class MySwiper extends Vue {
     this.mySlider = new BScroll(this.$refs.slider, {
       scrollX: true,
       scrollY: false,
-      click: true
+      click: true,
     });
   }
 }
