@@ -34,7 +34,7 @@
         <van-button class="enter-btn operation-btn confirm" size="small" @click.stop="bindPhoneBtn">确定</van-button>
       </div>
       <div class="captch_wrap" v-else>
-        <div class="close" @click.stop="changeShow">×</div>
+        <div class="close" @click.stop="reload">×</div>
         <div class="ok"></div>
         <h5>恭喜，您已成功认领此房源！</h5>
         <span>您可以使用App管理房源、与客户沟通</span>
