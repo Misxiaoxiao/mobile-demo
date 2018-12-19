@@ -3,30 +3,33 @@
 
   <div v-else>
     <div class="contract_wrap" v-if="ifWeixin">
-      <div class="ignore" v-if="ignore || status === 2">
-        <div class="msg_img"></div>
-        <span class="msg_text">已忽略，请直接关闭网页或返回</span>
-        <common-bar />
-      </div>
 
-      <contract-mine v-else-if="status === 0 && contractDetail.myself" :detail="contractDetail" />
+      <div v-if="ifLogged">
+        <div class="ignore" v-if="ignore || status === 2">
+          <div class="msg_img"></div>
+          <span class="msg_text">已忽略，请直接关闭网页或返回</span>
+          <common-bar />
+        </div>
 
-      <contract-response
-      v-else-if="contractDetail.can_response && status === 0"
-      :detail="contractDetail"
-      :ignore="changeIgnore" />
+        <contract-mine v-else-if="status === 0 && contractDetail.myself" :detail="contractDetail" />
 
-      <contract-finish v-else-if="status === 1" :detail="contractDetail" />
+        <contract-response
+        v-else-if="contractDetail.can_response && status === 0"
+        :detail="contractDetail"
+        :ignore="changeIgnore" />
 
-      <!-- <contract-refuse v-else-if="status === 2" /> -->
+        <contract-finish v-else-if="status === 1" :detail="contractDetail" />
 
-      <contract-invalid v-else-if="status === 3" :detail="contractDetail" />
+        <!-- <contract-refuse v-else-if="status === 2" /> -->
 
-      <contract-cancel v-else-if="status === 4" :detail="contractDetail" />
+        <contract-invalid v-else-if="status === 3" :detail="contractDetail" />
 
-      <div class="nothing" v-else>
-        <div class="msg_img"></div>
-        <span class="msg_text">无法查看，请直接关闭网页或返回</span>
+        <contract-cancel v-else-if="status === 4" :detail="contractDetail" />
+
+        <div class="nothing" v-else-if="status === -1">
+          <div class="msg_img"></div>
+          <span class="msg_text">无法查看，请直接关闭网页或返回</span>
+        </div>
       </div>
 
     </div>
@@ -39,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import Platform from '@/utils/platform';
 import Loading from '@/components/common/loading.vue';
@@ -69,13 +72,21 @@ export default class ContractIndex extends Vue {
   private category: number = 0; // 1 合同 2 协议
   private static: number = 0; //
 
+  // 切换重新加载数据
+  @Watch('$route') private changeRoute(): void {
+    if (this.$route.name === 'contract') {
+      this.request();
+    }
+  }
+
   @State((state: any) => state.ContractModule.contract_detail) private contractDetail!: any;
   @State((state: any) => state.ContractModule.requesting) private requesting!: boolean;
+  @State((state: any) => state.AuthModule.ifLogged) private ifLogged!: boolean;
 
   @Action('getContractDetail') private getContractDetail: any;
   @Action('configShareInfo') private configShareInfo: any;
 
-  get status(): any { // 0 未签订 1 已签订 2 已拒签 3 已失效 4 已撤销
+  get status(): any { // 0 未签订 1 已签订 2 已拒签 3 已失效 4 已撤销 -1 无法查看
     switch (this.contractDetail.negotiation_status) {
       case 0:
         return 0;
@@ -98,38 +109,44 @@ export default class ContractIndex extends Vue {
     }
   }
 
-  private mounted(): void {
+  private created(): void {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
 
     if (this.ifWeixin) {
     // if (true) {
-      this.getContractDetail({
-        data: {
-          id: this.$route.params.id,
-        },
-        success: () => {
-          document.title = this.contractDetail.category === 1 ? '租赁合同' : '定金协议';
-          this.contractDetail.category === 1
-            ? this.configShareInfo({
-              info: {
-                title: '签订租赁合同',
-                link: window.location.href.split('?')[0],
-                desc: '一键签订租赁合同，快捷方便\n专业租赁合同，保障双方权益',
-                imgUrl: 'http://img.17zub.com/contract_invte_weixin.png',
-              },
-            })
-            : this.configShareInfo({
-              info: {
-                title: '[zuber]我创建了定金协议',
-                link: window.location.href.split('?')[0],
-                desc: '一键签订定金协议，快捷方便\n专业定金协议，保障双方权益',
-                imgUrl: 'http://img.17zub.com/contract_invte_weixin.png',
-              },
-            });
-        },
-      });
+      this.request();
     }
+  }
+
+  private request(): void {
+    this.getContractDetail({
+      data: {
+        id: this.$route.params.id,
+      },
+      success: () => {
+        document.title = this.contractDetail.category === 1 ? '租赁合同' : '定金协议';
+        this.contractDetail.category === 1
+          ? this.configShareInfo({
+            info: {
+              title: '签订租赁合同',
+              link: window.location.href.split('?')[0],
+              desc: '一键签订租赁合同，快捷方便\n专业租赁合同，保障双方权益',
+              imgUrl: 'http://img.17zub.com/contract_invte_weixin.png',
+            },
+          })
+          : this.configShareInfo({
+            info: {
+              title: '[zuber]我创建了定金协议',
+              link: window.location.href.split('?')[0],
+              desc: '一键签订定金协议，快捷方便\n专业定金协议，保障双方权益',
+              imgUrl: 'http://img.17zub.com/contract_invte_weixin.png',
+            },
+          });
+      },
+      fail: () => {
+      },
+    });
   }
 
   private changeIgnore(): void {

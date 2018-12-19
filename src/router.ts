@@ -11,9 +11,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: () => import('./views/index/index.vue'),
-      redirect: {
-        name: 'room',
-      },
     },
     {
       path: '/search/rent',

@@ -2,7 +2,7 @@
   <div id="app">
     <title>{{$route.meta.title}}</title>
     <keep-alive>
-      <router-view/>
+      <router-view v-if='ifLogged || !ifWeixin'/>
     </keep-alive>
     <init-app v-if="$route.name" />
   </div>

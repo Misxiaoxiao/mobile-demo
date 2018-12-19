@@ -38,12 +38,8 @@
       <div class="list_wrap">
         <van-pull-refresh ref="scroll" v-model="refreshing" @refresh="onRefresh">
 
-          <div class="list_nothing_wrap" v-if="rentList.length === 0 && !searching">
-            <span>搜索不到相关信息</span>
-          </div>
-
           <van-list
-            v-else
+            v-if="searching || (!searching && rentList.length > 0)"
             v-model="loading"
             :finished="finished"
             @load="onLoad"
@@ -55,6 +51,10 @@
               <room-list :room="item.room" />
             </van-cell>
           </van-list>
+
+          <div class="list_nothing_wrap" v-else-if="!searching && rentList.length === 0">
+            <span>搜索不到相关信息</span>
+          </div>
         </van-pull-refresh>
       </div>
 
