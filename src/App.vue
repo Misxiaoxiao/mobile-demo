@@ -11,6 +11,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
+import Platform from '@/utils/platform';
 import InitApp from '@/components/init.vue';
 
 @Component({
@@ -18,7 +19,16 @@ import InitApp from '@/components/init.vue';
     InitApp,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  private ifWeixin: boolean = false;
+
+  @State((state: any) => state.AuthModule.ifLogged) private ifLogged!: boolean;
+
+  private created(): void {
+    const platform = new Platform();
+    this.ifWeixin = platform.checkWeixin();
+  }
+}
 </script>
 
 <style lang="less">
