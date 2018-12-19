@@ -90,7 +90,7 @@ export default class SearchDemand extends Vue {
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
   @State((state: any) => state.SearchModule.demand_list) private demandList!: DemandModal[];
   @State((state: any) => state.SearchModule.has_next_demand_page) private hasNextDemandPage!: boolean;
-  @State((state: any) => state.SearchModule.searching) private searching!: boolean;
+  @State((state: any) => state.SearchModule.demand_searching) private searching!: boolean;
 
   @Action('getDemandList') private getDemandList: any;
 

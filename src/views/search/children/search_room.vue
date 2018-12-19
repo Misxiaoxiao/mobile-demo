@@ -112,7 +112,7 @@ export default class SearchRoom extends Vue {
   @State((state: any) => state.LocateModule.current_city) private currentCity!: string;
   @State((state: any) => state.SearchModule.rent_list) private rentList!: RoomItem[];
   @State((state: any) => state.SearchModule.has_next_rent_page) private hasNextRentPage!: boolean;
-  @State((state: any) => state.SearchModule.searching) private searching!: boolean;
+  @State((state: any) => state.SearchModule.rent_searching) private searching!: boolean;
 
   @Action('getBedList') private getBedList: any;
 
@@ -163,7 +163,7 @@ export default class SearchRoom extends Vue {
     }, false);
   }
 
-  private mounted(): void {
+  private created(): void {
     this.scroll = document.querySelector('.van-pull-refresh');
     this.requestRoom(() => {
       // body

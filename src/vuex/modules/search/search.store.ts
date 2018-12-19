@@ -10,7 +10,8 @@ import {
 import { RoomItem, DemandModal } from './search.model'
 
 export class SearchState {
-    searching: boolean = false
+    rent_searching: boolean = false
+    demand_searching: boolean = false
     rent_sequence: string = ''
     demand_sequence: string =  ''
     has_next_rent_page: boolean = false
@@ -21,31 +22,31 @@ export class SearchState {
 
 const mutations = {
     [SEARCHING_BED_LIST] (state: SearchState, action: any) {
-        state.searching = true
+        state.rent_searching = true
         if (action.sequence === '') state.rent_list = []
     },
     [SEARCHING_BED_LIST_SUCCESS] (state: SearchState, action: any) {
         state.rent_sequence = action.result.sequence
         state.has_next_rent_page = action.result.has_next_page
         state.rent_list = state.rent_list.concat(action.result.items)
-        state.searching = false
+        state.rent_searching = false
     },
     [SEARCHING_BED_LIST_FAIL] (state: SearchState) {
-        state.searching = false
+        state.rent_searching = false
         state.has_next_rent_page = false
     },
     [SEARCHING_DEMAND_LIST] (state: SearchState, action: any) {
-        state.searching = true
+        state.demand_searching = true
         if (action.sequence === '') state.demand_list = []
     },
     [SEARCHING_DEMAND_LIST_SUCCESS] (state: SearchState, action: any) {
         state.demand_sequence = action.result.sequence
         state.has_next_demand_page = action.result.has_next_page
         state.demand_list = state.demand_list.concat(action.result.items)
-        state.searching = false
+        state.demand_searching = false
     },
     [SEARCHING_DEMAND_LIST_FAIL] (state: SearchState, action: any) {
-        state.searching = false
+        state.demand_searching = false
         state.has_next_demand_page = false
     }
 }
