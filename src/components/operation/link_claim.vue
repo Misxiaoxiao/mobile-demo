@@ -201,7 +201,7 @@ export default class LinkClaim extends Vue {
   }
   // 失去焦点  重新绘制
   private onBlur(e: any): void {
-    document.body && (document.body.scrollTop = document.body.scrollTop);
+    document.body && (document.body.scrollTop = document.body.scrollTop); // tslint:disable-line
   }
 }
 </script>

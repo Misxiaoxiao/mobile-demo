@@ -17,9 +17,7 @@ const mutations = {
   },
   [REQUESTING_SUBSTITUDE_INFO_SUCCESS] (state: SubstitudeState, action: any) {
     state.substitude_refresh_list = state.substitude_refresh_list.concat(action.result.items)
-    if (state.substitude_detail === '') {
-      state.substitude_detail = action.result
-    }
+    state.substitude_detail = action.result
     state.requesting = false
   },
   [REQUESTING_SUBSTITUDE_INFO_FAIL] (state: SubstitudeState) {

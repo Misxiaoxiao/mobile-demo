@@ -37,6 +37,14 @@ export default new Router({
       },
     },
     {
+      path: '/demand/:id',
+      name: 'demandDetail',
+      component: () => import('./views/demand/index.vue'),
+      meta: {
+        title: '求租详情',
+      },
+    },
+    {
       path: '/room/image',
       name: 'image',
       component: () => import('./views/room/index.vue'),

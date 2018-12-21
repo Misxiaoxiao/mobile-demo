@@ -144,7 +144,7 @@ export default class ContractIndex extends Vue {
             },
           });
       },
-      fail: () => {},
+      fail: () => {}, // tslint:disable-line
     });
   }
 

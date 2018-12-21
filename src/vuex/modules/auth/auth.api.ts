@@ -14,6 +14,7 @@ interface OauthTicket {
 
 export default {
     getAuth: (ticket: OauthTicket) => {
+        console.log(ticket)
         return AuthResource().post('/oauth', ticket)
     }
 }

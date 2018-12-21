@@ -56,14 +56,20 @@ export default class InitApp extends Vue {
       success: () => {
         this.init();
         this.redirect(() => {
-          this.$router.replace({
-            name: this.$route.name,
-            params: this.$route.params,
-            query: {
-              share: this.$route.query.share,
-              share_uid: this.$route.query.shareUid,
-            },
-          });
+          const url: any = localStorage.getItem('url');
+          if (url) {
+            localStorage.removeItem('url');
+            window.location.href =  url;
+          } else {
+            this.$router.replace({
+              name: this.$route.name,
+              params: this.$route.params,
+              query: {
+                share: this.$route.query.share,
+                share_uid: this.$route.query.shareUid,
+              },
+            });
+          }
         });
       },
     });
@@ -89,6 +95,7 @@ export default class InitApp extends Vue {
       this.login();
     } else if (!this.ifLogged) {
       if (this.ifWeixin) {
+        localStorage.setItem('url', window.location.href);
         window.location.href = 'https://www.zuber.im/weixin?' + (this.ifWeixin ? 'm=1&' : '') + 'goto='
                                + encodeURIComponent(window.location.href);
       }

@@ -103,6 +103,7 @@ export default class RefreshIndex extends Vue {
   private created(): void {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
+    // this.ifWeixin = true;
   }
 
   private mounted(): void {
@@ -150,7 +151,9 @@ export default class RefreshIndex extends Vue {
           },
         });
       },
-      fail: () => {}
+      fail: (e: any) => {
+        console.log(e); // tslint:disable-line
+      },
     });
   }
 
