@@ -59,7 +59,8 @@ export default class DownLoadIndex extends Vue {
         if (this.platform === 'ios') {
           this.url = this.app.ios.download_url;
         } else {
-          // this.url = (this.app.android.download_url).indexOf('apk') > 0 ? 'http://www.zuber.im/android/latest' : this.app.android.download_url;
+          // this.url = (this.app.android.download_url).indexOf('apk') > 0
+          // ? 'http://www.zuber.im/android/latest' : this.app.android.download_url;
           this.url = 'http://www.zuber.im/android/latest';
         }
       },

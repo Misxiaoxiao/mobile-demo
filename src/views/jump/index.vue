@@ -26,12 +26,16 @@ export default class JumpIndex extends Vue {
   private mounted(): void {
     const that = this;
     if (!this.ifWeixin) {
-      window.location.href = 'zuber:/' + this.$route.query.jumpUrl;
+      if (this.platform === 'ios') {
+        window.location.href = 'zuber:/' + this.$route.query.jump_url;
+      } else {
+        window.location.href = this.$route.query.jump_url;
+      }
       setTimeout(() => {
         that.$router.push({
           name: 'download',
           query: {
-            jumpUrl: that.$route.query.jumpUrl,
+            jumpUrl: that.$route.query.jump_url,
           },
         });
       }, 4000);

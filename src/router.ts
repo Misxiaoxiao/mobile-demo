@@ -113,5 +113,18 @@ export default new Router({
       name: 'jump',
       component: () => import('./views/jump/index.vue'),
     },
+    {
+      path: '/refresh',
+      name: 'refresh',
+      component: () => import('./views/refresh/index.vue'),
+    },
+    {
+      path: '/refresh/rule',
+      name: 'refreshRule',
+      component: () => import('./views/refresh/rule.vue'),
+      meta: {
+        title: '刷新规则',
+      },
+    },
   ],
 });

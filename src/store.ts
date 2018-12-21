@@ -10,6 +10,7 @@ import UserModule from '@/vuex/modules/user';
 import ShareModule from '@/vuex/modules/share';
 import ContractModule from '@/vuex/modules/contract';
 import UploadModule from '@/vuex/modules/upload';
+import SubstitudeModule from '@/vuex/modules/substitude';
 
 Vue.use(Vuex);
 
@@ -25,5 +26,6 @@ export default new Vuex.Store({
     ShareModule,
     ContractModule,
     UploadModule,
+    SubstitudeModule,
   },
 });

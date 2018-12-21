@@ -119,7 +119,8 @@ export default class DetailIndex extends Vue {
   // 房间分享
   private share(): void {
     const info: any = {
-      title: `${this.bedDetail.room.localization}-${this.setType(this.bedDetail.bed.type)}-${this.bedDetail.bed.title} [zuber租房]`,
+      title: `${this.bedDetail.room.localization}-
+              ${this.setType(this.bedDetail.bed.type)}-${this.bedDetail.bed.title} [zuber租房]`,
       link: window.location.href,
       desc: this.bedDetail.bed.content,
       imgUrl: this.bedDetail.bed.photo.small,

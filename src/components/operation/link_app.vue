@@ -1,5 +1,5 @@
 <template>
-  <a :href="url" @click='jump' :class="linkClass">
+  <a :href="url" :class="linkClass">
     {{linkContent}}
   </a>
 </template>
@@ -13,53 +13,50 @@ export default class LinkApp extends Vue {
   private url: string = '';
   private ifWeixin: boolean = false;
   private jumpUrl: string = '';
+  private p: string = '';
 
   @Prop({default: ''}) private linkClass!: any;
   @Prop({default: ''}) private linkContent!: any;
 
   // location.href 和 a 链接存在问题
-  private setUrl(): void {
-    if (this.ifWeixin) {
-      this.url = window.location.origin + '/jump?jump_url=' + encodeURIComponent(this.$route.path);
-    } else {
-      switch (this.$route.name) {
-        case 'room':
-          this.url = 'zuber://www.zuber.im';
-          break;
-        case 'demand':
-          this.url = 'zuber://www.zuber.im';
-          break;
-        case 'bedDetail':
-          if (this.$route.query.biz && this.$route.query.biz.toString() === 'true') {
-            this.url = 'zuber:/' + this.$route.path + '?biz=true';
-          } else {
-            this.url = 'zuber:/' + this.$route.path;
-          }
-          break;
-        default :
-          this.url = 'zuber:/' + this.$route.path;
-          break;
+  private handle(): void {
+    if (this.ifWeixin) { // 如果是微信 跳转页面
+      if (this.p === 'ios') {
+        this.url = window.location.origin + '/jump?jump_url=' + encodeURIComponent(this.$route.path);
+      } else {
+        this.url = window.location.origin + '/jump?jump_url=' + this.setUrl();
       }
+    } else { // 如果不是 直接打开
+      this.url = this.setUrl();
     }
   }
 
-  private jump(): void {
-    // const that = this;
-    // if (this.ifWeixin) {
-    //   window.location.href = window.location.origin + '/jump?jump_url=' + encodeURIComponent(this.$route.path);
-    // } else {
-    //   window.location.href = 'zuber:/' + this.$route.path;
-    //   setTimeout(() => {
-    //     window.location.href = that.jumpUrl;
-    //   }, 2000)
-    // }
+  private setUrl(): string {
+    switch (this.$route.name) {
+      case 'room':
+        return 'zuber://www.zuber.im';
+      case 'demand':
+        return 'zuber://www.zuber.im';
+      case 'bedDetail':
+        if (this.$route.query.biz && this.$route.query.biz.toString() === 'true') {
+          return 'zuber:/' + this.$route.path + '?biz=true';
+        } else {
+          return 'zuber:/' + this.$route.path;
+        }
+      default :
+        return 'zuber:/' + this.$route.path;
+    }
   }
 
   private created(): void {
     const platform = new Platform();
     this.ifWeixin = platform.checkWeixin();
+    this.p = platform.checkPlatform();
     this.jumpUrl = platform.parseUrl(this.$route.path);
-    this.setUrl();
+  }
+
+  private mounted(): void {
+    this.handle();
   }
 }
 </script>

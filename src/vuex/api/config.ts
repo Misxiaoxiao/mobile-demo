@@ -4,8 +4,8 @@ import ApiResource from './resource'
 const storage = window.localStorage
 
 const API_VERSION = 'client';
-// const API_ROOT = 'https://services.api.zuker.im/client' // 测试
-const API_ROOT = 'https://apiservices.zuber.im/client' // 线上
+const API_ROOT = 'https://services.api.zuker.im/client' // 测试
+// const API_ROOT = 'https://apiservices.zuber.im/client' // 线上
 // const API_ROOT = 'http://preview.apiservices.zuber.im/client'
 // const API_ROOT = 'https://preview-services.zuber.im/client'
 
@@ -29,3 +29,5 @@ export const FileResource = () => api.resource('/files' + token.getToken('api'))
 export const ContractResource = () => api.resource('/contracts' + token.getToken('api'))
 export const EvaluateResource = () => api.resource('/evaluates' + token.getToken('api'))
 export const ClaimResource = () => api.resource('/rooms' + token.getToken('api'))
+export const SubstitudeResource = () => api.resource('/substitute' + token.getToken('api'))
+export const RefreshResource = () => api.resource('/v3/rooms' + token.getToken('api'))

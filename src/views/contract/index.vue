@@ -72,19 +72,19 @@ export default class ContractIndex extends Vue {
   private category: number = 0; // 1 合同 2 协议
   private static: number = 0; //
 
-  // 切换重新加载数据
-  @Watch('$route') private changeRoute(): void {
-    if (this.$route.name === 'contract') {
-      this.request();
-    }
-  }
-
   @State((state: any) => state.ContractModule.contract_detail) private contractDetail!: any;
   @State((state: any) => state.ContractModule.requesting) private requesting!: boolean;
   @State((state: any) => state.AuthModule.ifLogged) private ifLogged!: boolean;
 
   @Action('getContractDetail') private getContractDetail: any;
   @Action('configShareInfo') private configShareInfo: any;
+
+  // 切换重新加载数据
+  @Watch('$route') private changeRoute(): void {
+    if (this.$route.name === 'contract') {
+      this.request();
+    }
+  }
 
   get status(): any { // 0 未签订 1 已签订 2 已拒签 3 已失效 4 已撤销 -1 无法查看
     switch (this.contractDetail.negotiation_status) {
@@ -144,8 +144,7 @@ export default class ContractIndex extends Vue {
             },
           });
       },
-      fail: () => {
-      },
+      fail: () => {},
     });
   }
 
